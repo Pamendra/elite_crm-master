@@ -1,8 +1,8 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
-
 import '../Utils/color_constants.dart';
+import 'Existing_Leaad.dart';
 import 'Homepage.dart';
 
 
@@ -16,13 +16,22 @@ class Homepage extends StatefulWidget {
 }
 
 class _HomepageState extends State<Homepage> {
-  var currentIndex = 0;
-  List<Widget> pages = [   const DealerList() ,    const DealerList(),    const DealerList() ];
+  var currentIndex = 1;
+  List<Widget> pages = [   const DealerList() ,    const DealerList(),    const AddReport() ];
   List<IconData> listOfIcons = [
     Icons.person,
     Icons.list,
     Icons.add_circle,
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    currentIndex = 1; // set the index to the list icon
+  }
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -48,9 +57,9 @@ class _HomepageState extends State<Homepage> {
           padding: EdgeInsets.symmetric(horizontal: size.width * .024),
           itemBuilder: (context, index) => InkWell(
             onTap: () {
-              setState(() {
-                currentIndex = index;
-              });
+                setState(() {
+                  currentIndex = index;
+                });
             },
             splashColor: Colors.transparent,
             highlightColor: Colors.transparent,
@@ -65,7 +74,7 @@ class _HomepageState extends State<Homepage> {
                     right: index == 1 ? 0 : size.width * .0422, // adjust margin for 2 icons
                     left: index == 1 ? 0 : size.width * .0422,
                   ),
-                  width: size.width * .235,
+                  width: size.width * .230,
                   height: index == currentIndex ? size.width * .014 : 0,
                   decoration:  BoxDecoration(
                     color: ColorConstants.deppp,

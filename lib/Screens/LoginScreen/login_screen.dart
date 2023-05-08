@@ -155,11 +155,14 @@ class _LoginPageState extends State<LoginPage> {
                    ),
                  ),
                  const SizedBox(height: 10,),
-                 Row(
-                   mainAxisAlignment: MainAxisAlignment.end,
-                   children: const [
-                     Text('ForgetPassword?',style: TextStyle(fontWeight: FontWeight.bold),)
-                   ],
+                 Padding(
+                   padding: const EdgeInsets.only(right: 10),
+                   child: Row(
+                     mainAxisAlignment: MainAxisAlignment.end,
+                     children: const [
+                       Text('ForgetPassword?',style: TextStyle(fontWeight: FontWeight.bold),)
+                     ],
+                   ),
                  ), const SizedBox(height: 10,),
                  SizedBox(width: 350,height: 50,
                      child: ElevatedButton(onPressed: () async {
