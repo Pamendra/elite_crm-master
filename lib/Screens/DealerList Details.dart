@@ -14,17 +14,7 @@ import 'bottomNavigationPages.dart';
 
 class DealerDetails extends StatefulWidget {
   String dealerid;
-  Widget _buildCoverImage(Size screenSize) {
-    return Container(
-      height: screenSize.height / 2.6,
-      decoration: const BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage('assets/images/cover.jpeg'),
-          fit: BoxFit.cover,
-        ),
-      ),
-    );
-  }
+
   DealerDetails({super.key, required this.dealerid});
 
   @override
@@ -55,6 +45,19 @@ class _DealerDetailsState extends State<DealerDetails> {
     }
   }
 
+  // Widget _buildCoverImage(Size screenSize) {
+  //   return Container(
+  //     height: screenSize.height / 2.6,
+  //     decoration: const BoxDecoration(
+  //       image: DecorationImage(
+  //         image: AssetImage('assets/images/cover.jpeg'),
+  //         fit: BoxFit.cover,
+  //       ),
+  //     ),
+  //   );
+  // }
+
+
   @override
   void initState() {
     super.initState();
@@ -67,7 +70,7 @@ class _DealerDetailsState extends State<DealerDetails> {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+  //  Size size = MediaQuery.of(context).size;
 
     return Scaffold(
       // bottomNavigationBar: Container(
@@ -285,7 +288,7 @@ class _DealerDetailsState extends State<DealerDetails> {
 
 
 
-              SizedBox(
+              const SizedBox(
                 height: 50,
               ),
 

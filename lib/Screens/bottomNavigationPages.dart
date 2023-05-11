@@ -2,11 +2,8 @@
 
 import 'package:flutter/material.dart';
 import '../Utils/color_constants.dart';
-import 'Existing_Leaad.dart';
+import 'AddReport/Existing_Leaad.dart';
 import 'Homepage.dart';
-
-
-
 
 class Homepage extends StatefulWidget {
   const Homepage({Key? key}) : super(key: key);
@@ -17,7 +14,11 @@ class Homepage extends StatefulWidget {
 
 class _HomepageState extends State<Homepage> {
   var currentIndex = 1;
-  List<Widget> pages = [   const DealerList() ,    const DealerList(),    const AddReport() ];
+  List<Widget> pages = [
+    const DealerList(),
+    const DealerList(),
+    const AddReport()
+  ];
   List<IconData> listOfIcons = [
     Icons.person,
     Icons.list,
@@ -27,11 +28,8 @@ class _HomepageState extends State<Homepage> {
   @override
   void initState() {
     super.initState();
-    currentIndex = 1; // set the index to the list icon
+    currentIndex = 1;
   }
-
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -52,17 +50,17 @@ class _HomepageState extends State<Homepage> {
           borderRadius: BorderRadius.circular(50),
         ),
         child: ListView.builder(
-          itemCount: 3, // change to 3
+          itemCount: 3,
           scrollDirection: Axis.horizontal,
           padding: EdgeInsets.symmetric(horizontal: size.width * .024),
-          itemBuilder: (context, index) => InkWell(
+          itemBuilder: (context, index) => GestureDetector(
             onTap: () {
-                setState(() {
-                  currentIndex = index;
-                });
+              setState(() {
+                currentIndex = index;
+              });
             },
-            splashColor: Colors.transparent,
-            highlightColor: Colors.transparent,
+            // splashColor: Colors.transparent,
+            // highlightColor: Colors.transparent,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -71,12 +69,14 @@ class _HomepageState extends State<Homepage> {
                   curve: Curves.fastLinearToSlowEaseIn,
                   margin: EdgeInsets.only(
                     bottom: index == currentIndex ? 0 : size.width * .029,
-                    right: index == 1 ? 0 : size.width * .0422, // adjust margin for 2 icons
+                    right: index == 1
+                        ? 0
+                        : size.width * .0422, // adjust margin for 2 icons
                     left: index == 1 ? 0 : size.width * .0422,
                   ),
                   width: size.width * .230,
                   height: index == currentIndex ? size.width * .014 : 0,
-                  decoration:  BoxDecoration(
+                  decoration: BoxDecoration(
                     color: ColorConstants.deppp,
                     borderRadius: const BorderRadius.vertical(
                       bottom: Radius.circular(10),
