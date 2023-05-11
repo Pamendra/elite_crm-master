@@ -4,6 +4,7 @@
 import 'package:dio/dio.dart';
 
 import '../../Utils/message_contants.dart';
+import '../../Utils/setget.dart';
 
 class LoginService {
   loginUser(String username, String password) async {
@@ -16,7 +17,7 @@ class LoginService {
 
       if (response.statusCode == 200) {
         if(response.data['status'] == "success"){
-          return response.data;
+          Utils().setUserId(response.data['user']['shopid']);
         } else if(response.data['status'] == "Failed"){
           return ConstantsMessage.incorrectPassword;
         }
