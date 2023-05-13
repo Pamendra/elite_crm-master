@@ -18,6 +18,7 @@ class LoginService {
       if (response.statusCode == 200) {
         if(response.data['status'] == "success"){
           Utils().setUserId(response.data['user']['shopid']);
+          Utils().setAccess(response.data['user']['access']);
         } else if(response.data['status'] == "Failed"){
           return ConstantsMessage.incorrectPassword;
         }

@@ -3,6 +3,7 @@
 
 import 'package:elite_crm/Screens/AddReport/CustomerReport.dart';
 import 'package:elite_crm/Service/Existing%20List%20Service.dart';
+import 'package:elite_crm/Utils/app_baar.dart';
 import 'package:elite_crm/Utils/color_constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -44,10 +45,7 @@ class _GeneralReportState extends State<GeneralReport> {
           children: [
             InkWell(
                 onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const AddReport()),
-                  );
+                  Navigator.pop(context);
                 },
                 child: Container(
                   padding: const EdgeInsets.all(15),
@@ -99,10 +97,16 @@ class _GeneralReportState extends State<GeneralReport> {
                   ),
                 )),
           ]),
+      drawer: show(),
       appBar: AppBar(
         backgroundColor: ColorConstants.deppp,
         title: const Center(child: Text('Add Report')),
-        automaticallyImplyLeading: false,
+        actions: const [
+          Padding(
+            padding: EdgeInsets.only(right: 10),
+            child: Icon(Icons.notifications),
+          )
+        ],
       ),
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,

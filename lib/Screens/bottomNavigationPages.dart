@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import '../Utils/color_constants.dart';
 import 'AddReport/Existing_Leaad.dart';
 import 'Homepage.dart';
+import 'User_profile.dart';
 
 class Homepage extends StatefulWidget {
   const Homepage({Key? key}) : super(key: key);
@@ -15,7 +16,7 @@ class Homepage extends StatefulWidget {
 class _HomepageState extends State<Homepage> {
   var currentIndex = 1;
   List<Widget> pages = [
-    const DealerList(),
+    const userprofile_pages(),
     const DealerList(),
     const AddReport()
   ];

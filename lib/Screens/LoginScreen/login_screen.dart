@@ -1,5 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 import 'package:elite_crm/Screens/Homepage.dart';
+import 'package:elite_crm/Utils/app_baar.dart';
 import 'package:elite_crm/Utils/setget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -79,6 +80,7 @@ class _LoginPageState extends State<LoginPage> {
     return BlocProvider(
         create: (context) => LoginBloc(),
     child: Scaffold(
+
       appBar: AppBar(
           automaticallyImplyLeading: false,
           backgroundColor: ColorConstants.deppp),

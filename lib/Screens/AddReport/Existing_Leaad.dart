@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:elite_crm/Service/AddReport%20Service.dart';
+import 'package:elite_crm/Utils/app_baar.dart';
 import 'package:elite_crm/Utils/color_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
@@ -31,18 +33,7 @@ class _AddReportState extends State<AddReport> {
   List _leads = [];
   String user_id ='';
 
-  Future<List> _getLeads(String keyword) async {
-    String url =
-        "https://elite-dealers.com/api/checkExistingLeads.php?keyword=$keyword&userid=$user_id";
-    var response = await http.get(Uri.parse(url));
-    if (response.statusCode == 200) {
-      var decodedJson = jsonDecode(response.body);
-      List leads = decodedJson['user']['result'];
-      return leads;
-    } else {
-      throw Exception("API returned an error");
-    }
-  }
+
 
   @override
   void initState() {
@@ -93,14 +84,16 @@ class _AddReportState extends State<AddReport> {
                   ),
                 )),
           ]),
+      drawer: show(),
       appBar: AppBar(
-        title: const Center(child: Text('Add Report')),
         backgroundColor: ColorConstants.deppp,
+        title: const Center(child: Text('Add Report')),
         actions: const [
-
-          Icon(Icons.notifications)
+          Padding(
+            padding: EdgeInsets.only(right: 10),
+            child: Icon(Icons.notifications),
+          )
         ],
-        centerTitle: true,
       ),
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
@@ -165,7 +158,7 @@ class _AddReportState extends State<AddReport> {
                     ),
                     suggestionsCallback: (pattern) async {
                       if (pattern.length >= 3) {
-                        _leads = await _getLeads(pattern);
+                        _leads = await AddReportService().getLeads(pattern, user_id);
                       } else {
                         _leads = [];
                       }
@@ -197,7 +190,6 @@ class _AddReportState extends State<AddReport> {
                         services.text = lead['services'];
                         state.text = lead['state'];
                         phone.text = lead['phone'];
-
                         setState(() {
                           _selectedValue = suggestion;
                         });
@@ -285,28 +277,11 @@ class _AddReportState extends State<AddReport> {
                       ),
                     ],
                   ),
-
-                SizedBox(height: 20,),
-
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Container(
-                      height: 50,
-                      child: ElevatedButton(onPressed: (){
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => GeneralReport()));
-                      },style: ElevatedButton.styleFrom(
-                        backgroundColor: ColorConstants.DarkBlueColor,
-
-                      ), child: const Text('Next',style: TextStyle(fontSize: 18),)),
-                    ),
                   ],
-                )
-              ],
+                ),
             ),
           ),
         ),
-      ),
     );
   }
 }
