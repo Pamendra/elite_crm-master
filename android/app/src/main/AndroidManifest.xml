@@ -1,5 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.elite_crm">
+    <uses-permission android:name="android.permission.INTERNET"/>
    <application
         android:label="elite_crm"
         android:name="${applicationName}"

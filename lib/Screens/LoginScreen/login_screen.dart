@@ -1,16 +1,14 @@
 // ignore_for_file: use_build_context_synchronously
-import 'package:elite_crm/Screens/Homepage.dart';
-import 'package:elite_crm/Utils/app_baar.dart';
-import 'package:elite_crm/Utils/setget.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:sizer/sizer.dart';
 import '../../Bloc/Login_Bloc/LoginBloc.dart';
 import '../../Bloc/Login_Bloc/LoginEvent.dart';
 import '../../Bloc/Login_Bloc/LoginState.dart';
 import '../../Utils/color_constants.dart';
-import '../../Utils/decoration_constants.dart';
+import '../../Utils/drawer_login.dart';
+import '../../Utils/setget.dart';
 import '../bottomNavigationPages.dart';
 
 
@@ -80,9 +78,9 @@ class _LoginPageState extends State<LoginPage> {
     return BlocProvider(
         create: (context) => LoginBloc(),
     child: Scaffold(
-
+    drawer: DrawerLogin(),
       appBar: AppBar(
-          automaticallyImplyLeading: false,
+
           backgroundColor: ColorConstants.deppp),
       body: BlocConsumer<LoginBloc,LoginState>(
       listener: (context,state){
@@ -220,6 +218,7 @@ class _LoginPageState extends State<LoginPage> {
                          BlocProvider.of<LoginBloc>(context).add(
                              LoginPressedEvent(emailController.text, passwordController.text));
                          showLoaderDialog(context);
+                         Utils().setUsername(emailController.text);
 
                        }
                      },style: ElevatedButton.styleFrom(

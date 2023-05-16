@@ -1,12 +1,15 @@
 
 // ignore_for_file: file_names
 
+import 'package:elite_crm/Utils/color_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 import '../Service/dealerList.dart';
-import '../Utils/app_baar.dart';
+import '../Utils/TextWidgets.dart';
+import '../Utils/drawer_logout.dart';
 import '../Utils/setget.dart';
 import 'DealerList Details.dart';
+import 'Notification/notification page.dart';
 
 
 class DealerList extends StatefulWidget {
@@ -20,19 +23,8 @@ class _DealerListState extends State<DealerList> {
   final TextEditingController searchdealer = TextEditingController();
   GlobalService globalService = GlobalService();
 
-  @override
-  void initState() {
-    // TODO: implement initState
-    ShoiId();
-    super.initState();
-  }
 
 
-  ShoiId() async {
- String shopid = await Utils().getUsererId();
-
-    print(shopid);
-  }
 
 
 
@@ -50,26 +42,20 @@ class _DealerListState extends State<DealerList> {
           const Padding(
             padding: EdgeInsets.symmetric(horizontal: 16),
           ),
-          IconButton(
-            icon: const Icon(
-              Icons.notifications,
-              color: Colors.white,
-            ),
-            onPressed: () {
-
-            },
-          )
+           IconButton(onPressed: (){
+            Navigator.push(context, MaterialPageRoute(builder: (context) => const notification()));
+          }, icon: Icon(Icons.notifications))
         ],
         centerTitle: true,
         backgroundColor: const Color.fromARGB(255, 213, 85, 40),
 
 
       ),
-      drawer: show(),
+      drawer: DrawerLogout(),
 
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.only(top: 50,left: 10,right: 10),
+          padding: const EdgeInsets.only(top: 10,left: 10,right: 10),
           child: Column(
             children: [
               TextFormField(
@@ -79,9 +65,14 @@ class _DealerListState extends State<DealerList> {
                 },
                 decoration: InputDecoration(
                     filled: true,
-                    fillColor: Colors.white,
-                    suffixIcon: const Icon(Icons.search),
-                    hintText: 'Search',
+                    fillColor: Color(0xFF202447).withOpacity(0.8),
+                    suffixIcon:  Icon(Icons.search,color:Colors.white),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                      borderSide:  BorderSide(color: ColorConstants.deppp, width: 3),
+                    ),
+                    hintText: 'Search ...',
+                    hintStyle: TextStyle(color: Colors.white),
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(5))),
               ),
@@ -117,7 +108,7 @@ class _DealerListState extends State<DealerList> {
                                 children: [
                                   Card(
                                     child: ListTile(
-                                      title: Text(snapshot.data![index]['name'],style: const TextStyle(fontWeight: FontWeight.bold),),
+                                      title: headingTextDarkblueWithextrasmall(title: snapshot.data![index]['name'],),
                                       onTap: (){
                                         Navigator.push(context, MaterialPageRoute(builder: (context) => DealerDetails(dealerid :dealerid)));
                                       },
@@ -130,7 +121,7 @@ class _DealerListState extends State<DealerList> {
                                 children: [
                                   Card(
                                     child: ListTile(
-                                      title: Text(snapshot.data![index]['name'],style: const TextStyle(fontWeight: FontWeight.bold),),
+                                      title: headingTextDarkblueWithextrasmall(title: snapshot.data![index]['name'],),
                                       onTap: (){
                                         Navigator.push(context, MaterialPageRoute(builder: (context) => DealerDetails(dealerid :dealerid )));
 

@@ -17,4 +17,5 @@ class ColorConstants {
   static var deppp = const Color.fromARGB(255, 213, 85, 40);
   static var backgroundappColor = const Color(0xFFE8ECEF);
   static var splash = const Color(0xFF024B40);
+  static var Darkopacity = Color(0xFF202447).withOpacity(1);
 }

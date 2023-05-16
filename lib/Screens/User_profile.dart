@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:multiselect_formfield/multiselect_formfield.dart';
 import 'package:sizer/sizer.dart';
 import '../Service/AddReport Service.dart';
-import '../Utils/app_baar.dart';
 import '../../Utils/setget.dart';
-import 'package:multiselect/multiselect.dart';
+
+import '../Utils/drawer_logout.dart';
+import 'Notification/notification page.dart';
 
 class userprofile_pages extends StatefulWidget {
   const userprofile_pages({Key? key}) : super(key: key);
@@ -25,11 +26,10 @@ class _userprofile_pagesState extends State<userprofile_pages> {
   TextEditingController add = TextEditingController();
   TextEditingController phone = TextEditingController();
   TextEditingController email = TextEditingController();
-  List<String> selectedFruits = [];
+  List<dynamic> _selectedProfiles = [];
 
   @override
   void initState() {
-    ShoiId();
     _getUserDetails();
     super.initState();
 
@@ -49,16 +49,6 @@ class _userprofile_pagesState extends State<userprofile_pages> {
     add.text = addressed;
   }
 
-  ShoiId() async {
-    String shopid = await Utils().getUsererId();
-    String access = await Utils().getAccess();
-
-    AddReportService().UserProfieService(shopid,access).then((value) {
-      setState(() {
-        _profileList = value;
-      });
-    });
-  }
 
   void _openCustomerReportDialog(String profileName) {
     // TODO: Implement dialog to add report for the selected customer
@@ -72,18 +62,14 @@ class _userprofile_pagesState extends State<userprofile_pages> {
           const Padding(
             padding: EdgeInsets.symmetric(horizontal: 16),
           ),
-          IconButton(
-            icon: const Icon(
-              Icons.notifications,
-              color: Colors.white,
-            ),
-            onPressed: () {},
-          )
+       IconButton(onPressed: (){
+            Navigator.push(context, MaterialPageRoute(builder: (context) => const notification()));
+          }, icon: Icon(Icons.notifications))
         ],
         centerTitle: true,
-        backgroundColor: Color.fromARGB(255, 213, 85, 40),
+        backgroundColor: const Color.fromARGB(255, 213, 85, 40),
       ),
-      drawer: show(),
+      drawer: DrawerLogout(),
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Form(
@@ -119,23 +105,11 @@ class _userprofile_pagesState extends State<userprofile_pages> {
                     cancelButtonLabel: 'CANCEL',
                     initialValue: const [],
                     onSaved: (value) {
-
+                      _selectedProfiles = value;
                     },
                   ),
                 ),
 
-                // DropDownMultiSelect(
-                //   options: fruits,
-                //   selectedValues: selectedFruits,
-                //   onChanged: (value) {
-                //     print('selected fruit $value');
-                //     setState(() {
-                //       selectedFruits = value;
-                //     });
-                //     print('you have selected $selectedFruits fruits.');
-                //   },
-                //   whenEmpty: 'Select your favorite fruits',
-                // ),
                 const SizedBox(
                   height: 30,
                 ),

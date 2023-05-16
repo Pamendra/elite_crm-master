@@ -10,11 +10,22 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:dio/dio.dart';
 
 
+import '../Utils/TextWidgets.dart';
 import 'bottomNavigationPages.dart';
 
 class DealerDetails extends StatefulWidget {
   String dealerid;
-
+  Widget _buildCoverImage(Size screenSize) {
+    return Container(
+      height: screenSize.height / 2.6,
+      decoration: const BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage('assets/images/cover.jpeg'),
+          fit: BoxFit.cover,
+        ),
+      ),
+    );
+  }
   DealerDetails({super.key, required this.dealerid});
 
   @override
@@ -45,101 +56,18 @@ class _DealerDetailsState extends State<DealerDetails> {
     }
   }
 
-  // Widget _buildCoverImage(Size screenSize) {
-  //   return Container(
-  //     height: screenSize.height / 2.6,
-  //     decoration: const BoxDecoration(
-  //       image: DecorationImage(
-  //         image: AssetImage('assets/images/cover.jpeg'),
-  //         fit: BoxFit.cover,
-  //       ),
-  //     ),
-  //   );
-  // }
-
-
   @override
   void initState() {
     super.initState();
     _getDealerProfile(widget.dealerid);
   }
 
-  List<IconData> listOfIcons = [
-    Icons.arrow_back_ios,
-  ];
 
   @override
   Widget build(BuildContext context) {
-  //  Size size = MediaQuery.of(context).size;
+    Size size = MediaQuery.of(context).size;
 
     return Scaffold(
-      // bottomNavigationBar: Container(
-      //
-      //   margin: const EdgeInsets.only(left: 130,right: 130,bottom: 20),
-      //   height: size.width * .155,
-      //
-      //   decoration: BoxDecoration(
-      //     color: Colors.white,
-      //     boxShadow: [
-      //       BoxShadow(
-      //         color: Colors.black.withOpacity(.15),
-      //         blurRadius: 30,
-      //         offset: const Offset(0, 10),
-      //       ),
-      //     ],
-      //     borderRadius: BorderRadius.circular(50),
-      //   ),
-      //   child: ListView.builder(
-      //     itemCount: 1, // change to 3
-      //     scrollDirection: Axis.horizontal,
-      //     padding: EdgeInsets.symmetric(horizontal: size.width * .024),
-      //     itemBuilder: (context, index) => InkWell(
-      //       onTap: () {
-      //         Navigator.push(
-      //                           context,
-      //                           MaterialPageRoute(builder: (context) => const Homepage()),
-      //                         );
-      //       },
-      //       splashColor: Colors.transparent,
-      //       highlightColor: Colors.transparent,
-      //       child: Column(
-      //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      //         children: [
-      //           AnimatedContainer(
-      //             duration: const Duration(milliseconds: 1500),
-      //             curve: Curves.fastLinearToSlowEaseIn,
-      //             margin: EdgeInsets.only(
-      //               bottom: index == currentIndex ? 0 : size.width * .029,
-      //               right: index == 1 ? 0 : size.width * .0422, // adjust margin for 2 icons
-      //               left: index == 1 ? 0 : size.width * .0422,
-      //             ),
-      //             width: size.width * .235,
-      //             height: index == currentIndex ? size.width * .014 : 0,
-      //             decoration:  const BoxDecoration(
-      //               borderRadius: BorderRadius.vertical(
-      //                 bottom: Radius.circular(10),
-      //               ),
-      //             ),
-      //           ),
-      //           Row(
-      //             children: [
-      //               Icon(
-      //                 listOfIcons[index],
-      //                 size: size.width * .076,
-      //                 color: index == currentIndex
-      //                     ? ColorConstants.deppp
-      //                     : Colors.black38,
-      //               ),
-      //               const Text('Go Back',style: TextStyle(fontSize: 17),)
-      //             ],
-      //           ),
-      //           SizedBox(height: size.width * .03),
-      //         ],
-      //       ),
-      //     ),
-      //   ),
-      // ),
-
       bottomNavigationBar: Row(
           children: [
             InkWell(
@@ -150,9 +78,9 @@ class _DealerDetailsState extends State<DealerDetails> {
                   );
                 },
                 child: Container(
-                  padding: const EdgeInsets.all(15),
+                  padding: const EdgeInsets.all(12),
                   width: 100.w,
-                  height: 5.8.h,
+                  height: 6.h,
                   color: ColorConstants.deppp,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -160,12 +88,13 @@ class _DealerDetailsState extends State<DealerDetails> {
                       // Text("Continue "),
                       Icon(
                         Icons.arrow_back,
-                        color: Colors.black,
+                        color: Colors.white,
                         size:20.sp,
                       ),
                       const Text( " Go Back", style: TextStyle(
                           fontSize: 20,
-                          fontWeight: FontWeight.w500
+                          fontWeight: FontWeight.w500,
+                        color: Colors.white,
                       ),)
                     ],
                   ),
@@ -173,7 +102,7 @@ class _DealerDetailsState extends State<DealerDetails> {
           ]),
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: const Text('Dealer List'),
+        title: const Text('Dealer Profile'),
         actions: const [
 
           Padding(
@@ -186,7 +115,8 @@ class _DealerDetailsState extends State<DealerDetails> {
 
       ),
       body: dealerProfile.isNotEmpty
-          ? SingleChildScrollView(
+          ?
+      SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.only(top: 0),
           child: Column(
@@ -195,7 +125,7 @@ class _DealerDetailsState extends State<DealerDetails> {
                 decoration: const BoxDecoration(
                     image: DecorationImage(
                         image: NetworkImage(
-                            "https://images.unsplash.com/photo-1557682260-96773eb01377?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=829&q=80"
+                            "https://images.unsplash.com/photo-1550955295-77d6e18a24da?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80"
                         ),
                         fit: BoxFit.cover
                     )
@@ -205,7 +135,7 @@ class _DealerDetailsState extends State<DealerDetails> {
                   width: double.infinity,
                   height: 200,
                   child: Container(
-                    alignment: const Alignment(0.0,4.8),
+                    alignment: const Alignment(-0.9, 4.5),
                     child: CircleAvatar(
                       backgroundImage: NetworkImage(dealerProfile['logo']),
                       radius: 80.0,
@@ -213,73 +143,51 @@ class _DealerDetailsState extends State<DealerDetails> {
                   ),
                 ),
               ),
+
+
+
               const SizedBox(
-                height: 100,
+                height: 80,
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
+                padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      dealerProfile['name'] ?? ''
-                      ,style: const TextStyle(
-                        fontSize: 20.0,
-                        color:Colors.black,
-                        letterSpacing: 2.0,
+                    headingTextDarkblue(title:  dealerProfile['name'] ?? ''),
 
-                        fontWeight: FontWeight.w800
-                    ),
+                    const Divider(
+                      color: Colors.black,
+                      height: 25,
+                      thickness: 2,
+                      indent: 0,
+                      endIndent: 5,
                     ),
                     const SizedBox(
-                      height: 40,
+                      height: 20,
                     ),
-                    Text(
-                      dealerProfile['address'] ?? ''
-                      ,style: const TextStyle(
-                        fontSize: 20.0,
-                        fontStyle: FontStyle.italic,
-                        color:Colors.black,
-
-                        fontWeight: FontWeight.w600
-                    ),
+                    headingTextDarkblueWithSmall(
+                     title: dealerProfile['address'] ?? '',
                     ),
                     const SizedBox(
                       height: 10,
                     ),
-                    Text(
-                      dealerProfile['city'] ?? ''
-                      ,style: const TextStyle(
-                        fontSize: 20.0,
-                        color:Colors.black,
-                        fontStyle: FontStyle.italic,
-                        fontWeight: FontWeight.w600
-                    ),
+                    headingTextDarkblueWithSmall(
+                    title: dealerProfile['city'] ?? '',
                     ),
 
                     const SizedBox(
                       height: 10,
                     ),
-                    Text(
-                      dealerProfile['state'] ?? ''
-                      ,style: const TextStyle(
-                        fontSize: 20.0,
-                        color:Colors.black,
-                        fontStyle: FontStyle.italic,
-                        fontWeight: FontWeight.w600
-                    ),
+                    headingTextDarkblueWithSmall(
+                      title:  dealerProfile['state'] ?? '',
                     ),
 
                     const SizedBox(
                       height: 10,
                     ),
-                    Text(
-                      dealerProfile['direct'] ?? ''
-                      ,style: const TextStyle(
-                        fontSize: 20.0,
-                        color:Colors.black,
-                        fontStyle: FontStyle.italic,fontWeight: FontWeight.w600
-                    ),
+                    headingTextDarkblueWithSmall(
+                  title:   dealerProfile['direct'] ?? '',
                     ),
                   ],
                 ),
@@ -288,7 +196,7 @@ class _DealerDetailsState extends State<DealerDetails> {
 
 
 
-              const SizedBox(
+              SizedBox(
                 height: 50,
               ),
 
@@ -306,11 +214,11 @@ class _DealerDetailsState extends State<DealerDetails> {
                         },
 
                         elevation: 2.0,
-                        fillColor: Colors.white,
+                        fillColor: ColorConstants.DarkBlueColor,
                         padding: const EdgeInsets.all(18.0),
                         child:  Icon(
                           Icons.call,
-                          color: Colors.grey[600],
+                          color: Colors.white,
                           size: 28.0,
                         ),
                       )
@@ -336,11 +244,11 @@ class _DealerDetailsState extends State<DealerDetails> {
                         },
 
                         elevation: 2.0,
-                        fillColor: Colors.white,
+                        fillColor: ColorConstants.DarkBlueColor,
                         padding: const EdgeInsets.all(18.0),
                         child:  Icon(
                           Icons.mail,
-                          color: Colors.grey[600],
+                          color: Colors.white,
                           size: 28.0,
                         ),
                       )
@@ -352,13 +260,15 @@ class _DealerDetailsState extends State<DealerDetails> {
 
 
 
-                  /// messaaages buttton
+
                   Container(
                       padding: const EdgeInsets.all(10),
 
                       child: RawMaterialButton(
                         onPressed: () async {
-                          Uri sms = Uri.parse(dealerProfile['direct']);
+
+                          Uri sms = Uri.parse('sms:${dealerProfile['direct']}');
+
                           if (await launchUrl(sms)) {
                             //app opened
                           } else {
@@ -367,11 +277,11 @@ class _DealerDetailsState extends State<DealerDetails> {
                         },
 
                         elevation: 2.0,
-                        fillColor: Colors.white,
+                        fillColor: ColorConstants.DarkBlueColor,
                         padding: const EdgeInsets.all(18.0),
-                        child:  Icon(
+                        child:  const Icon(
                           Icons.message,
-                          color: Colors.grey[600],
+                          color: Colors.white,
                           size: 28.0,
                         ),
                       )
