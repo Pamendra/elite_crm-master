@@ -22,6 +22,20 @@ class headingText extends StatelessWidget {
 
 }
 
+class headingTextwithsmallwhite extends StatelessWidget {
+  headingTextwithsmallwhite({Key? key, required this.title}) : super(key: key);
+  String title;
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(title,style:TextStyle(fontWeight:FontWeight.w700,color:white,fontFamily:"railBold",
+        fontSize:12.sp,letterSpacing:1),);
+  }
+
+
+}
+
 class headingTextDarkblue extends StatelessWidget {
   headingTextDarkblue({Key? key, required this.title}) : super(key: key);
   String title;
@@ -29,7 +43,7 @@ class headingTextDarkblue extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(title,style:TextStyle(fontWeight:FontWeight.w700,color:ColorConstants.DarkBlueColor,fontFamily:"railBold",
+    return Text(title,style:TextStyle(fontWeight:FontWeight.w700,color:ColorConstants.white,fontFamily:"railBold",
         fontSize:14.sp,letterSpacing:1),);
   }
 
@@ -43,7 +57,7 @@ class headingTextDarkblueWithSmall extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(title,style:TextStyle(fontWeight:FontWeight.w700,color:ColorConstants.DarkBlueColor,fontFamily:"railBold",
+    return Text(title,style:TextStyle(fontWeight:FontWeight.w700,color:ColorConstants.white,fontFamily:"railBold",
         fontSize:12.sp,letterSpacing:1),);
   }
 
@@ -214,7 +228,7 @@ class subheadingText1 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(title,style:TextStyle(color:ColorConstants.DarkBlueColor,fontSize:11.sp,fontWeight:FontWeight.w400,fontFamily:"railLight",letterSpacing: 1),);
+    return Text(title,style:TextStyle(color:ColorConstants.white,fontSize:11.sp,fontWeight:FontWeight.w400,fontFamily:"railLight",letterSpacing: 1),);
   }
 
 

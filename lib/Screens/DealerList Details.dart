@@ -1,6 +1,7 @@
 
 
 
+import 'package:elite_crm/Utils/gradient_color.dart';
 import 'package:floating_bottom_navigation_bar/floating_bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
@@ -81,17 +82,12 @@ class _DealerDetailsState extends State<DealerDetails> {
                   padding: const EdgeInsets.all(12),
                   width: 100.w,
                   height: 6.h,
-                  color: ColorConstants.deppp,
+                  color: ColorConstants.blueGrey,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      // Text("Continue "),
-                      Icon(
-                        Icons.arrow_back,
-                        color: Colors.white,
-                        size:20.sp,
-                      ),
-                      const Text( " Go Back", style: TextStyle(
+                    children: const [
+
+                      Text( " Go Back", style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.w500,
                         color: Colors.white,
@@ -117,184 +113,188 @@ class _DealerDetailsState extends State<DealerDetails> {
       body: dealerProfile.isNotEmpty
           ?
       SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.only(top: 0),
-          child: Column(
-            children: [
-              Container(
-                decoration: const BoxDecoration(
-                    image: DecorationImage(
-                        image: NetworkImage(
-                            "https://images.unsplash.com/photo-1550955295-77d6e18a24da?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80"
-                        ),
-                        fit: BoxFit.cover
-                    )
-                ),
+        child: Container(
+          height: 100.h,
+          decoration: gradient_login,
+          child: Padding(
+            padding: const EdgeInsets.only(top: 0),
+            child: Column(
+              children: [
+                Container(
+                  decoration: const BoxDecoration(
+                      image: DecorationImage(
+                          image: NetworkImage(
+                              "https://images.unsplash.com/photo-1550955295-77d6e18a24da?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80"
+                          ),
+                          fit: BoxFit.cover
+                      )
+                  ),
 
-                child: SizedBox(
-                  width: double.infinity,
-                  height: 200,
-                  child: Container(
-                    alignment: const Alignment(-0.9, 4.5),
-                    child: CircleAvatar(
-                      backgroundImage: NetworkImage(dealerProfile['logo']),
-                      radius: 80.0,
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 200,
+                    child: Container(
+                      alignment: const Alignment(-0.9, 4.5),
+                      child: CircleAvatar(
+                        backgroundImage: NetworkImage(dealerProfile['logo']),
+                        radius: 80.0,
+                      ),
                     ),
                   ),
                 ),
-              ),
 
 
 
-              const SizedBox(
-                height: 80,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    headingTextDarkblue(title:  dealerProfile['name'] ?? ''),
+                const SizedBox(
+                  height: 80,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      headingTextDarkblue(title:  dealerProfile['name'] ?? ''),
 
-                    const Divider(
-                      color: Colors.black,
-                      height: 25,
-                      thickness: 2,
-                      indent: 0,
-                      endIndent: 5,
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    headingTextDarkblueWithSmall(
-                     title: dealerProfile['address'] ?? '',
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    headingTextDarkblueWithSmall(
-                    title: dealerProfile['city'] ?? '',
+                      const Divider(
+                        color: Colors.white,
+                        height: 25,
+                        thickness: 2,
+                        indent: 0,
+                        endIndent: 5,
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      headingTextDarkblueWithSmall(
+                       title: dealerProfile['address'] ?? '',
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      headingTextDarkblueWithSmall(
+                      title: dealerProfile['city'] ?? '',
+                      ),
+
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      headingTextDarkblueWithSmall(
+                        title:  dealerProfile['state'] ?? '',
+                      ),
+
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      headingTextDarkblueWithSmall(
+                    title:   dealerProfile['direct'] ?? '',
+                      ),
+                    ],
+                  ),
+                ),
+
+
+
+
+                SizedBox(
+                  height: 50,
+                ),
+
+
+
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children:<Widget> [
+                    Container(
+                        padding: const EdgeInsets.all(10),
+
+                        child: RawMaterialButton(
+                          onPressed: () async {
+                            _launchPhoneURL(dealerProfile['direct']);
+                          },
+
+                          elevation: 2.0,
+                          fillColor: ColorConstants.white,
+                          padding: const EdgeInsets.all(18.0),
+                          child:  Icon(
+                            Icons.call,
+                            color: ColorConstants.DarkBlueColor,
+                            size: 28.0,
+                          ),
+                        )
                     ),
 
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    headingTextDarkblueWithSmall(
-                      title:  dealerProfile['state'] ?? '',
+                    ///  call end buttton
+
+                    ///  gmail_buttton
+                    Container(
+                        padding: const EdgeInsets.all(10),
+
+                        child: RawMaterialButton(
+                          onPressed: () async {
+                            String email = Uri.encodeComponent(dealerProfile['emailforapp'] );
+
+                            //output: Hello%20Flutter
+                            Uri mail = Uri.parse("mailto:$email");
+                            if (await launchUrl(mail)) {
+                              //email app opened
+                            }else{
+                              //email app is not opened
+                            }
+                          },
+
+                          elevation: 2.0,
+                          fillColor: ColorConstants.white,
+                          padding: const EdgeInsets.all(18.0),
+                          child:  Icon(
+                            Icons.mail,
+                            color: ColorConstants.DarkBlueColor,
+                            size: 28.0,
+                          ),
+                        )
                     ),
 
-                    const SizedBox(
-                      height: 10,
+
+                    ///  gmail_buttton
+
+
+
+
+
+                    Container(
+                        padding: const EdgeInsets.all(10),
+
+                        child: RawMaterialButton(
+                          onPressed: () async {
+
+                            Uri sms = Uri.parse('sms:${dealerProfile['direct']}');
+
+                            if (await launchUrl(sms)) {
+                              //app opened
+                            } else {
+                              //app is not opened
+                            }
+                          },
+
+                          elevation: 2.0,
+                          fillColor: ColorConstants.white,
+                          padding: const EdgeInsets.all(18.0),
+                          child:   Icon(
+                            Icons.message,
+                            color: ColorConstants.DarkBlueColor,
+                            size: 28.0,
+                          ),
+                        )
                     ),
-                    headingTextDarkblueWithSmall(
-                  title:   dealerProfile['direct'] ?? '',
-                    ),
+
+
                   ],
                 ),
-              ),
+                const SizedBox(
+                  height: 30,
+                ),
 
-
-
-
-              SizedBox(
-                height: 50,
-              ),
-
-
-
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children:<Widget> [
-                  Container(
-                      padding: const EdgeInsets.all(10),
-
-                      child: RawMaterialButton(
-                        onPressed: () async {
-                          _launchPhoneURL(dealerProfile['direct']);
-                        },
-
-                        elevation: 2.0,
-                        fillColor: ColorConstants.DarkBlueColor,
-                        padding: const EdgeInsets.all(18.0),
-                        child:  Icon(
-                          Icons.call,
-                          color: Colors.white,
-                          size: 28.0,
-                        ),
-                      )
-                  ),
-
-                  ///  call end buttton
-
-                  ///  gmail_buttton
-                  Container(
-                      padding: const EdgeInsets.all(10),
-
-                      child: RawMaterialButton(
-                        onPressed: () async {
-                          String email = Uri.encodeComponent(dealerProfile['emailforapp'] );
-
-                          //output: Hello%20Flutter
-                          Uri mail = Uri.parse("mailto:$email");
-                          if (await launchUrl(mail)) {
-                            //email app opened
-                          }else{
-                            //email app is not opened
-                          }
-                        },
-
-                        elevation: 2.0,
-                        fillColor: ColorConstants.DarkBlueColor,
-                        padding: const EdgeInsets.all(18.0),
-                        child:  Icon(
-                          Icons.mail,
-                          color: Colors.white,
-                          size: 28.0,
-                        ),
-                      )
-                  ),
-
-
-                  ///  gmail_buttton
-
-
-
-
-
-                  Container(
-                      padding: const EdgeInsets.all(10),
-
-                      child: RawMaterialButton(
-                        onPressed: () async {
-
-                          Uri sms = Uri.parse('sms:${dealerProfile['direct']}');
-
-                          if (await launchUrl(sms)) {
-                            //app opened
-                          } else {
-                            //app is not opened
-                          }
-                        },
-
-                        elevation: 2.0,
-                        fillColor: ColorConstants.DarkBlueColor,
-                        padding: const EdgeInsets.all(18.0),
-                        child:  const Icon(
-                          Icons.message,
-                          color: Colors.white,
-                          size: 28.0,
-                        ),
-                      )
-                  ),
-
-
-                ],
-              ),
-              const SizedBox(
-                height: 30,
-              ),
-
-            ],
+              ],
+            ),
           ),
         ),
       )

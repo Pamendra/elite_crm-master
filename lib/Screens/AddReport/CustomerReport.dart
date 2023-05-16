@@ -1,6 +1,7 @@
 import 'package:elite_crm/Screens/Notification/notification%20page.dart';
 import 'package:elite_crm/Service/AddReport%20Service.dart';
 import 'package:elite_crm/Utils/color_constants.dart';
+import 'package:elite_crm/Utils/gradient_color.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
@@ -157,18 +158,13 @@ class _CustomerReportState extends State<CustomerReport> {
               padding: const EdgeInsets.all(15),
               width: 50.w,
               height: 5.8.h,
-              color: ColorConstants.deppp,
+              color: ColorConstants.blueGrey,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(
-                    Icons.arrow_back,
-                    color: Colors.black,
-                    size: 20.sp,
-                  ),
-                  const Text(
+                children: const [
+                   Text(
                     " Go Back",
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500,color: Colors.white),
                   )
                 ],
               ),
@@ -186,21 +182,16 @@ class _CustomerReportState extends State<CustomerReport> {
               padding: const EdgeInsets.all(15),
               width: 50.w,
               height: 5.8.h,
-              color: ColorConstants.DarkBlueColor,
+              color: ColorConstants.deppp,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text(
+                children: const[
+                   Text(
                     " Continue",
                     style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.w500,
                         color: Colors.white),
-                  ),
-                  Icon(
-                    Icons.arrow_forward,
-                    color: Colors.white,
-                    size: 20.sp,
                   ),
                 ],
               ),
@@ -221,240 +212,246 @@ class _CustomerReportState extends State<CustomerReport> {
       ),
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
-        child: Column(children: [
-          const SizedBox(
-            height: 20,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-
-              ProgressBarThin(
-                  deviceWidth:8.w,
-                  color:ColorConstants.deppp),
-              Column(
-                children: [
-                  CircleAvatar(
-                    backgroundColor: ColorConstants.deppp,
-                    child: const Text(
-                      '1',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  ),
-                  SizedBox(height:.3.h,),
-                  subheadingText(title: "General")
-                ],
-              ),
-              ProgressBarThin(
-                  deviceWidth:8.w,
-                  color:ColorConstants.deppp),
-              Column(
-                children: [
-                  CircleAvatar(
-                    backgroundColor: ColorConstants.deppp,
-                    child: const Text(
-                      '2',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  ),
-                  SizedBox(height:.3.h,),
-                  subheadingText(title: "Customer")
-                ],
-              ),
-              ProgressBarThin(
-                  deviceWidth:8.w,
-                  color:ColorConstants.deppp),
-              Column(
-                children: [
-                  CircleAvatar(
-                    backgroundColor: ColorConstants.DarkBlueColor,
-                    child: const Text(
-                      '3',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  ),
-                  SizedBox(height:.3.h,),
-                  subheadingText1(title: "Preview")
-                ],
-              ),
-              ProgressBarThin(
-                  deviceWidth:8.w,
-                  color: blueGrey),
-            ],
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            child: Column(
+        child: Container(
+          height: 100.h,
+          decoration: gradient_login,
+          child: Column(children: [
+            const SizedBox(
+              height: 20,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                GestureDetector(
-                  child: Container(
-                    width: 95.w,
-                    height: 6.h,
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(5),
-                        border: Border.all(color: Colors.black)
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Row(
-                        mainAxisAlignment:
-                        MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            widget.date,
-                            overflow: TextOverflow.ellipsis,
-                            style: const TextStyle(fontSize: 15),
-                          ),
-                          Icon(
-                            CupertinoIcons.calendar,
-                            color: ColorConstants.deppp,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 10,),
-                Container(
-                    width: 95.w,
-                    decoration: BoxDecoration(
-                        borderRadius:
-                        BorderRadius.circular(5),
-                        border:
-                        Border.all(color: Colors.black)),
-                    child: Scrollbar(
-                      controller: _scrollController,
-                      child: TextField(
-                        readOnly: true,
-                        controller: widget.general,
-                        style: TextStyle(color:ColorConstants.DarkBlueColor,fontSize:10.sp,fontWeight:FontWeight.w400,fontFamily:"railLight",letterSpacing: 1),
-                        keyboardType: TextInputType.multiline,
-                        maxLines: 5,
-                        decoration: InputDecoration(
-                          suffixIcon: InkWell(
-                              onTap: (){
-                               Navigator.pop(context);
-                              },
-                              child:  Icon(Icons.edit,color: ColorConstants.deppp,)),
-                          // hintText: ,
-                          // hintStyle: TextStyle(
-                          //   fontSize: 10.sp,
-                          //   color: Colors.black,
-                          //   fontFamily: "railLight",),
-                          isDense: true,
-                          border: OutlineInputBorder(
-                            borderRadius:
-                            BorderRadius.circular(5),
-                            borderSide: const BorderSide(
-                              width: 0,
-                              style: BorderStyle.none,
-                            ),
-                          ),
-                          filled: true,
-                          contentPadding:
-                          const EdgeInsets.all(10),
-                          fillColor: Colors.white,
-                        ),
-                      ),
-                    )
-                ),
-                const SizedBox(height: 10,),
-               Container(
-                 height: 5.h,
-                 color: ColorConstants.DarkBlueColor,
-                 child: const Center(
-                   child: Padding(
-                     padding: EdgeInsets.all(5.0),
-                     child: Text(
-                        'This is the specific customer report information.If a textarea is left empty a report will still be created.',
-                        style: TextStyle(fontSize: 14,color: Colors.white),
-                      ),
-                   ),
-                 ),
-               ),
-                const SizedBox(
-                  height: 10,
-                ),
-                TextFormField(
-                  onChanged: (value) {
-                    setState(() {
-                      _searchQuery = value;
-                      _filterCustomerList();
-                    });
-                  },
-                  decoration: InputDecoration(
-                      filled: true,
-                      fillColor: Colors.white,
-                      suffixIcon: const Icon(Icons.search),
-                      hintText: 'Search',
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(5))),
-                ),
 
-                SizedBox(
-                  height: 40.h,
-                  child:  _searchQuery.isEmpty
-                      ? ListView.builder(
-                    itemCount: _customerList.length,
-                    itemBuilder: (context, index) {
-                      final customer = _customerList[index];
-                      return Card(
-                        child: ListTile(
-                          title: subheadingText2(title: customer['name'],),
-                          leading: Checkbox(
-                            value: _customerList.contains(customer['name']),
-                            onChanged: (newValue) {
-                              setState(() {
-                                if (newValue != null) {
-                                  if (newValue) {
-                                    _customerList.add(customer['name']);
-                                    _openCustomerReportDialog(customer['name']);
-                                  } else {
-                                    _customerList.remove(customer['name']);
-                                  }
-                                }
-                              });
-                            },
-                          ),
-                        ),
-                      );
-                    },
-                  )
-                      : ListView.builder(
-                    itemCount: _filteredCustomerList.length,
-                    itemBuilder: (context, index) {
-                      final customer = _filteredCustomerList[index];
-                      return Card(
-                        child: ListTile(
-                          title: Text(customer['name']),
-                          leading: Checkbox(
-                            value: _customerList.contains(customer['name']),
-                            onChanged: (newValue) {
-                              setState(() {
-                                if (newValue != null) {
-                                  if (newValue) {
-                                    _customerList.add(customer['name']);
-                                    _openCustomerReportDialog(customer['name']);
-                                  } else {
-                                    _customerList.remove(customer['name']);
-                                  }
-                                }
-                              });
-                            },
-                          ),
-                        ),
-                      );
-                    },
-                  ),
+                ProgressBarThin(
+                    deviceWidth:8.w,
+                    color:ColorConstants.deppp),
+                Column(
+                  children: [
+                    CircleAvatar(
+                      backgroundColor: ColorConstants.deppp,
+                      child: const Text(
+                        '1',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                    SizedBox(height:.3.h,),
+                    subheadingText(title: "General")
+                  ],
                 ),
+                ProgressBarThin(
+                    deviceWidth:8.w,
+                    color:ColorConstants.deppp),
+                Column(
+                  children: [
+                    CircleAvatar(
+                      backgroundColor: ColorConstants.deppp,
+                      child: const Text(
+                        '2',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                    SizedBox(height:.3.h,),
+                    subheadingText(title: "Customer")
+                  ],
+                ),
+                ProgressBarThin(
+                    deviceWidth:8.w,
+                    color:ColorConstants.deppp),
+                Column(
+                  children: [
+                    CircleAvatar(
+                      backgroundColor: ColorConstants.white,
+                      child: const Text(
+                        '3',
+                        style: TextStyle(color: Colors.black),
+                      ),
+                    ),
+                    SizedBox(height:.3.h,),
+                    subheadingText1(title: "Preview")
+                  ],
+                ),
+                ProgressBarThin(
+                    deviceWidth:8.w,
+                    color: blueGrey),
               ],
             ),
-          ),
-        ]),
+            const SizedBox(
+              height: 20,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: Column(
+                children: [
+                  GestureDetector(
+                    child: Container(
+                      width: 95.w,
+                      height: 6.h,
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(5),
+                          border: Border.all(color: Colors.black)
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Row(
+                          mainAxisAlignment:
+                          MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              widget.date,
+                              overflow: TextOverflow.ellipsis,
+                              style: const TextStyle(fontSize: 15),
+                            ),
+                            Icon(
+                              CupertinoIcons.calendar,
+                              color: ColorConstants.deppp,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 10,),
+                  Container(
+                      width: 95.w,
+                      decoration: BoxDecoration(
+                          borderRadius:
+                          BorderRadius.circular(5),
+                          border:
+                          Border.all(color: Colors.black)),
+                      child: Scrollbar(
+                        controller: _scrollController,
+                        child: TextField(
+                          readOnly: true,
+                          controller: widget.general,
+                          style: TextStyle(color:ColorConstants.DarkBlueColor,fontSize:10.sp,fontWeight:FontWeight.w400,fontFamily:"railLight",letterSpacing: 1),
+                          keyboardType: TextInputType.multiline,
+                          maxLines: 5,
+                          decoration: InputDecoration(
+                            suffixIcon: InkWell(
+                                onTap: (){
+                                 Navigator.pop(context);
+                                },
+                                child:  Icon(Icons.edit,color: ColorConstants.deppp,)),
+                            // hintText: ,
+                            // hintStyle: TextStyle(
+                            //   fontSize: 10.sp,
+                            //   color: Colors.black,
+                            //   fontFamily: "railLight",),
+                            isDense: true,
+                            border: OutlineInputBorder(
+                              borderRadius:
+                              BorderRadius.circular(5),
+                              borderSide: const BorderSide(
+                                width: 0,
+                                style: BorderStyle.none,
+                              ),
+                            ),
+                            filled: true,
+                            contentPadding:
+                            const EdgeInsets.all(10),
+                            fillColor: Colors.white,
+                          ),
+                        ),
+                      )
+                  ),
+                  const SizedBox(height: 10,),
+                 Container(
+                   height: 5.h,
+                   color: ColorConstants.DarkBlueColor,
+                   child: const Center(
+                     child: Padding(
+                       padding: EdgeInsets.all(5.0),
+                       child: Text(
+                          'This is the specific customer report information.If a textarea is left empty a report will still be created.',
+                          style: TextStyle(fontSize: 14,color: Colors.white,fontFamily: "railLight"),
+                        ),
+                     ),
+                   ),
+                 ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  TextFormField(
+                    onChanged: (value) {
+                      setState(() {
+                        _searchQuery = value;
+                        _filterCustomerList();
+                      });
+                    },
+                    decoration: InputDecoration(
+                        filled: true,
+                        fillColor: Colors.white,
+                        suffixIcon: const Icon(Icons.search),
+                        hintText: 'Search',
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(5))),
+                  ),
+
+                  SizedBox(
+                    height: 40.h,
+                    child:  _searchQuery.isEmpty
+                        ? ListView.builder(
+                      itemCount: _customerList.length,
+                      itemBuilder: (context, index) {
+                        final customer = _customerList[index];
+                        return InkWell(
+                          child: Card(
+                            child: ListTile(
+                              title: subheadingText2(title: customer['name'],),
+                              leading: Checkbox(
+                                value: _customerList.contains(customer['name']),
+                                onChanged: (newValue) {
+                                  setState(() {
+                                    if (newValue != null) {
+                                      if (newValue) {
+                                        _customerList.add(customer['name']);
+                                        _openCustomerReportDialog(customer['name']);
+                                      } else {
+                                        _customerList.remove(customer['name']);
+                                      }
+                                    }
+                                  });
+                                },
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                    )
+                        : ListView.builder(
+                      itemCount: _filteredCustomerList.length,
+                      itemBuilder: (context, index) {
+                        final customer = _filteredCustomerList[index];
+                        return Card(
+                          child: ListTile(
+                            title: Text(customer['name']),
+                            leading: Checkbox(
+                              value: _customerList.contains(customer['name']),
+                              onChanged: (newValue) {
+                                setState(() {
+                                  if (newValue != null) {
+                                    if (newValue) {
+                                      _customerList.add(customer['name']);
+                                      _openCustomerReportDialog(customer['name']);
+                                    } else {
+                                      _customerList.remove(customer['name']);
+                                    }
+                                  }
+                                });
+                              },
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ]),
+        ),
       ),
     );
   }

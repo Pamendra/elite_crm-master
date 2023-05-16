@@ -36,6 +36,7 @@ class _HomepageState extends State<Homepage> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
+      backgroundColor: ColorConstants.DarkBlueColor ,
       bottomNavigationBar: Container(
         margin: const EdgeInsets.all(20),
         height: size.width * .155,

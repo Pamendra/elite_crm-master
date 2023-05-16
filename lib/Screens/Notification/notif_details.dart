@@ -1,14 +1,13 @@
 
 
-
-import 'package:elite_crm/Screens/Notification/notification%20page.dart';
+import 'package:sizer/sizer.dart';
 import 'package:elite_crm/Utils/color_constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:sizer/sizer.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../Service/AddReport Service.dart';
-
+import '../../Utils/gradient_color.dart';
 
 
 class NotificationPage extends StatefulWidget {
@@ -30,15 +29,14 @@ class _NotificationPageState extends State<NotificationPage> {
     String id = widget.id;
     AddReportService().fetchData(id).then((notification) {
       setState(() {
-        Title = notification.title;
-        Description = notification.desc;
-        Link = notification.links;
-        Docs = notification.docs;
+        Title = '${notification.title}';
+        Description = '${notification.desc}';
+        Link = '${notification.links}';
+        Docs = '${notification.docs}';
       });
     }).catchError((error) {
       print(error);
     });
-
   }
 
   @override
@@ -50,109 +48,206 @@ class _NotificationPageState extends State<NotificationPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Center(child: Text('Notification Details')),
-        backgroundColor: ColorConstants.deppp,
-        automaticallyImplyLeading: false,
-      ),
-      bottomNavigationBar: Row(
-          children: [
-            InkWell(
-                onTap: () {
-                  Navigator.pop(context);
-                },
-                child: Container(
-                  padding: const EdgeInsets.all(15),
-                  width: 100.w,
-                  height: 5.8.h,
-                  color: ColorConstants.deppp,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
 
-                      Icon(
-                        Icons.arrow_back,
-                        color: Colors.black,
-                        size:20.sp,
-                      ),
-                      const Text( "Go Back", style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w500
-                      ),),
 
-                    ],
-                  ),
-                )),
-          ]),
-      body: Title.isNotEmpty
-          ? SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.only(top: 0),
-          child: Column(
-            children: [
-
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+        bottomNavigationBar: Row(children: [
+          InkWell(
+              onTap: () {
+                Navigator.pop(context);
+              },
+              child: Container(
+                padding: EdgeInsets.all(15),
+                width: 100.w,
+                height: 6.8.h,
+                color: ColorConstants.blueGrey,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    SizedBox(height: 50,),
-                    Text(
-                      'Title: ${Title ?? ''}',style: const TextStyle(
-                        fontSize: 20.0,
-                        color:Colors.black,
-                        letterSpacing: 2.0,
-
-                        fontWeight: FontWeight.w800
-                    ),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Text(
-                      'Description: ${Description ?? ''}'
-                      ,style: const TextStyle(
-                        fontSize: 20.0,
-                        fontStyle: FontStyle.italic,
-                        color:Colors.black,
-
-                        fontWeight: FontWeight.w600
-                    ),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Text(
-                      'Link: ${Link ?? ''}'
-                      ,style: const TextStyle(
-                        fontSize: 20.0,
-                        color:Colors.black,
-                        fontStyle: FontStyle.italic,
-                        fontWeight: FontWeight.w600
-                    ),
-                    ),
-
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Text(
-                      'Document: ${Docs ?? ''}'
-                      ,style: const TextStyle(
-                        fontSize: 20.0,
-                        color:Colors.black,
-                        fontStyle: FontStyle.italic,
-                        fontWeight: FontWeight.w600
-                    ),
-                    ),
+                     Text(" Go Back", style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      color: ColorConstants.white
+                    ),)
                   ],
                 ),
+              )),
+
+        ]),
+
+
+        appBar: AppBar(
+          title: Text('Notification'),
+          actions: [
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16),
+            ),
+            IconButton(
+              icon: const Icon(
+                Icons.notifications,
+                color: Colors.white,
               ),
-            ],
-          ),
+              onPressed: () {},
+            )
+          ],
+          centerTitle: true,
+          backgroundColor: Color.fromARGB(255, 213, 85, 40),
         ),
-      )
-          : const Center(child: CircularProgressIndicator()),
+
+
+        body: SingleChildScrollView(
+
+
+          child: Container(
+            height: 100.h,
+            decoration: gradient_login,
+            child: Padding(
+              padding: const EdgeInsets.only(top: 0),
+
+              child: Column(
+
+                children: [
+                  const SizedBox(
+                    height: 30,
+                  ),
+
+                  const SizedBox(
+                    height: 0,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Column(
+
+
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+
+
+                        Container(
+                          child: Column(
+                            children: <Widget>[
+                              ListTile(
+                                title:  Text(
+                                  'Title :   $Title',
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+
+                                // subtitle: Text(
+                                //
+                                //   style: const TextStyle(
+                                //     fontSize: 18,
+                                //
+                                //     fontWeight: FontWeight.bold,
+                                //     color: Colors.white,
+                                //   ),
+                                // ),
+                              ),
+                              const Divider(
+                                color: Colors.white,
+                                height: 25,
+                                thickness: 2,
+                                indent: 5,
+                                endIndent: 5,
+                              ),
+                              ListTile(
+                                title:  const Text(
+                                  'Description : ',
+                                  style:  TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                subtitle: Text(
+                                  Description,
+                                  style: const TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white,
+
+                                  ),
+                                ),
+                              ),
+                              const Divider(
+                                color: Colors.white,
+                                height: 25,
+                                thickness: 2,
+                                indent: 5,
+                                endIndent: 5,
+                              ),
+
+                              ListTile(
+                                title: const Text(
+                                  'Link :',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+
+                                subtitle: Text(
+                                  Link,
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                  softWrap: true,
+                                ),
+                                onTap: () async {
+
+                                  if (await canLaunch(Link)) {
+                                    await launch(Link, forceSafariVC: false,
+                                        forceWebView: false);
+                                  } else {
+                                    throw 'Could not launch $Link';
+                                  }
+                                },
+                              ),
+
+
+                              const Divider(
+                                color: Colors.white,
+                                height: 25,
+                                thickness: 2,
+                                indent: 5,
+                                endIndent: 5,
+                              ),
+
+
+                            ],
+                          ),
+                        ),
+
+
+                        SizedBox(
+                          width: double.infinity,
+                          height: 200,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              border: Border.all(color: ColorConstants.white),
+
+                              image: DecorationImage(
+                                image: NetworkImage(Docs),
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+
+
+                ],
+              ),
+            ),
+          ),
+        )
     );
   }
-
 }
