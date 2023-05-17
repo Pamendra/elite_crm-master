@@ -26,7 +26,7 @@ class CustomerReport extends StatefulWidget {
 class _CustomerReportState extends State<CustomerReport> {
   List<dynamic> _customerList = [];
   final ScrollController _scrollController = ScrollController();
-  String customerReport = '';
+  List<Map<String, dynamic>> customerReport = [];
   List<String> dataList = [];
   String _searchQuery = '';
   List<dynamic> _filteredCustomerList = [];
@@ -63,10 +63,10 @@ class _CustomerReportState extends State<CustomerReport> {
 
 
   Future<dynamic> _openCustomerReportDialog(String customerName) {
+    TextEditingController reportController = TextEditingController();
    return showDialog(
       context: context,
       builder: (BuildContext context) {
-        List<String> dataList = []; // Create a new list to store the entered data
         return AlertDialog(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(10.0)),
@@ -91,7 +91,7 @@ class _CustomerReportState extends State<CustomerReport> {
                   child: Scrollbar(
                     controller: _scrollController,
                     child: TextField(
-                      controller: TextEditingController(),
+                      controller: reportController,
                       onChanged: (value) {
                         setState(() {
                           dataList.add(value);
@@ -141,7 +141,8 @@ class _CustomerReportState extends State<CustomerReport> {
             ),
             TextButton(
               onPressed: () {
-                Navigator.of(context).pop(dataList.isNotEmpty ? dataList.first : null); // Pass the entered data back to the caller
+                String report = reportController.text;
+                Navigator.of(context).pop(report); // Pass the entered data back to the caller
               },
               child: const Text(
                 'Save',
@@ -172,10 +173,10 @@ class _CustomerReportState extends State<CustomerReport> {
               color: ColorConstants.blueGrey,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
+                children:  [
                    Text(
                     " Go Back",
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500,color: Colors.white),
+                    style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.w500,color: Colors.white),
                   )
                 ],
               ),
@@ -199,11 +200,11 @@ class _CustomerReportState extends State<CustomerReport> {
               color: ColorConstants.deppp,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: const[
+                children: [
                    Text(
                     " Continue",
                     style: TextStyle(
-                        fontSize: 20,
+                        fontSize: 15.sp,
                         fontWeight: FontWeight.w500,
                         color: Colors.white),
                   ),
@@ -435,7 +436,7 @@ class _CustomerReportState extends State<CustomerReport> {
                     color: isCustomerSelected ? Colors.green : null, // Set green color if customer is selected
                     child: ListTile(
                       title: subheadingText2(title: customer['name']),
-                      trailing: isCustomerSelected ? Icon(Icons.check, color: Colors.white) : null, // Show check icon if customer is selected
+                      trailing: isCustomerSelected ? const Icon(Icons.check, color: Colors.white) : null, // Show check icon if customer is selected
                     ),
                   ),
                   onTap: () {
@@ -443,12 +444,12 @@ class _CustomerReportState extends State<CustomerReport> {
                       if (isCustomerSelected) {
                         return;
                       } else {
-                        _openCustomerReportDialog(customer['name']).then((value) {
-                          if (value != null) {
+                        _openCustomerReportDialog(customer['name']).then((report) {
+                          if (report != null) {
                             setState(() {
                               _customerLists.add({
                                 'name': customer['name'],
-                                'report': value,
+                                'report': report,
                               });
                             });
                           }
@@ -477,12 +478,12 @@ class _CustomerReportState extends State<CustomerReport> {
                       if (isCustomerSelected) {
                        return;
                       } else {
-                        _openCustomerReportDialog(customer['name']).then((value) {
-                          if (value != null) {
+                        _openCustomerReportDialog(customer['name']).then((report) {
+                          if (report != null) {
                             setState(() {
                               _customerLists.add({
                                 'name': customer['name'],
-                                'report': value,
+                                'report': report,
                               });
                             });
                           }

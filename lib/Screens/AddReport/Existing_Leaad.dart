@@ -90,7 +90,7 @@ class _AddReportState extends State<AddReport> {
 
 
                        Text( "Cancel", style: TextStyle(
-                          fontSize: 20,
+                          fontSize: 15.sp,
                           fontWeight: FontWeight.w500,
                         color: ColorConstants.white
                       ),),
@@ -115,11 +115,9 @@ class _AddReportState extends State<AddReport> {
                   color: ColorConstants.deppp,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      // Text("Continue "),
-
+                    children:  [
                        Text( "Next", style: TextStyle(
-                          fontSize: 20,
+                          fontSize: 15.sp,
                           fontWeight: FontWeight.w500,
                          color: Colors.white
                       ),),

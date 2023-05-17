@@ -62,10 +62,10 @@ class _notificationState extends State<notification> {
               color: ColorConstants.blueGrey,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children:const [
+                children: [
                    Text(
                     " Go Back",
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500,color: Colors.white),
+                    style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.w500,color: Colors.white),
                   )
                 ],
               ),

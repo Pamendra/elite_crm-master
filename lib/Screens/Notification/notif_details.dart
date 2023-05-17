@@ -72,7 +72,7 @@ class _NotificationPageState extends State<NotificationPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(" Go Back", style: TextStyle(
-                        fontSize: 20,
+                        fontSize: 15.sp,
                         fontWeight: FontWeight.bold,
                         color: ColorConstants.white
                     ),)
