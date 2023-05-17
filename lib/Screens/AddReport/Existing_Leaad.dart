@@ -143,7 +143,7 @@ class _AddReportState extends State<AddReport> {
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Container(
-          height: 100.h,
+          height: 75.h,
           decoration: gradient_login,
           child: SafeArea(
             child: Padding(
@@ -220,7 +220,7 @@ class _AddReportState extends State<AddReport> {
                     height: 10,
                   ),
                     headingTextwithsmallwhite(title: 'Enter the Existing lead'),
-                    SizedBox(height: 3,),
+                    const SizedBox(height: 3,),
                     TypeAheadFormField(
                       textFieldConfiguration: TextFieldConfiguration(
                         controller: _controller,
@@ -251,9 +251,12 @@ class _AddReportState extends State<AddReport> {
                             (lead) => lead['name'] == suggestion,
                             orElse: () => null);
                         if (lead != null) {
-                          return ListTile(
-                            title: Text('${lead['name']}, ${lead['cname']}',style: TextStyle(fontSize: 10.sp, color: Colors.black, fontFamily: "railLight"),),
-                            subtitle: Text('${lead['state']}, ${lead['city']}, ${lead['phone']}',style: TextStyle(fontSize: 10.sp, color: Colors.black, fontFamily: "railLight"),),
+                          return Card(
+                            color: ColorConstants.DarkBlueColor,
+                            child: ListTile(
+                              title: Text('${lead['name']}, ${lead['cname']}',style: TextStyle(fontSize: 10.sp, color: Colors.white, fontFamily: "railLight"),),
+                              subtitle: Text('${lead['state']}, ${lead['city']}, ${lead['phone']}',style: TextStyle(fontSize: 10.sp, color: Colors.white, fontFamily: "railLight"),),
+                            ),
                           );
                         } else {
                           return const SizedBox.shrink();
@@ -289,6 +292,7 @@ class _AddReportState extends State<AddReport> {
                             child: Scrollbar(
                               controller: _scrollController,
                               child: TextField(
+                                readOnly: true,
                                 controller: name,
                                 style: TextStyle(
                                     fontSize: 10.sp,

@@ -114,7 +114,7 @@ class _DealerDetailsState extends State<DealerDetails> {
           ?
       SingleChildScrollView(
         child: Container(
-          height: 100.h,
+          height: 85.h,
           decoration: gradient_login,
           child: Padding(
             padding: const EdgeInsets.only(top: 0),

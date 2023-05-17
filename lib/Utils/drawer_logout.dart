@@ -95,6 +95,44 @@ class DrawerLogout extends StatelessWidget {
         });
   }
 
+
+  void _showLogoutDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+
+              borderRadius: const BorderRadius.all(Radius.circular(10.0)),
+              side: BorderSide(
+                  color: ColorConstants.deppp, width: 2
+              )),
+          backgroundColor: ColorConstants.DarkBlueColor,
+          title: headingTextwhite(title: 'Logout'),
+          content: headingTextwithsmallwhite(title: 'Are you sure you want to logout?'),
+          actions: [
+            ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Close the dialog
+              },style: ElevatedButton.styleFrom(backgroundColor: ColorConstants.blueGrey),
+              child:  headingTextwithsmallwhite(title: 'Cancel',),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).pushAndRemoveUntil(
+                  MaterialPageRoute(builder: (context) => const LoginPage()),
+                      (Route<dynamic> route) => false,
+                );
+              },style: ElevatedButton.styleFrom(backgroundColor: ColorConstants.deppp),
+              child: headingTextwithsmallwhite(title: 'Logout',),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -190,19 +228,14 @@ class DrawerLogout extends StatelessWidget {
                     onTap: () async {
                       var sharedpref = await SharedPreferences.getInstance();
                       sharedpref.setBool(SplashScreenState.KEYLOGIN, false);
-
-
-                      Navigator.of(context).pushAndRemoveUntil(
-                          MaterialPageRoute(
-                              builder: (context) => const LoginPage()),
-                              (Route route) => false);
+                      _showLogoutDialog(context);
                     }
                     ),
               ),
 
 
               Padding(
-                padding: const EdgeInsets.only(top: 300),
+                padding: const EdgeInsets.only(top: 250),
                 child: Column(
                   children: [
 

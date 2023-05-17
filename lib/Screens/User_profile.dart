@@ -88,12 +88,12 @@ class _userprofile_pagesState extends State<userprofile_pages> {
         child: SingleChildScrollView(
           scrollDirection: Axis.vertical,
           child: Container(
-            height: 100.h,
+            height: 80.h,
             decoration: gradient_login,
             child: Form(
               key: _formKey,
               child: Padding(
-                padding:  EdgeInsets.all(16.0),
+                padding:  const EdgeInsets.all(16.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
@@ -140,7 +140,7 @@ class _userprofile_pagesState extends State<userprofile_pages> {
                     const SizedBox(height: 5,),
                     Container(
                       width: 95.w,
-                      height: 6.5.h,
+                      height: 6.8.h,
                       child: DropdownButtonFormField(
                         dropdownColor: ColorConstants.white,
                         style: const TextStyle(color: Colors.black),
@@ -295,7 +295,7 @@ class _userprofile_pagesState extends State<userprofile_pages> {
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
                             _formKey.currentState!.save();
-                            Fluttertoast.showToast(msg: 'Update Successfully');
+                            Fluttertoast.showToast(msg: 'Updated Successfully');
                           }
                         },
                         style: ElevatedButton.styleFrom(

@@ -37,15 +37,23 @@ class _LoginPageState extends State<LoginPage> {
       isLoading = true;
     });
     AlertDialog alert = AlertDialog(
+      shape: RoundedRectangleBorder(
+
+          borderRadius: const BorderRadius.all(Radius.circular(10.0)),
+          side: BorderSide(
+              color: ColorConstants.deppp, width: 2
+          )),
+      backgroundColor: ColorConstants.DarkBlueColor,
       content: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
+       // mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const CircularProgressIndicator(
             color: Colors.deepOrange,
           ),
+          const SizedBox(width: 10,),
           Container(
             margin: const EdgeInsets.only(left: 7),
-            child: const Text("Loading..."),
+            child:  Text("Loading...",style: TextStyle(color: ColorConstants.white),),
           ),
         ],
       ),
@@ -173,7 +181,7 @@ class _LoginPageState extends State<LoginPage> {
                      child: Row(
                        mainAxisAlignment: MainAxisAlignment.end,
                        children: const [
-                         Text('ForgetPassword?',style: TextStyle(fontWeight: FontWeight.bold,color: Colors.white),)
+                         Text('Forget Password?',style: TextStyle(fontWeight: FontWeight.bold,color: Colors.white),)
                        ],
                      ),
                    ), const SizedBox(height: 10,),
@@ -186,17 +194,25 @@ class _LoginPageState extends State<LoginPage> {
                                context: context,
                                builder: (BuildContext context){
                                  return  AlertDialog(
-                                   // title: Text("Alert Dialog"),
-                                   content: const Text("      Enter valid Email"),
-                                   actions: [
-                                     Center(
-                                       child: ElevatedButton(onPressed: (){
-                                         Navigator.pop(context);
-                                       },style: ElevatedButton.styleFrom(
-                                           backgroundColor: ColorConstants.primaryColor
-                                       ), child: const Text('Ok')),
-                                     ),
-                                   ],
+                                   shape: RoundedRectangleBorder(
+
+                                       borderRadius: const BorderRadius.all(Radius.circular(10.0)),
+                                       side: BorderSide(
+                                           color: ColorConstants.deppp, width: 2
+                                       )),
+                                   backgroundColor: ColorConstants.DarkBlueColor,
+                                    title: Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        const Text("Message",style: TextStyle(color: Colors.white)),
+                                        InkWell(
+                                            onTap: (){
+                                              Navigator.pop(context);
+                                            },
+                                            child: const Icon(Icons.close,color: Colors.white,))
+                                      ],
+                                    ),
+                                   content: const Text("Please enter username",style: TextStyle(color: Colors.white),),
                                  );
                                }
                            );
@@ -207,17 +223,25 @@ class _LoginPageState extends State<LoginPage> {
                                context: context,
                                builder: (BuildContext context){
                                  return  AlertDialog(
-                                   // title: Text("Alert Dialog"),
-                                   content: const Text("Enter valid Password"),
-                                   actions: [
-                                     Center(
-                                       child: ElevatedButton(onPressed: (){
-                                         Navigator.pop(context);
-                                       },style: ElevatedButton.styleFrom(
-                                           backgroundColor: ColorConstants.appcolor
-                                       ), child: const Text('Ok')),
-                                     ),
-                                   ],
+                                   shape: RoundedRectangleBorder(
+
+                                       borderRadius: const BorderRadius.all(Radius.circular(10.0)),
+                                       side: BorderSide(
+                                           color: ColorConstants.deppp, width: 2
+                                       )),
+                                   backgroundColor: ColorConstants.DarkBlueColor,
+                                   title: Row(
+                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                     children: [
+                                       const Text("Message",style: TextStyle(color: Colors.white)),
+                                       InkWell(
+                                           onTap: (){
+                                             Navigator.pop(context);
+                                           },
+                                           child: const Icon(Icons.close,color: Colors.white,))
+                                     ],
+                                   ),
+                                   content: const Text("Please enter password",style: TextStyle(color: Colors.white)),
                                  );
                                }
                            );
@@ -228,11 +252,10 @@ class _LoginPageState extends State<LoginPage> {
                            Utils().setUsername(emailController.text);
                            var sharedpref = await SharedPreferences.getInstance();
                            sharedpref.setBool(SplashScreenState.KEYLOGIN, true);
-
                          }
                        },style: ElevatedButton.styleFrom(
                            backgroundColor: ColorConstants.deppp
-                       ), child: const Text('SignIn')))
+                       ), child: const Text('Sign in')))
                  ],
                ),
              ),

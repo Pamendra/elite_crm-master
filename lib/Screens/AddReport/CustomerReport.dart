@@ -403,9 +403,20 @@ class _CustomerReportState extends State<CustomerReport> {
                     },
                     decoration: InputDecoration(
                         filled: true,
-                        fillColor: Colors.white,
-                        suffixIcon: const Icon(Icons.search),
-                        hintText: 'Search',
+                        fillColor: ColorConstants.Darkopacity,
+                        enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: ColorConstants.deppp,width: 3
+                            )
+                        ),
+
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8.0),
+                          borderSide:  BorderSide(color: ColorConstants.deppp, width: 3),
+                        ),
+                        suffixIcon: const Icon(Icons.search,color: Colors.white,),
+                        hintText: 'Search ...',
+                        hintStyle: const TextStyle(color: Colors.white),
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(5))),
                   ),
