@@ -6,6 +6,7 @@ import 'package:elite_crm/Utils/gradient_color.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:sizer/sizer.dart';
+import '../Service/AddReport Service.dart';
 import '../Service/dealerList.dart';
 import '../Utils/TextWidgets.dart';
 import '../Utils/drawer_logout.dart';
@@ -27,13 +28,8 @@ class _DealerListState extends State<DealerList> {
 
 
 
-
-
-
   @override
   Widget build(BuildContext context) {
-    // Size size = MediaQuery.of(context).size;
-
 
     return Scaffold(
 

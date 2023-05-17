@@ -1,5 +1,6 @@
 
 import 'package:elite_crm/Screens/Notification/notification%20page.dart';
+import 'package:elite_crm/Screens/bottomNavigationPages.dart';
 import 'package:elite_crm/Utils/color_constants.dart';
 import 'package:elite_crm/Utils/gradient_color.dart';
 import 'package:flutter/cupertino.dart';
@@ -62,6 +63,7 @@ class _PreviewReportState extends State<PreviewReport> {
         InkWell(
             onTap: () {
              Fluttertoast.showToast(msg: 'Add Report Successfully',toastLength: Toast.LENGTH_SHORT);
+             Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const Homepage()), (route) => false);
             },
             child: Container(
               padding: const EdgeInsets.all(15),
