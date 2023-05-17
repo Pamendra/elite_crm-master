@@ -505,6 +505,13 @@ class _AddReportState extends State<AddReport> {
                             ),
                           )
                       ),
+                      SizedBox(height: 10,),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: const [
+                          InkWell(child: Text('Previous Report',style: TextStyle(decoration: TextDecoration.underline,color: Colors.white),))
+                        ],
+                      )
                     ],
                   ),
                     ],

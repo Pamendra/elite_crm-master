@@ -7,9 +7,11 @@ import 'package:elite_crm/Screens/User_profile.dart';
 import 'package:elite_crm/Utils/setget.dart';
 import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 
 
+import '../Screens/Splash_Screen/splash_screen.dart';
 import '../Screens/bottomNavigationPages.dart';
 import 'PrimaryButton.dart';
 import 'TextWidgets.dart';
@@ -41,7 +43,7 @@ class DrawerLogout extends StatelessWidget {
                 side: BorderSide(
                     color: ColorConstants.deppp, width: 2
                 )),
-            backgroundColor: ColorConstants.white,
+            backgroundColor: ColorConstants.DarkBlueColor,
             insetPadding: const EdgeInsets.all(20),
 
             actionsPadding: const EdgeInsets.symmetric(horizontal: 10),
@@ -98,7 +100,7 @@ class DrawerLogout extends StatelessWidget {
     return SizedBox(
       height: MediaQuery.of(context).size.height,
       child: Drawer(
-          backgroundColor: ColorConstants.Darkopacity,
+          backgroundColor: ColorConstants.DarkBlueColor,
           child: ListView(
             padding: EdgeInsets.zero,
             children: [
@@ -186,6 +188,10 @@ class DrawerLogout extends StatelessWidget {
                           color: Colors.white),
                     ),
                     onTap: () async {
+                      var sharedpref = await SharedPreferences.getInstance();
+                      sharedpref.setBool(SplashScreenState.KEYLOGIN, false);
+
+
                       Navigator.of(context).pushAndRemoveUntil(
                           MaterialPageRoute(
                               builder: (context) => const LoginPage()),

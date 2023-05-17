@@ -22,6 +22,20 @@ class headingText extends StatelessWidget {
 
 }
 
+class headingTextwhite extends StatelessWidget {
+  headingTextwhite({Key? key, required this.title}) : super(key: key);
+  String title;
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(title,style:TextStyle(fontWeight:FontWeight.w700,color:white,fontFamily:"railBold",
+        fontSize:12.sp,letterSpacing:1),);
+  }
+
+
+}
+
 class headingTextwithsmallwhite extends StatelessWidget {
   headingTextwithsmallwhite({Key? key, required this.title}) : super(key: key);
   String title;

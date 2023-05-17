@@ -1,5 +1,6 @@
 import 'package:elite_crm/Screens/Homepage.dart';
 import 'package:elite_crm/Screens/LoginScreen/login_screen.dart';
+import 'package:elite_crm/Screens/Splash_Screen/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
@@ -25,7 +26,7 @@ class MyApp extends StatelessWidget {
       child:  Sizer(builder: (context, orientation, deviceType) {
         return const MaterialApp(
           debugShowCheckedModeBanner: false,
-          home: LoginPage(),
+          home: SplashScreen(),
         );
       }),
     );

@@ -26,10 +26,12 @@ class CustomerReport extends StatefulWidget {
 class _CustomerReportState extends State<CustomerReport> {
   List<dynamic> _customerList = [];
   final ScrollController _scrollController = ScrollController();
-
+  String customerReport = '';
   List<String> dataList = [];
   String _searchQuery = '';
   List<dynamic> _filteredCustomerList = [];
+  List<Map<String, dynamic>> _customerLists = [];
+
 
 
   void initState() {
@@ -60,65 +62,69 @@ class _CustomerReportState extends State<CustomerReport> {
   }
 
 
-  void _openCustomerReportDialog(String customerName) {
-    showDialog(
+  Future<dynamic> _openCustomerReportDialog(String customerName) {
+   return showDialog(
       context: context,
       builder: (BuildContext context) {
+        List<String> dataList = []; // Create a new list to store the entered data
         return AlertDialog(
-          title: Text(customerName),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(10.0)),
+            side: BorderSide(color: ColorConstants.deppp, width: 2),
+          ),
+          backgroundColor: ColorConstants.DarkBlueColor,
+          title: headingTextwhite(title: customerName),
           content: Container(
             width: double.maxFinite,
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text('Add Customer Report Here'),
+                headingTextwithsmallwhite(title: 'Add Customer Report Here'),
                 const SizedBox(height: 10),
                 Container(
-                    width: 100.w,
-                    decoration: BoxDecoration(
-                        borderRadius:
-                        BorderRadius.circular(5),
-                        border:
-                        Border.all(color: Colors.black)),
-                    child: Scrollbar(
-                      controller: _scrollController,
-                      child: TextField(
-                        controller: TextEditingController(),
-                        onChanged: (value) {
-                          setState(() {
-                            dataList.add(value);
-                          });
-                        },
-                        style: TextStyle(
-                            fontSize: 10.sp,
-                            color: Colors.black,
-                            fontFamily: "railLight"),
-                        //controller: report,
-                        keyboardType: TextInputType.multiline,
-                        maxLines: 5,
-                        decoration: InputDecoration(
-                          hintText: 'Customer Report',
-                          hintStyle: TextStyle(
-                            fontSize: 10.sp,
-                            color: Colors.grey,
-                            fontFamily: "railLight",),
-                          isDense: true,
-                          border: OutlineInputBorder(
-                            borderRadius:
-                            BorderRadius.circular(5),
-                            borderSide: const BorderSide(
-                              width: 0,
-                              style: BorderStyle.none,
-                            ),
-                          ),
-                          filled: true,
-                          contentPadding:
-                          const EdgeInsets.all(10),
-                          fillColor: Colors.white,
-                        ),
+                  width: 100.w,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5),
+                    border: Border.all(color: Colors.black),
+                  ),
+                  child: Scrollbar(
+                    controller: _scrollController,
+                    child: TextField(
+                      controller: TextEditingController(),
+                      onChanged: (value) {
+                        setState(() {
+                          dataList.add(value);
+                        });
+                      },
+                      style: TextStyle(
+                        fontSize: 10.sp,
+                        color: Colors.black,
+                        fontFamily: "railLight",
                       ),
-                    )
+                      keyboardType: TextInputType.multiline,
+                      maxLines: 5,
+                      decoration: InputDecoration(
+                        hintText: 'Customer Report',
+                        hintStyle: TextStyle(
+                          fontSize: 10.sp,
+                          color: Colors.grey,
+                          fontFamily: "railLight",
+                        ),
+                        isDense: true,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(5),
+                          borderSide: const BorderSide(
+                            width: 0,
+                            style: BorderStyle.none,
+                          ),
+                        ),
+                        filled: true,
+                        contentPadding: const EdgeInsets.all(10),
+                        fillColor: Colors.white,
+                      ),
+                    ),
+                  ),
                 ),
               ],
             ),
@@ -126,16 +132,21 @@ class _CustomerReportState extends State<CustomerReport> {
           actions: [
             TextButton(
               onPressed: () {
-                Navigator.of(context).pop();
+                Navigator.of(context).pop(); // Close the dialog without saving
               },
-              child: const Text('Cancel'),
+              child: const Text(
+                'Cancel',
+                style: TextStyle(color: Colors.white),
+              ),
             ),
             TextButton(
               onPressed: () {
-                // Add report logic goes here
-                Navigator.of(context).pop();
+                Navigator.of(context).pop(dataList.isNotEmpty ? dataList.first : null); // Pass the entered data back to the caller
               },
-              child: const Text('Save'),
+              child: const Text(
+                'Save',
+                style: TextStyle(color: Colors.white),
+              ),
             ),
           ],
         );
@@ -174,7 +185,10 @@ class _CustomerReportState extends State<CustomerReport> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => PreviewData(dataList: dataList),
+                  builder: (context) => PreviewReport(
+                    customerLists: List.from(_customerLists),
+                    date: widget.date,general: widget.general,
+                  ),
                 ),
               );
             },
@@ -356,6 +370,13 @@ class _CustomerReportState extends State<CustomerReport> {
                         ),
                       )
                   ),
+                  SizedBox(height: 10,),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: const [
+                      InkWell(child: Text('Previous Report',style: TextStyle(decoration: TextDecoration.underline,color: Colors.white),))
+                    ],
+                  ),
                   const SizedBox(height: 10,),
                  Container(
                    height: 5.h,
@@ -389,65 +410,80 @@ class _CustomerReportState extends State<CustomerReport> {
                             borderRadius: BorderRadius.circular(5))),
                   ),
 
-                  SizedBox(
-                    height: 40.h,
-                    child:  _searchQuery.isEmpty
-                        ? ListView.builder(
-                      itemCount: _customerList.length,
-                      itemBuilder: (context, index) {
-                        final customer = _customerList[index];
-                        return InkWell(
-                          child: Card(
-                            child: ListTile(
-                              title: subheadingText2(title: customer['name'],),
-                              leading: Checkbox(
-                                value: _customerList.contains(customer['name']),
-                                onChanged: (newValue) {
-                                  setState(() {
-                                    if (newValue != null) {
-                                      if (newValue) {
-                                        _customerList.add(customer['name']);
-                                        _openCustomerReportDialog(customer['name']);
-                                      } else {
-                                        _customerList.remove(customer['name']);
-                                      }
-                                    }
-                                  });
-                                },
-                              ),
-                            ),
-                          ),
-                        );
-                      },
-                    )
-                        : ListView.builder(
-                      itemCount: _filteredCustomerList.length,
-                      itemBuilder: (context, index) {
-                        final customer = _filteredCustomerList[index];
-                        return Card(
-                          child: ListTile(
-                            title: Text(customer['name']),
-                            leading: Checkbox(
-                              value: _customerList.contains(customer['name']),
-                              onChanged: (newValue) {
-                                setState(() {
-                                  if (newValue != null) {
-                                    if (newValue) {
-                                      _customerList.add(customer['name']);
-                                      _openCustomerReportDialog(customer['name']);
-                                    } else {
-                                      _customerList.remove(customer['name']);
-                                    }
-                                  }
-                                });
-                              },
-                            ),
-                          ),
-                        );
-                      },
+
+          SizedBox(
+            height: 50.h,
+            child: _searchQuery.isEmpty
+                ? ListView.builder(
+              itemCount: _customerList.length,
+              itemBuilder: (context, index) {
+                final customer = _customerList[index];
+                final isCustomerSelected = _customerLists.any((item) => item['name'] == customer['name']);
+                return InkWell(
+                  child: Card(
+                    color: isCustomerSelected ? Colors.green : null, // Set green color if customer is selected
+                    child: ListTile(
+                      title: subheadingText2(title: customer['name']),
+                      trailing: isCustomerSelected ? Icon(Icons.check, color: Colors.white) : null, // Show check icon if customer is selected
                     ),
                   ),
-                ],
+                  onTap: () {
+                    setState(() {
+                      if (isCustomerSelected) {
+                        return;
+                      } else {
+                        _openCustomerReportDialog(customer['name']).then((value) {
+                          if (value != null) {
+                            setState(() {
+                              _customerLists.add({
+                                'name': customer['name'],
+                                'report': value,
+                              });
+                            });
+                          }
+                        });
+                      }
+                    });
+                  },
+                );
+              },
+            )
+                : ListView.builder(
+              itemCount: _filteredCustomerList.length,
+              itemBuilder: (context, index) {
+                final customer = _filteredCustomerList[index];
+                final isCustomerSelected = _customerLists.any((item) => item['name'] == customer['name']);
+                return InkWell(
+                  child: Card(
+                    color: isCustomerSelected ? Colors.green : null, // Set green color if customer is selected
+                    child: ListTile(
+                      title: Text(customer['name']),
+                      trailing: isCustomerSelected ? Icon(Icons.check, color: Colors.white) : null, // Show check icon if customer is selected
+                    ),
+                  ),
+                  onTap: () {
+                    setState(() {
+                      if (isCustomerSelected) {
+                       return;
+                      } else {
+                        _openCustomerReportDialog(customer['name']).then((value) {
+                          if (value != null) {
+                            setState(() {
+                              _customerLists.add({
+                                'name': customer['name'],
+                                'report': value,
+                              });
+                            });
+                          }
+                        });
+                      }
+                    });
+                  },
+                );
+              },
+            ),
+          )
+          ],
               ),
             ),
           ]),

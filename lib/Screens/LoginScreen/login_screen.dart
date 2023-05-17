@@ -4,6 +4,7 @@ import 'package:elite_crm/Utils/gradient_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 import '../../Bloc/Login_Bloc/LoginBloc.dart';
 import '../../Bloc/Login_Bloc/LoginEvent.dart';
@@ -11,6 +12,7 @@ import '../../Bloc/Login_Bloc/LoginState.dart';
 import '../../Utils/color_constants.dart';
 import '../../Utils/drawer_login.dart';
 import '../../Utils/setget.dart';
+import '../Splash_Screen/splash_screen.dart';
 import '../bottomNavigationPages.dart';
 
 
@@ -224,6 +226,8 @@ class _LoginPageState extends State<LoginPage> {
                                LoginPressedEvent(emailController.text, passwordController.text));
                            showLoaderDialog(context);
                            Utils().setUsername(emailController.text);
+                           var sharedpref = await SharedPreferences.getInstance();
+                           sharedpref.setBool(SplashScreenState.KEYLOGIN, true);
 
                          }
                        },style: ElevatedButton.styleFrom(

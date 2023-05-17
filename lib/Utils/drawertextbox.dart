@@ -18,9 +18,9 @@ class DialogTextbox2 extends StatelessWidget {
           children: [
             Text(
               title,
-              style: TextStyle(fontWeight: FontWeight.w700, fontSize:12.sp,color:ColorConstants.DarkBlueColor,fontFamily:"railBold"),
+              style: TextStyle(fontWeight: FontWeight.w700, fontSize:12.sp,color:ColorConstants.white,fontFamily:"railBold"),
             ),
-            Text(subtitle,style: TextStyle( fontSize:12.sp,color:ColorConstants.DarkBlueColor,fontFamily:"railLight"))
+            Text(subtitle,style: TextStyle( fontSize:12.sp,color:ColorConstants.white,fontFamily:"railLight"))
 
           ],
         ),
