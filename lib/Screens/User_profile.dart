@@ -12,6 +12,7 @@ import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import '../Utils/ApploadingBar.dart';
 import '../Utils/dialogs_utils.dart';
 import '../Utils/drawer_logout.dart';
+import 'Notification/Model/multislect.dart';
 import 'Notification/notification page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -33,8 +34,8 @@ class _userprofile_pagesState extends State<userprofile_pages> {
   TextEditingController add = TextEditingController();
   TextEditingController phone = TextEditingController();
   TextEditingController email = TextEditingController();
-   List<dynamic> _selectedProfile = [];
-  //dynamic _selectedProfile;
+  // List<dynamic> _selectedProfile = [];
+  dynamic _selectedProfile;
   bool _isLoading = false;
 
   @override
@@ -115,38 +116,35 @@ class _userprofile_pagesState extends State<userprofile_pages> {
                       children: <Widget>[
 
 
-                        Container(
-                          width: 50.w,
-
-                          child:
-
-                          MultiSelectFormField(
-                            border:  OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: ColorConstants.deppp
-                              )
-                            ),
-                            autovalidate: AutovalidateMode.onUserInteraction,
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Please select at least one profile';
-                              }
-                              return '';
-                            },
-                            dataSource: _profileList
-                                .map((profile) => {'display': profile['name'], 'value': profile})
-                                .toList(),
-                            textField: 'display',
-                            title: const Text('Territory'),
-                            valueField: 'value',
-                            okButtonLabel: 'OK',
-                            cancelButtonLabel: 'CANCEL',
-                            initialValue: const [],
-                            onSaved: (value) {
-                              _selectedProfile = value;
-                            },
-                          ),
-                        ),
+                        // Container(
+                        //   width: 50.w,
+                        //   child: MultiSelectFormField(
+                        //     border:  OutlineInputBorder(
+                        //       borderSide: BorderSide(
+                        //         color: ColorConstants.deppp
+                        //       )
+                        //     ),
+                        //     autovalidate: AutovalidateMode.onUserInteraction,
+                        //     validator: (value) {
+                        //       if (value == null || value.isEmpty) {
+                        //         return 'Please select at least one profile';
+                        //       }
+                        //       return '';
+                        //     },
+                        //     dataSource: _profileList
+                        //         .map((profile) => {'display': profile['name'], 'value': profile})
+                        //         .toList(),
+                        //     textField: 'display',
+                        //     title: const Text('Territory'),
+                        //     valueField: 'value',
+                        //     okButtonLabel: 'OK',
+                        //     cancelButtonLabel: 'CANCEL',
+                        //     initialValue: const [],
+                        //     onSaved: (value) {
+                        //       _selectedProfile = value;
+                        //     },
+                        //   ),
+                        // ),
 
 
                         const SizedBox(
@@ -156,53 +154,60 @@ class _userprofile_pagesState extends State<userprofile_pages> {
 
                         headingTextwithsmallwhite(title: 'Territory'),
                         const SizedBox(height: 5,),
-                        // Container(
-                        //   width: 95.w,
-                        //   height: 6.8.h,
-                        //   child: DropdownButtonFormField(
-                        //     dropdownColor: ColorConstants.white,
-                        //     style: const TextStyle(color: Colors.black),
-                        //     decoration: InputDecoration(
-                        //
-                        //       filled: true,
-                        //       fillColor: Colors.white,
-                        //       border: OutlineInputBorder(
-                        //         borderSide: BorderSide(
-                        //           color: ColorConstants.white,
-                        //         ),
-                        //       ),
-                        //       focusedBorder: OutlineInputBorder(
-                        //         borderRadius: BorderRadius.circular(8.0),
-                        //         borderSide: BorderSide(
-                        //             color: ColorConstants.deppp, width: 1),
-                        //       ),
-                        //     ),
-                        //     autovalidateMode: AutovalidateMode
-                        //         .onUserInteraction,
-                        //     // validator: (value) {
-                        //     //   if (value == null || value.isEmpty) {
-                        //     //     return 'Please select at least one profile';
-                        //     //   }
-                        //     //   return null;
-                        //     // },
-                        //     items: _profileList
-                        //         .map((profile) =>
-                        //         DropdownMenuItem(
-                        //           value: profile,
-                        //           child: Text(profile['name']),
-                        //         ))
-                        //         .toList(),
-                        //     onChanged: (value) {
-                        //       _selectedProfile = value;
-                        //     },
-                        //     value: _selectedProfile,
-                        //     hint: const Text('Territory'),
-                        //   ),
-                        // ),
+                        Container(
+                          width: 95.w,
+                          height: 6.8.h,
+                          child:
+                          DropdownButtonFormField(
+                            dropdownColor: ColorConstants.white,
+                            style: const TextStyle(color: Colors.black),
+                            decoration: InputDecoration(
+
+                              filled: true,
+                              fillColor: Colors.white,
+                              border: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: ColorConstants.white,
+                                ),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(8.0),
+                                borderSide: BorderSide(
+                                    color: ColorConstants.deppp, width: 1),
+                              ),
+                            ),
+                            autovalidateMode: AutovalidateMode
+                                .onUserInteraction,
+                            // validator: (value) {
+                            //   if (value == null || value.isEmpty) {
+                            //     return 'Please select at least one profile';
+                            //   }
+                            //   return null;
+                            // },
+                            items: _profileList
+                                .map((profile) =>
+                                DropdownMenuItem(
+                                  value: profile,
+                                  child: Text(profile['name']),
+                                ))
+                                .toList(),
+                            onChanged: (value) {
+                              _selectedProfile = value;
+                            },
+                            value: _selectedProfile,
+                            hint: const Text('Territory'),
+                          ),
+                        ),
 
                         const SizedBox(
                           height: 30,
                         ),
+
+                        // ElevatedButton(onPressed: (){
+                        //   Navigator.of(context).pushReplacement(
+                        //       MaterialPageRoute(
+                        //           builder: (BuildContext context) => const HomePagew()));
+                        //}, child: const Text('Sigma')),
                         headingTextwithsmallwhite(title: 'Address'),
                         SizedBox(height: 5,),
                         TextFormField(
