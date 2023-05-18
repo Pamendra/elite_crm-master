@@ -17,17 +17,16 @@ class LoadingBar extends StatelessWidget {
     return Container(
         padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(
-          border: Border.all(color: ColorConstants.primaryColor, width: 2),
+          border: Border.all(color: ColorConstants.deppp, width: 2),
           borderRadius: const BorderRadius.all(
             Radius.circular(8),
           ),
-          color: Colors.black87,
+          color: ColorConstants.DarkBlueColor,
           shape: BoxShape.rectangle,
         ),
-        child:  Lottie.asset(
-    'assets/animations/loading1.json',
-    frameRate: FrameRate.max,height: 50
-    ),
+        child:  CircularProgressIndicator(
+          color: ColorConstants.deppp,
+        )
     );
   }
 }

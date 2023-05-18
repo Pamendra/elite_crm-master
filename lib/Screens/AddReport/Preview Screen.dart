@@ -62,7 +62,7 @@ class _PreviewReportState extends State<PreviewReport> {
             )),
         InkWell(
             onTap: () {
-             Fluttertoast.showToast(msg: 'Add Report Successfully',toastLength: Toast.LENGTH_SHORT);
+             Fluttertoast.showToast(msg: 'Report Added Successfully',toastLength: Toast.LENGTH_SHORT);
              Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const Homepage()), (route) => false);
             },
             child: Container(
@@ -101,7 +101,7 @@ class _PreviewReportState extends State<PreviewReport> {
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Container(
-          height: 100.h,
+          height: 90.h,
           decoration: gradient_login,
           child: Column(children: [
             const SizedBox(
@@ -111,9 +111,9 @@ class _PreviewReportState extends State<PreviewReport> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
 
-                ProgressBarThin(
-                    deviceWidth:8.w,
-                    color:ColorConstants.deppp),
+                // ProgressBarThin(
+                //     deviceWidth:8.w,
+                //     color:ColorConstants.deppp),
                 Column(
                   children: [
                     CircleAvatar(
@@ -159,9 +159,9 @@ class _PreviewReportState extends State<PreviewReport> {
                     subheadingText(title: "Preview")
                   ],
                 ),
-                ProgressBarThin(
-                    deviceWidth:8.w,
-                    color: ColorConstants.deppp),
+                // ProgressBarThin(
+                //     deviceWidth:8.w,
+                //     color: ColorConstants.deppp),
               ],
             ),
             const SizedBox(
@@ -201,6 +201,16 @@ class _PreviewReportState extends State<PreviewReport> {
                     ),
                   ),
                   const SizedBox(height: 10,),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 5),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        headingTextwithsmallwhite(title: 'General Report'),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 3,),
                   Container(
                       width: 95.w,
                       decoration: BoxDecoration(
@@ -235,21 +245,48 @@ class _PreviewReportState extends State<PreviewReport> {
                       )
                   ),
                   const SizedBox(height: 10,),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 5),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        headingTextwithsmallwhite(title: 'Customer Report'),
+                      ],
+                    ),
+                  ),
+
                   SizedBox(
                     height: 50.h,
+                    width: 95.w,
                     child: ListView.builder(
                       itemCount: customerList.length,
                       itemBuilder: (context, index) {
                         final customer = customerList[index];
                         return Card(
+
                           child: ListTile(
-                            title: Text('Customer Name: ${customer['name']}'),
-                            subtitle: Text('Customer Report: ${customer['report']}'),
+                            title:  Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Customer Name:  ${customer['name']}',
+                                  style: TextStyle(fontWeight: FontWeight.bold,fontSize: 10.sp),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 10),
+                                  child: Text(
+                                    'Customer Report:  ${ customer['report']}',
+                                    style: TextStyle(fontSize: 10.sp,color: Colors.black,fontFamily: "railLight",fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         );
                       },
                     ),
                   ),
+
 
                 ],
               ),

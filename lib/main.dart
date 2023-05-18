@@ -1,3 +1,4 @@
+import 'package:elite_crm/Bloc/UserUpdateBloc/UserUpdateBloc.dart';
 import 'package:elite_crm/Screens/Homepage.dart';
 import 'package:elite_crm/Screens/LoginScreen/login_screen.dart';
 import 'package:elite_crm/Screens/Splash_Screen/splash_screen.dart';
@@ -21,6 +22,8 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider<LoginBloc>(
             create: (context) => LoginBloc()),
+        BlocProvider<UserUpdateBloc>(
+            create: (context) => UserUpdateBloc()),
       ],
 
       child:  Sizer(builder: (context, orientation, deviceType) {

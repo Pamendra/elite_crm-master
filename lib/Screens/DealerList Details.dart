@@ -98,7 +98,7 @@ class _DealerDetailsState extends State<DealerDetails> {
           ]),
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: const Text('Dealer Profile'),
+        title: const Text('Dealers Profile'),
         actions: const [
 
           Padding(

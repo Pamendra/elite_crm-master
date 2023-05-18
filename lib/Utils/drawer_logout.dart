@@ -235,7 +235,7 @@ class DrawerLogout extends StatelessWidget {
 
 
               Padding(
-                padding: const EdgeInsets.only(top: 250),
+                padding: const EdgeInsets.only(top: 280),
                 child: Column(
                   children: [
 

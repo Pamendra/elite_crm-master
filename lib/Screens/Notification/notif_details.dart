@@ -29,7 +29,10 @@ class _NotificationPageState extends State<NotificationPage> {
 
   Future<void> _getUserDetails() async {
     String id = widget.id;
-    AddReportService().fetchData(id).then((notification) {
+    setState(() {
+      _isLoading = true;
+    });
+   await AddReportService().fetchData(id).then((notification) {
       setState(() {
         Title = '${notification.title}';
         Description = '${notification.desc}';
@@ -39,17 +42,16 @@ class _NotificationPageState extends State<NotificationPage> {
     }).catchError((error) {
       print(error);
     });
+    setState(() {
+      _isLoading = false;
+    });
   }
 
   @override
   void initState() {
-    setState(() {
-      _isLoading = true;
-    });
+
     _getUserDetails();
-    setState(() {
-      _isLoading = false;
-    });
+
     super.initState();
   }
 

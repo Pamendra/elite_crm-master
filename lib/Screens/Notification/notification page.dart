@@ -24,29 +24,30 @@ class _notificationState extends State<notification> {
 
   @override
   void initState() {
-    setState(() {
-      _isLoading = true;
-    });
+
     ShoiId();
-    setState(() {
-      _isLoading = false;
-    });
+
     super.initState();
 
   }
 
   ShoiId() async {
+
     String shopid = await Utils().getUsererId();
-    AddReportService().notification(shopid).then((value) {
+    setState(() {
+      _isLoading = true;
+    });
+   await AddReportService().notification(shopid).then((value) {
       setState(() {
         messages = value;
       });
     });
+    setState(() {
+      _isLoading = false;
+    });
   }
 
-  void _openCustomerReportDialog(String profileName) {
-    // TODO: Implement dialog to add report for the selected customer
-  }
+
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -73,18 +74,7 @@ class _notificationState extends State<notification> {
       ]),
       appBar: AppBar(
         title: const Text('Notification'),
-        actions: [
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16),
-          ),
-          IconButton(
-            icon: const Icon(
-              Icons.notifications,
-              color: Colors.white,
-            ),
-            onPressed: () {},
-          )
-        ],
+
         centerTitle: true,
         backgroundColor: const Color.fromARGB(255, 213, 85, 40),
       ),

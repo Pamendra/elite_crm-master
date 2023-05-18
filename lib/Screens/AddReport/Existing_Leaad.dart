@@ -141,7 +141,7 @@ class _AddReportState extends State<AddReport> {
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Container(
-          height: 75.h,
+          height: 90.h,
           decoration: gradient_login,
           child: SafeArea(
             child: Padding(
@@ -156,9 +156,9 @@ class _AddReportState extends State<AddReport> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
 
-                          ProgressBarThin(
-                              deviceWidth:8.w,
-                              color:ColorConstants.deppp),
+                          // ProgressBarThin(
+                          //     deviceWidth:8.w,
+                          //     color:ColorConstants.deppp),
                           Column(
                             children: [
                               CircleAvatar(
@@ -204,9 +204,9 @@ class _AddReportState extends State<AddReport> {
                               subheadingText1(title: "Preview")
                             ],
                           ),
-                          ProgressBarThin(
-                              deviceWidth:8.w,
-                              color: blueGrey),
+                          // ProgressBarThin(
+                          //     deviceWidth:8.w,
+                          //     color: blueGrey),
                         ],
                       ),
 
@@ -230,7 +230,8 @@ class _AddReportState extends State<AddReport> {
                         decoration: InputDecoration(
                           filled: true,
                           fillColor: Colors.white,
-                          hintText: 'Search',
+                          hintText: 'Search...',
+                          hintStyle: TextStyle(color: Colors.grey[500]),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(5),
                           ),
@@ -489,7 +490,7 @@ class _AddReportState extends State<AddReport> {
                               maxLines: 5,
                               decoration: InputDecoration(
                                 hintText: 'General Report',
-                                hintStyle: TextStyle(color:ColorConstants.DarkBlueColor,fontSize:10.sp,fontWeight:FontWeight.w400,fontFamily:"railLight",letterSpacing: 1),
+                                hintStyle: TextStyle(color:Colors.grey,fontSize:10.sp,fontWeight:FontWeight.w400,fontFamily:"railLight",letterSpacing: 1),
                                 isDense: true,
                                 border: OutlineInputBorder(
                                   borderRadius:

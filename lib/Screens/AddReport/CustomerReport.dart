@@ -103,7 +103,7 @@ class _CustomerReportState extends State<CustomerReport> {
                         fontFamily: "railLight",
                       ),
                       keyboardType: TextInputType.multiline,
-                      maxLines: 5,
+                      maxLines: 9,
                       decoration: InputDecoration(
                         hintText: 'Customer Report',
                         hintStyle: TextStyle(
@@ -130,23 +130,37 @@ class _CustomerReportState extends State<CustomerReport> {
             ),
           ),
           actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop(); // Close the dialog without saving
-              },
-              child: const Text(
-                'Cancel',
-                style: TextStyle(color: Colors.white),
+            Container(
+              height: 5.h,
+              decoration: BoxDecoration(
+                  border: Border.all(color: ColorConstants.blueGrey),
+                  borderRadius: BorderRadius.circular(5)
+              ),
+              child: TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop(); // Close the dialog without saving
+                },
+                child: const Text(
+                  'Cancel',
+                  style: TextStyle(color: Colors.white),
+                ),
               ),
             ),
-            TextButton(
-              onPressed: () {
-                String report = reportController.text;
-                Navigator.of(context).pop(report); // Pass the entered data back to the caller
-              },
-              child: const Text(
-                'Save',
-                style: TextStyle(color: Colors.white),
+            Container(
+              height: 5.h,
+              decoration: BoxDecoration(
+                  border: Border.all(color: ColorConstants.deppp),
+                borderRadius: BorderRadius.circular(5)
+              ),
+              child: TextButton(
+                onPressed: () {
+                  String report = reportController.text;
+                  Navigator.of(context).pop(report); // Pass the entered data back to the caller
+                },
+                child: const Text(
+                  'Save',
+                  style: TextStyle(color: Colors.white),
+                ),
               ),
             ),
           ],
@@ -228,7 +242,7 @@ class _CustomerReportState extends State<CustomerReport> {
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Container(
-          height: 100.h,
+          height: 90.h,
           decoration: gradient_login,
           child: Column(children: [
             const SizedBox(
@@ -238,9 +252,9 @@ class _CustomerReportState extends State<CustomerReport> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
 
-                ProgressBarThin(
-                    deviceWidth:8.w,
-                    color:ColorConstants.deppp),
+                // ProgressBarThin(
+                //     deviceWidth:8.w,
+                //     color:ColorConstants.deppp),
                 Column(
                   children: [
                     CircleAvatar(
@@ -286,9 +300,9 @@ class _CustomerReportState extends State<CustomerReport> {
                     subheadingText1(title: "Preview")
                   ],
                 ),
-                ProgressBarThin(
-                    deviceWidth:8.w,
-                    color: blueGrey),
+                // ProgressBarThin(
+                //     deviceWidth:8.w,
+                //     color: blueGrey),
               ],
             ),
             const SizedBox(
@@ -328,6 +342,15 @@ class _CustomerReportState extends State<CustomerReport> {
                     ),
                   ),
                   const SizedBox(height: 10,),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 5),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        headingTextwithsmallwhite(title: 'General Report'),
+                      ],
+                    ),
+                  ),
                   Container(
                       width: 95.w,
                       decoration: BoxDecoration(
@@ -416,7 +439,7 @@ class _CustomerReportState extends State<CustomerReport> {
                           borderSide:  BorderSide(color: ColorConstants.deppp, width: 3),
                         ),
                         suffixIcon: const Icon(Icons.search,color: Colors.white,),
-                        hintText: 'Search ...',
+                        hintText: 'Search...',
                         hintStyle: const TextStyle(color: Colors.white),
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(5))),
@@ -424,7 +447,7 @@ class _CustomerReportState extends State<CustomerReport> {
 
 
           SizedBox(
-            height: 50.h,
+            height: 35.h,
             child: _searchQuery.isEmpty
                 ? ListView.builder(
               itemCount: _customerList.length,
