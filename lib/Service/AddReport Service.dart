@@ -9,6 +9,8 @@ import '../Screens/Notification/Model/Notification_model.dart';
 
 class AddReportService{
 
+  /// Notification Pgae Api's
+
   Future<NotificationService> fetchData(String id) async {
     final dio = Dio();
     final response = await dio.post(
@@ -36,6 +38,21 @@ class AddReportService{
       throw Exception("API returned an error");
     }
   }
+
+/// Register Page dropdown data
+  Future<List> regProfieService() async {
+
+    var response = await Dio().post('https://elite-dealers.com/api/getTerritory.php');
+    if (response.statusCode == 200) {
+      var decodedJson = response.data;
+      List territory  = decodedJson['territory'];
+      return territory ;
+    } else {
+      throw Exception("API returned an error");
+    }
+  }
+
+  /// User Profile Api's
 
   Future<List> UserProfieService(String user_id, String access) async {
     var body = {"user_id": user_id, "usraccess": access};
@@ -65,6 +82,9 @@ class AddReportService{
   }
 
 
+/// Existing Lead Api's
+
+
   Future<List> getLeads(String keyword,String user_id) async {
     String url =
         "https://elite-dealers.com/api/checkExistingLeads.php?keyword=$keyword&userid=$user_id";
@@ -77,6 +97,8 @@ class AddReportService{
       throw Exception("API returned an error");
     }
   }
+
+  /// Customer List Api's
 
   Future<List> Customer() async {
     String url =

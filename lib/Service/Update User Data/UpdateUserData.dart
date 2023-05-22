@@ -39,8 +39,8 @@ class UpdateUserdata{
 
 
       var dio = Dio();
-      dio.options.connectTimeout = Duration(milliseconds: 10000);
-      dio.options.receiveTimeout = Duration(milliseconds: 10000);
+      dio.options.connectTimeout = const Duration(milliseconds: 10000);
+      dio.options.receiveTimeout = const Duration(milliseconds: 10000);
 
 
       var response = await dio.post('https://elite-dealers.com/api/updateusr.php', data: formData);

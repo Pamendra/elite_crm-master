@@ -1,9 +1,9 @@
+import 'package:dio/dio.dart';
 import 'package:elite_crm/Utils/TextWidgets.dart';
 import 'package:elite_crm/Utils/color_constants.dart';
 import 'package:elite_crm/Utils/gradient_color.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:multiselect_formfield/multiselect_formfield.dart';
 import 'package:sizer/sizer.dart';
 import '../Bloc/UserUpdateBloc/UserUpdateBloc.dart';
 import '../Service/AddReport Service.dart';
@@ -15,6 +15,7 @@ import '../Utils/drawer_logout.dart';
 import 'Notification/Model/multislect.dart';
 import 'Notification/notification page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:multi_select_flutter/multi_select_flutter.dart';
 
 class userprofile_pages extends StatefulWidget {
   const userprofile_pages({Key? key}) : super(key: key);
@@ -31,20 +32,22 @@ class _userprofile_pagesState extends State<userprofile_pages> {
   late String _address;
   late String _phoneNumber;
   late String _email;
+  List<dynamic> terr =[];
   TextEditingController add = TextEditingController();
   TextEditingController phone = TextEditingController();
   TextEditingController email = TextEditingController();
-  // List<dynamic> _selectedProfile = [];
   dynamic _selectedProfile;
   bool _isLoading = false;
+  List<Option> _options = [];
+  List<Option> _selectedOptions = [];
+  List<String> selectedOptionNames =[];
+
+
 
   @override
   void initState() {
-
     _getUserDetails();
-
     super.initState();
-
   }
 
 
@@ -55,18 +58,56 @@ class _userprofile_pagesState extends State<userprofile_pages> {
     setState(() {
       _isLoading = true;
     });
-    final response = await AddReportService().userDetails(shopid, access);
-    _profileList = await AddReportService().UserProfieService(shopid, access);
 
+   final response = await AddReportService().userDetails(shopid, access);
+    _profileList = await AddReportService().UserProfieService(shopid, access);
+    // final responses = await AddReportService().UserProfieService(shopid, access);
+
+    // final terry = responses;
     final emailed = response[0]['email'];
     final phonee = response[0]['phone'];
     final addressed = response[0]['address'];
-
+    final territory = response[0]['territory'];
+   // for(var i=0 ; i< terry.length;i++)
+   //   {
+   //      for(var j=0 ; j< territory.length; j++)
+   //        {
+   //          if(territory[j]['id'] == terry[i]['id'])
+   //            {
+   //              var match = terry[i]['name'];
+   //             terr.add(match);
+   //
+   //            }
+   //        }
+   //   }
+   //  print(terr);
+   print(_selectedOptions);
     email.text = emailed;
     phone.text = phonee;
     add.text = addressed;
+    terr = territory;
     setState(() {
       _isLoading = false;
+    });
+
+    fetchData(shopid, access).then((options) {
+      setState(() {
+        _options = options;
+        _selectedOptions = _options
+            .where((option) => terr.any((item) => item['id'] == option.id))
+            .toList();
+        // for(var i=0 ; i<_options.length ; i++)
+        // {
+        //   for(var j=0 ; j< terr.length; j++)
+        //   {
+        //     if(terr[j]['id'] == _options[i].id){
+        //       _selectedOptions.add(_options[i]);
+        //       break;
+        //     }
+        //   }
+        // }
+        // print(_selectedOptions);
+      });
     });
   }
 
@@ -105,7 +146,7 @@ class _userprofile_pagesState extends State<userprofile_pages> {
             child: SingleChildScrollView(
               scrollDirection: Axis.vertical,
               child: Container(
-                height: 80.h,
+                height: 100.h,
                 decoration: gradient_login,
                 child: Form(
                   key: _formKey,
@@ -114,100 +155,38 @@ class _userprofile_pagesState extends State<userprofile_pages> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-
-
-                        // Container(
-                        //   width: 50.w,
-                        //   child: MultiSelectFormField(
-                        //     border:  OutlineInputBorder(
-                        //       borderSide: BorderSide(
-                        //         color: ColorConstants.deppp
-                        //       )
-                        //     ),
-                        //     autovalidate: AutovalidateMode.onUserInteraction,
-                        //     validator: (value) {
-                        //       if (value == null || value.isEmpty) {
-                        //         return 'Please select at least one profile';
-                        //       }
-                        //       return '';
-                        //     },
-                        //     dataSource: _profileList
-                        //         .map((profile) => {'display': profile['name'], 'value': profile})
-                        //         .toList(),
-                        //     textField: 'display',
-                        //     title: const Text('Territory'),
-                        //     valueField: 'value',
-                        //     okButtonLabel: 'OK',
-                        //     cancelButtonLabel: 'CANCEL',
-                        //     initialValue: const [],
-                        //     onSaved: (value) {
-                        //       _selectedProfile = value;
-                        //     },
-                        //   ),
-                        // ),
-
-
                         const SizedBox(
                           height: 15,
                         ),
-
-
                         headingTextwithsmallwhite(title: 'Territory'),
                         const SizedBox(height: 5,),
-                        Container(
+                        SizedBox(
                           width: 95.w,
-                          height: 6.8.h,
-                          child:
-                          DropdownButtonFormField(
-                            dropdownColor: ColorConstants.white,
-                            style: const TextStyle(color: Colors.black),
-                            decoration: InputDecoration(
 
-                              filled: true,
-                              fillColor: Colors.white,
-                              border: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: ColorConstants.white,
-                                ),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(8.0),
-                                borderSide: BorderSide(
-                                    color: ColorConstants.deppp, width: 1),
-                              ),
+                          child:MultiSelectDialogField(
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              border: Border.all(color: ColorConstants.deppp,width: 2),
+                              borderRadius: BorderRadius.circular(4)
                             ),
-                            autovalidateMode: AutovalidateMode
-                                .onUserInteraction,
-                            // validator: (value) {
-                            //   if (value == null || value.isEmpty) {
-                            //     return 'Please select at least one profile';
-                            //   }
-                            //   return null;
-                            // },
-                            items: _profileList
-                                .map((profile) =>
-                                DropdownMenuItem(
-                                  value: profile,
-                                  child: Text(profile['name']),
-                                ))
+                            items: _options
+                                .map((option) => MultiSelectItem<Option>(option, option.name))
                                 .toList(),
-                            onChanged: (value) {
-                              _selectedProfile = value;
+                            initialValue: _selectedOptions,
+                            title: const Text('Select Options'),
+                            onConfirm: (selectedItems) {
+                              setState(() {
+                                _selectedOptions = selectedItems;
+                                selectedOptionNames = _selectedOptions.map((option) => option.name).toList();
+
+                              });
                             },
-                            value: _selectedProfile,
-                            hint: const Text('Territory'),
-                          ),
+                          )
                         ),
 
                         const SizedBox(
-                          height: 30,
+                          height: 40,
                         ),
-
-                        // ElevatedButton(onPressed: (){
-                        //   Navigator.of(context).pushReplacement(
-                        //       MaterialPageRoute(
-                        //           builder: (BuildContext context) => const HomePagew()));
-                        //}, child: const Text('Sigma')),
                         headingTextwithsmallwhite(title: 'Address'),
                         SizedBox(height: 5,),
                         TextFormField(
@@ -317,11 +296,9 @@ class _userprofile_pagesState extends State<userprofile_pages> {
                           },
                         ),
 
-
                         const SizedBox(
                           height: 30,
                         ),
-
 
                         SizedBox(
                           width: double.infinity,
@@ -331,11 +308,11 @@ class _userprofile_pagesState extends State<userprofile_pages> {
                           child: ElevatedButton(
                             onPressed: () {
                               BlocProvider.of<UserUpdateBloc>(context).add(
-                                  onPressedEvent(address: add.text, email: email.text, phone: phone.text, territories: _selectedProfile.toString()));
+                                  onPressedEvent(address: add.text, email: email.text, phone: phone.text, territories: selectedOptionNames.toString().replaceAll("[", "").replaceAll("]", "")));
                             },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: ColorConstants
-                                  .deppp, // Background color
+                                  .deppp,
                             ),
                             child: const Text(
                               'Update',

@@ -1,5 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'package:elite_crm/Utils/TextWidgets.dart';
 import 'package:elite_crm/Utils/gradient_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,11 +10,13 @@ import 'package:sizer/sizer.dart';
 import '../../Bloc/Login_Bloc/LoginBloc.dart';
 import '../../Bloc/Login_Bloc/LoginEvent.dart';
 import '../../Bloc/Login_Bloc/LoginState.dart';
+import '../../Utils/SizedSpace.dart';
 import '../../Utils/color_constants.dart';
 import '../../Utils/drawer_login.dart';
 import '../../Utils/setget.dart';
 import '../Splash_Screen/splash_screen.dart';
 import '../bottomNavigationPages.dart';
+import '../registrationPage.dart';
 
 
 class LoginPage extends StatefulWidget {
@@ -118,7 +121,7 @@ class _LoginPageState extends State<LoginPage> {
                scrollDirection: Axis.vertical,
                child: Column(
                  children: [
-                    SizedBox(height: 150,),
+                    const SizedBox(height: 150,),
                    Padding(
                      padding: const EdgeInsets.all(10.0),
                      child: Image.asset('assets/images/logo.png'),
@@ -255,7 +258,22 @@ class _LoginPageState extends State<LoginPage> {
                          }
                        },style: ElevatedButton.styleFrom(
                            backgroundColor: ColorConstants.deppp
-                       ), child: const Text('Sign in')))
+                       ), child: const Text('Sign in'))),
+                   SmallSpace(),
+                   Padding(
+                     padding: const EdgeInsets.only(right: 10),
+                     child: Row(
+                       mainAxisAlignment: MainAxisAlignment.end,
+                       children:  [
+                         InkWell(
+                           onTap: (){
+                             Navigator.push(context, MaterialPageRoute(builder: (context) => const registration_page()));
+                           },
+                           child:  headingTextwithsmallwhite2(title: 'Create new ?',),
+                         )
+                       ],
+                     ),
+                   )
                  ],
                ),
              ),

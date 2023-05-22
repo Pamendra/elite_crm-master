@@ -31,6 +31,7 @@ class _AddReportState extends State<AddReport> {
   String? _selectedValue;
   String? selectedService;
   TextEditingController _controller = TextEditingController();
+  TextEditingController details = TextEditingController();
   TextEditingController name = TextEditingController();
   TextEditingController cname = TextEditingController();
   TextEditingController pmanager = TextEditingController();
@@ -267,7 +268,7 @@ class _AddReportState extends State<AddReport> {
                             orElse: () => null);
                         if (lead != null) {
                           _controller.text = lead['name'];
-                          name.text = '${lead['name']}, ${lead['cname']} , ${lead['gmanager']} , ${lead['pmanager']} ,'
+                          details.text = '${lead['name']}, ${lead['cname']} , ${lead['gmanager']} , ${lead['pmanager']} ,'
                               ' ${lead['services'] } ,  ${lead['state']} ,  ${lead['phone']}';
                           setState(() {
                             _selectedValue = suggestion;
@@ -292,7 +293,7 @@ class _AddReportState extends State<AddReport> {
                               controller: _scrollController,
                               child: TextField(
                                 readOnly: true,
-                                controller: name,
+                                controller: details,
                                 style: TextStyle(
                                     fontSize: 10.sp,
                                     color: Colors.black,
