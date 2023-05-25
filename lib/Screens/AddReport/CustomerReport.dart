@@ -5,8 +5,6 @@ import 'package:elite_crm/Utils/gradient_color.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
-
-import '../../Utils/Colors.dart';
 import '../../Utils/TextWidgets.dart';
 import '../../Utils/drawer_logout.dart';
 import '../../Utils/progress_bar.dart';
@@ -14,10 +12,29 @@ import 'Preview Screen.dart';
 
 class CustomerReport extends StatefulWidget {
   String date;
-  final TextEditingController general;
+  final TextEditingController Greport;
+  String? id;
+  String? name;
+  String? cname;
+  String? gmanager;
+  String? pmanager;
+  String? services;
+  String? category;
+  String? status;
 
 
-  CustomerReport({super.key, required this.date, required this.general});
+  CustomerReport(
+      {super.key, required this.date,
+        required this.Greport,
+        required this.id,
+        required this.name,
+        required this.cname,
+        required this.gmanager,
+        required this.pmanager,
+        required this.services,
+        required this.category,
+        required this.status
+     });
 
   @override
   State<CustomerReport> createState() => _CustomerReportState();
@@ -69,12 +86,12 @@ class _CustomerReportState extends State<CustomerReport> {
       builder: (BuildContext context) {
         return AlertDialog(
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(10.0)),
+            borderRadius: const BorderRadius.all(Radius.circular(10.0)),
             side: BorderSide(color: ColorConstants.deppp, width: 2),
           ),
           backgroundColor: ColorConstants.DarkBlueColor,
           title: headingTextwhite(title: customerName),
-          content: Container(
+          content: SizedBox(
             width: double.maxFinite,
             child: Column(
               mainAxisSize: MainAxisSize.min,
@@ -154,8 +171,11 @@ class _CustomerReportState extends State<CustomerReport> {
               ),
               child: TextButton(
                 onPressed: () {
-                  String report = reportController.text;
-                  Navigator.of(context).pop(report); // Pass the entered data back to the caller
+                  if(reportController.text.isNotEmpty)
+                    {
+                      String report = reportController.text;
+                      Navigator.of(context).pop(report);
+                    }
                 },
                 child: const Text(
                   'Save',
@@ -202,7 +222,9 @@ class _CustomerReportState extends State<CustomerReport> {
                 MaterialPageRoute(
                   builder: (context) => PreviewReport(
                     customerLists: List.from(_customerLists),
-                    date: widget.date,general: widget.general,
+                    date: widget.date,Greport: widget.Greport, id: widget.id, name: widget.name, cname: widget.cname,
+                    gmanager: widget.gmanager, pmanager: widget.pmanager, services: widget.services, category: widget.category,
+                    status: widget.status,
                   ),
                 ),
               );
@@ -242,7 +264,7 @@ class _CustomerReportState extends State<CustomerReport> {
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Container(
-          height: 90.h,
+          height:85.h,
           decoration: gradient_login,
           child: Column(children: [
             const SizedBox(
@@ -251,7 +273,6 @@ class _CustomerReportState extends State<CustomerReport> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-
                 // ProgressBarThin(
                 //     deviceWidth:8.w,
                 //     color:ColorConstants.deppp),
@@ -362,7 +383,7 @@ class _CustomerReportState extends State<CustomerReport> {
                         controller: _scrollController,
                         child: TextField(
                           readOnly: true,
-                          controller: widget.general,
+                          controller: widget.Greport,
                           style: TextStyle(color:ColorConstants.DarkBlueColor,fontSize:10.sp,fontWeight:FontWeight.w400,fontFamily:"railLight",letterSpacing: 1),
                           keyboardType: TextInputType.multiline,
                           maxLines: 5,
@@ -425,6 +446,7 @@ class _CustomerReportState extends State<CustomerReport> {
                         _filterCustomerList();
                       });
                     },
+                    style: const TextStyle(color: Colors.white,fontFamily: "railLight"),
                     decoration: InputDecoration(
                         filled: true,
                         fillColor: ColorConstants.Darkopacity,
@@ -471,6 +493,7 @@ class _CustomerReportState extends State<CustomerReport> {
                           if (report != null) {
                             setState(() {
                               _customerLists.add({
+                                'id': customer['id'],
                                 'name': customer['name'],
                                 'report': report,
                               });
@@ -493,7 +516,7 @@ class _CustomerReportState extends State<CustomerReport> {
                     color: isCustomerSelected ? Colors.green : null, // Set green color if customer is selected
                     child: ListTile(
                       title: Text(customer['name']),
-                      trailing: isCustomerSelected ? Icon(Icons.check, color: Colors.white) : null, // Show check icon if customer is selected
+                      trailing: isCustomerSelected ? const Icon(Icons.check, color: Colors.white) : null, // Show check icon if customer is selected
                     ),
                   ),
                   onTap: () {
@@ -505,6 +528,7 @@ class _CustomerReportState extends State<CustomerReport> {
                           if (report != null) {
                             setState(() {
                               _customerLists.add({
+                                'id': customer['id'],
                                 'name': customer['name'],
                                 'report': report,
                               });

@@ -1,3 +1,4 @@
+import 'package:elite_crm/Bloc/AddReportBloc.dart';
 import 'package:elite_crm/Bloc/UserUpdateBloc/UserUpdateBloc.dart';
 import 'package:elite_crm/Screens/Homepage.dart';
 import 'package:elite_crm/Screens/LoginScreen/login_screen.dart';
@@ -7,6 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
 
 import 'Bloc/Login_Bloc/LoginBloc.dart';
+import 'Bloc/RegistrationBloc.dart';
 
 void main() {
   runApp(const MyApp());
@@ -24,6 +26,10 @@ class MyApp extends StatelessWidget {
             create: (context) => LoginBloc()),
         BlocProvider<UserUpdateBloc>(
             create: (context) => UserUpdateBloc()),
+        BlocProvider<regUpdateBloc>(
+            create: (context) => regUpdateBloc()),
+        BlocProvider<AddreportBloc>(
+            create: (context) => AddreportBloc()),
       ],
 
       child:  Sizer(builder: (context, orientation, deviceType) {

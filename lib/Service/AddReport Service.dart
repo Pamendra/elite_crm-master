@@ -9,7 +9,7 @@ import '../Screens/Notification/Model/Notification_model.dart';
 
 class AddReportService{
 
-  /// Notification Pgae Api's
+  /// Notification Page Api's
 
   Future<NotificationService> fetchData(String id) async {
     final dio = Dio();

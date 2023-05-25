@@ -146,7 +146,7 @@ class _userprofile_pagesState extends State<userprofile_pages> {
             child: SingleChildScrollView(
               scrollDirection: Axis.vertical,
               child: Container(
-                height: 100.h,
+                height: 80.h,
                 decoration: gradient_login,
                 child: Form(
                   key: _formKey,
@@ -178,7 +178,6 @@ class _userprofile_pagesState extends State<userprofile_pages> {
                               setState(() {
                                 _selectedOptions = selectedItems;
                                 selectedOptionNames = _selectedOptions.map((option) => option.name).toList();
-
                               });
                             },
                           )
@@ -308,11 +307,10 @@ class _userprofile_pagesState extends State<userprofile_pages> {
                           child: ElevatedButton(
                             onPressed: () {
                               BlocProvider.of<UserUpdateBloc>(context).add(
-                                  onPressedEvent(address: add.text, email: email.text, phone: phone.text, territories: selectedOptionNames.toString().replaceAll("[", "").replaceAll("]", "")));
+                                  onPressedEvent(address: add.text, email: email.text, phone: phone.text, territories: selectedOptionNames.toString().replaceAll("[","").replaceAll("]","").replaceAll(", ", ",")));
                             },
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: ColorConstants
-                                  .deppp,
+                              backgroundColor: ColorConstants.deppp,
                             ),
                             child: const Text(
                               'Update',

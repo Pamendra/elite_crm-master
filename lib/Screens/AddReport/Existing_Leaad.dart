@@ -32,17 +32,18 @@ class _AddReportState extends State<AddReport> {
   String? selectedService;
   TextEditingController _controller = TextEditingController();
   TextEditingController details = TextEditingController();
-  TextEditingController name = TextEditingController();
-  TextEditingController cname = TextEditingController();
-  TextEditingController pmanager = TextEditingController();
-  TextEditingController gmanager = TextEditingController();
-  TextEditingController services = TextEditingController();
-  TextEditingController state = TextEditingController();
-  TextEditingController phone = TextEditingController();
+  String? id;
+  String? name;
+  String? cname;
+  String? gmanager;
+  String? pmanager;
+  String? services;
+  String? category;
+  String? status;
   List _leads = [];
   String user_id ='';
   final ScrollController _scrollController = ScrollController();
-  TextEditingController general = TextEditingController();
+  TextEditingController Greport = TextEditingController();
 
   String? currentdatetime;
   DateTime? selectedDuration;
@@ -100,10 +101,12 @@ class _AddReportState extends State<AddReport> {
                 )),
             InkWell(
                 onTap: () {
-                 if(displayDate.isNotEmpty && general.text.isNotEmpty){
+                 if(displayDate.isNotEmpty && Greport.text.isNotEmpty){
                    Navigator.push(
                      context,
-                     MaterialPageRoute(builder: (context) =>  CustomerReport(date: displayDate, general: general,)),
+                     MaterialPageRoute(builder: (context) =>  CustomerReport(date: displayDate, Greport: Greport, id: id,
+                       name: name, cname: cname, gmanager: gmanager, pmanager: pmanager, services: services,
+                       category: category, status: status,)),
                    );
                  }else{
                    Fluttertoast.showToast(msg: 'Please enter General Report');
@@ -142,7 +145,7 @@ class _AddReportState extends State<AddReport> {
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Container(
-          height: 90.h,
+          height: 75.h,
           decoration: gradient_login,
           child: SafeArea(
             child: Padding(
@@ -270,6 +273,15 @@ class _AddReportState extends State<AddReport> {
                           _controller.text = lead['name'];
                           details.text = '${lead['name']}, ${lead['cname']} , ${lead['gmanager']} , ${lead['pmanager']} ,'
                               ' ${lead['services'] } ,  ${lead['state']} ,  ${lead['phone']}';
+                          id = lead['id'];
+                          name = lead['name'];
+                          cname = lead['cname'];
+                          gmanager = lead['gmanager'];
+                          pmanager = lead['pmanager'];
+                          services = lead['services'];
+                          category = lead['category'];
+                          status = lead['status'];
+
                           setState(() {
                             _selectedValue = suggestion;
                           });
@@ -318,71 +330,6 @@ class _AddReportState extends State<AddReport> {
                               ),
                             )
                         ),
-                        // const SizedBox(height: 5,),
-                        // TextFormField(
-                        //   controller: cname,
-                        //   decoration: const InputDecoration(
-                        //     border: OutlineInputBorder(
-                        //
-                        //     )
-                        //   ),
-                        // ),
-                        // const SizedBox(height: 5,),
-                        // TextFormField(
-                        //   controller: gmanager,
-                        //   decoration: const InputDecoration(
-                        //     border: OutlineInputBorder(
-                        //
-                        //     )
-                        //   ),
-                        // ),
-                        // const SizedBox(height: 5,),
-                        // TextFormField(
-                        //   controller: pmanager,
-                        //   decoration: const InputDecoration(
-                        //     border: OutlineInputBorder(
-                        //
-                        //     )
-                        //   ),
-                        // ),
-                        // const SizedBox(height: 5,),
-                        // DropdownButtonFormField<String>(
-                        //   value: selectedService,
-                        //   hint: Text(services.text),
-                        //   decoration: const InputDecoration(
-                        //     border: OutlineInputBorder(),
-                        //   ),
-                        //   items: <String>['Mechanical', 'Collision', 'Both']
-                        //       .map<DropdownMenuItem<String>>((String value) {
-                        //     return DropdownMenuItem<String>(
-                        //       value: value,
-                        //       child: Text(value),
-                        //     );
-                        //   }).toList(),
-                        //   onChanged: (String? value) {
-                        //     setState(() {
-                        //       selectedService = value;
-                        //     });
-                        //   },
-                        // ),
-                        // const SizedBox(height: 5,),
-                        // TextFormField(
-                        //   controller: state,
-                        //   decoration: const InputDecoration(
-                        //     border: OutlineInputBorder(
-                        //
-                        //     )
-                        //   ),
-                        // ),
-                        // const SizedBox(height: 5,),
-                        // TextFormField(
-                        //   controller: phone,
-                        //   decoration: const InputDecoration(
-                        //     border: OutlineInputBorder(
-                        //
-                        //     )
-                        //   ),
-                        // ),
                       ],
                     ),
 
@@ -482,7 +429,7 @@ class _AddReportState extends State<AddReport> {
                           child: Scrollbar(
                             controller: _scrollController,
                             child: TextField(
-                              controller: general,
+                              controller: Greport,
                               style: TextStyle(
                                   fontSize: 10.sp,
                                   color: Colors.black,

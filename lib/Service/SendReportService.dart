@@ -1,48 +1,82 @@
-//
-//
-//
-//
-// import 'package:dio/dio.dart';
-//
-// import '../Utils/message_contants.dart';
-//
-// class SendReportService {
-//
-//   sendData() async {
-//
-//
-//
-//
-//     var dataBody = {
-//
-//
-//     };
-//
-//
-//     try{
-//
-//       print('send data: $dataBody');
-//       var formData = FormData.fromMap(dataBody);
-//
-//
-//       var dio = Dio();
-//       dio.options.connectTimeout = Duration(milliseconds: 10000);
-//       dio.options.receiveTimeout = Duration(milliseconds: 10000);
-//
-//
-//       var response = await dio.post('http://51.140.217.38:8000/pcds/api/auto-count-app-services', data: formData);
-//
-//       if (response.statusCode == 200) {
-//         print('Response data: ${response.data}');
-//         return response.data;
-//       } else {
-//         return ConstantsMessage.statusError;
-//       }
-//     }catch(e){
-//       print('Error occurred: $e');
-//       return ConstantsMessage.serveError;
-//     }
-//   }
-//
-//
-// }
+
+
+
+
+
+
+
+import 'package:dio/dio.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+
+import '../../Utils/message_contants.dart';
+import '../../Utils/setget.dart';
+
+class Addreportdata{
+
+  sendData(
+
+      String leadId,
+      String name,
+      String cname,
+      String gmanager,
+      String pmanager,
+      String services,
+      String category,
+      String status,
+      String vdate,
+      String dealerIds,
+      String gnote,
+      String dealernotes,
+
+
+
+      ) async {
+    String user = await Utils().getUsererId();
+    String sid = await Utils().getUsererId();
+
+
+
+    var dataBody = {
+      "userid" : user,
+      "leadId": leadId,
+      "name": name,
+      "cname": cname,
+      "gmanager": gmanager,
+      "pmanager": pmanager,
+      "services": services,
+      "category": category,
+      "status": status,
+      "vdate": vdate,
+      "dealerIds": dealerIds,
+      "gnote": gnote,
+      "dealernotes": dealernotes,
+      "sid": sid,
+    };
+
+
+    try{
+
+      print('send data: $dataBody');
+      var formData = FormData.fromMap(dataBody);
+
+
+      var dio = Dio();
+      dio.options.connectTimeout = const Duration(milliseconds: 10000);
+      dio.options.receiveTimeout = const Duration(milliseconds: 10000);
+
+
+      var response = await dio.post('https://elite-dealers.com/api/saveExistingLeadReport.php', data: formData);
+
+      if (response.statusCode == 200) {
+        print('Response data: ${response.data}');
+        // return response.data;
+        return Fluttertoast.showToast(msg: 'Report Added Successfully');
+      } else {
+        return ConstantsMessage.statusError;
+      }
+    }catch(e){
+      print('Error occurred: $e');
+      return ConstantsMessage.serveError;
+    }
+  }
+}

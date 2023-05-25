@@ -1,9 +1,6 @@
 
 
-
-
-
-
+// ignore_for_file: file_names
 
 import 'package:bloc/bloc.dart';
 

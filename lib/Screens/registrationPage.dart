@@ -24,13 +24,10 @@ class registration_page extends StatefulWidget {
 }
 
 class _registration_pageState extends State<registration_page> {
-  List<dynamic> _profileList = [];
-  List<dynamic> _details = [];
   List<dynamic> data = [];
   final _formKey = GlobalKey<FormState>();
 
 
-  bool _passwordVisible = true;
 
   TextEditingController shopname = TextEditingController();
   TextEditingController phone=TextEditingController();
@@ -63,7 +60,6 @@ class _registration_pageState extends State<registration_page> {
       _isLoading = true;
     });
 
-    _profileList = await AddReportService().regProfieService();
 
     fetchDatareg().then((options) {
       setState(() {
@@ -80,6 +76,7 @@ class _registration_pageState extends State<registration_page> {
   }
 
 
+  @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => regUpdateBloc(),
@@ -102,6 +99,7 @@ class _registration_pageState extends State<registration_page> {
             listener: (context,state){
               if(state is  RegUpdateSuccessState){
                 Fluttertoast.showToast(msg: 'Added New User Successfully');
+                Navigator.pop(context);
               }else if(state is RegUpdateErrorState){
                 Dialogs.showValidationMessage(context, state.error);
               }
@@ -157,38 +155,6 @@ class _registration_pageState extends State<registration_page> {
                               },
 
                             )
-                          // DropdownButtonFormField(
-                          //   dropdownColor: ColorConstants.white,
-                          //   style: const TextStyle(color: Colors.black),
-                          //   decoration: InputDecoration(
-                          //
-                          //     filled: true,
-                          //     fillColor: Colors.white,
-                          //     border: OutlineInputBorder(
-                          //       borderSide: BorderSide(
-                          //         color: ColorConstants.white,
-                          //       ),
-                          //     ),
-                          //     focusedBorder: OutlineInputBorder(
-                          //       borderRadius: BorderRadius.circular(8.0),
-                          //       borderSide: BorderSide(
-                          //           color: ColorConstants.deppp, width: 1),
-                          //     ),
-                          //   ),
-                          //   autovalidateMode: AutovalidateMode.onUserInteraction,
-                          //   items: _profileList
-                          //       .map((profile) =>
-                          //       DropdownMenuItem(
-                          //         value: profile,
-                          //         child: Text(profile['name']),
-                          //       ))
-                          //       .toList(),
-                          //   onChanged: (value) {
-                          //     _selectedProfile = value;
-                          //   },
-                          //   value: _selectedProfile,
-                          //   hint:  Text('Territory'),
-                          // ),
                         ),
 
                         const SizedBox(
@@ -196,7 +162,7 @@ class _registration_pageState extends State<registration_page> {
                         ),
 
                         headingTextwithsmallwhite2(title: 'Shop Name'),
-                        SizedBox(height: 5,),
+                        const SizedBox(height: 5,),
                         TextFormField(
                           controller: shopname,
 
@@ -229,7 +195,7 @@ class _registration_pageState extends State<registration_page> {
 
 
                         headingTextwithsmallwhite2(title: 'Address (1234 Main St. Anywhere, TX 00000'),
-                        SizedBox(height: 5,),
+                        const SizedBox(height: 5,),
                         TextFormField(
                           controller: addd,
                           maxLines: 3,
@@ -261,7 +227,7 @@ class _registration_pageState extends State<registration_page> {
                           height: 20,
                         ),
                         headingTextwithsmallwhite2(title: 'Email'),
-                        SizedBox(height: 5,),
+                        const SizedBox(height: 5,),
                         TextFormField(
                           controller: emaill,
                           decoration: InputDecoration(
@@ -298,7 +264,7 @@ class _registration_pageState extends State<registration_page> {
                         ),
 
                         headingTextwithsmallwhite2(title: 'Phone (i.e 123-456-7890 / 1234567890)'),
-                        SizedBox(height: 5,),
+                        const SizedBox(height: 5,),
                         TextFormField(
                           controller: phone,
 
@@ -339,7 +305,7 @@ class _registration_pageState extends State<registration_page> {
                         ),
 
                         headingTextwithsmallwhite2(title: 'Owner Name'),
-                        SizedBox(height: 5,),
+                        const SizedBox(height: 5,),
                         TextFormField(
                           controller: Owner,
 
@@ -371,7 +337,7 @@ class _registration_pageState extends State<registration_page> {
                           height: 15,
                         ),
                         headingTextwithsmallwhite2(title: ' Contact Name '),
-                        SizedBox(height: 5,),
+                        const SizedBox(height: 5,),
                         TextFormField(
                           controller: contactname,
 
@@ -404,7 +370,7 @@ class _registration_pageState extends State<registration_page> {
                           height: 15,
                         ),
                         headingTextwithsmallwhite2(title: ' Username '),
-                        SizedBox(height: 5,),
+                        const SizedBox(height: 5,),
                         TextFormField(
                           controller: username,
 
@@ -436,7 +402,7 @@ class _registration_pageState extends State<registration_page> {
                           height: 15,
                         ),
                         headingTextwithsmallwhite2(title: 'Password'),
-                        SizedBox(height: 5,),
+                        const SizedBox(height: 5,),
                         TextFormField(
                           controller: Password,
                           obscureText: true,
@@ -469,7 +435,7 @@ class _registration_pageState extends State<registration_page> {
                           height: 15,
                         ),
                         headingTextwithsmallwhite2(title: ' Confirm Password '),
-                        SizedBox(height: 5,),
+                        const SizedBox(height: 5,),
                         TextFormField(
                           controller: Confirm_pass,
                           obscureText: false,
@@ -514,62 +480,80 @@ class _registration_pageState extends State<registration_page> {
 
 
                         SizedBox(
-                          width: double.infinity, // sets width to full screen width
+                          width: double.infinity,
                           height: 50.0,
 
 
                           child: ElevatedButton(
                             onPressed: () {
                               if(shopname.text.isEmpty){
-                                Fluttertoast.showToast(msg: "Please Enter Shopname");
+                                Dialogs.showValidationMessage(context, 'Please Enter Shop Name');
+
+                              //  Fluttertoast.showToast(msg: "Please Enter Shopname");
 
                               }
                               else  if(addd.text.isEmpty){
-                                Fluttertoast.showToast(msg: "Please Enter Address");
+                                Dialogs.showValidationMessage(context, 'Please Enter Address');
+
+                              //  Fluttertoast.showToast(msg: "Please Enter Address");
 
                               }
 
                               else  if(emaill.text.isEmpty){
-                                Fluttertoast.showToast(msg: "Please Enter Email");
+                                Dialogs.showValidationMessage(context, 'Please Enter Email');
+
+                               // Fluttertoast.showToast(msg: "Please Enter Email");
 
                               }
                               else if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(emaill.text)) {
-                                Fluttertoast.showToast(msg: "Please Enter  a valid Email");
+                                Dialogs.showValidationMessage(context, 'Please Enter  a valid Email');
+
+                               // Fluttertoast.showToast(msg: "Please Enter  a valid Email");
                               }
 
                               else  if(phone.text.isEmpty){
-                                Fluttertoast.showToast(msg:  "Please Enter a Phone Number");
+                                Dialogs.showValidationMessage(context, 'Please Enter a Phone Number');
+
+                               // Fluttertoast.showToast(msg:  "Please Enter a Phone Number");
 
                               }
                               else if(!RegExp(r'^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$').hasMatch(phone.text)){
-                                Fluttertoast.showToast(msg: "Please Enter a Valid Phone Number"
-                                );
+                                Dialogs.showValidationMessage(context, 'Please Enter a Valid Phone Number');
+
+                               // Fluttertoast.showToast(msg: "Please Enter a Valid Phone Number");
 
                               }
                               else if(Owner.text.isEmpty){
-                                Fluttertoast.showToast(msg: "Please enter your Owner name");
+                                Dialogs.showValidationMessage(context, 'Please enter your Owner name');
+
+                                //Fluttertoast.showToast(msg: "Please enter your Owner name");
 
                               }
                               else if(contactname.text.isEmpty){
-                                Fluttertoast.showToast(msg: "Please enter your Contact  name");
+                                Dialogs.showValidationMessage(context, 'Please enter your Contact  name');
+                                //Fluttertoast.showToast(msg: "Please enter your Contact  name");
 
                               }
                               else if(username.text.isEmpty){
-                                Fluttertoast.showToast(msg: "Please enter your Username ");
+                                Dialogs.showValidationMessage(context, 'Please enter your Username');
+                               // Fluttertoast.showToast(msg: "Please enter your Username ");
 
                               }
 
                               else if(Password.text.isEmpty){
-                                Fluttertoast.showToast(msg: "Please enter your Password");
+                                Dialogs.showValidationMessage(context, 'Please enter password');
+                               // Fluttertoast.showToast(msg: "Please enter your Password");
 
                               }
 
                               else if(Confirm_pass.text.isEmpty){
-                                Fluttertoast.showToast(msg: "Please re-enter password");
+                                Dialogs.showValidationMessage(context, 'Please re-enter password');
+                                //Fluttertoast.showToast(msg: "Please re-enter password");
 
                               }
                               else  if (Password.text != Confirm_pass.text) {
-                               Fluttertoast.showToast(msg: "Please re-enter password");
+                                Dialogs.showValidationMessage(context, 'password not match');
+                              // Fluttertoast.showToast(msg: "Please re-enter password");
                               }
 
 
@@ -588,9 +572,12 @@ class _registration_pageState extends State<registration_page> {
                                       u_name:username.text,
                                       p_name:Password.text,
                                       Confirm_password:Confirm_pass.text,
-                                      territories: selectedOptionNames.toString().replaceAll("[", "").replaceAll("]", ""),
+                                      territories: selectedOptionNames.toString().replaceAll("[", "").replaceAll("]", "").replaceAll(", ", ","),
 
-                                    ));}
+                                    ));
+
+                                Navigator.pop(context);
+                              }
                             },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: ColorConstants.deppp, // Background color

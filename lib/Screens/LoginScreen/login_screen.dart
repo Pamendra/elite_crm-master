@@ -121,18 +121,27 @@ class _LoginPageState extends State<LoginPage> {
                scrollDirection: Axis.vertical,
                child: Column(
                  children: [
-                    const SizedBox(height: 150,),
+                    const SizedBox(height: 130,),
                    Padding(
                      padding: const EdgeInsets.all(10.0),
                      child: Image.asset('assets/images/logo.png'),
                    ),
-
+                    SmallSpace(),
+                   Row(
+                     mainAxisAlignment: MainAxisAlignment.start,
+                     children: [
+                       Padding(
+                         padding: const EdgeInsets.only(left: 10),
+                         child: headingTextwithsmallwhite(title: 'Username or UserID'),
+                       ),
+                     ],
+                   ),
                    Padding(
                      padding: const EdgeInsets.all(8.0),
                      child: TextFormField(
                        controller: emailController,
                        decoration: InputDecoration(
-                           hintText: 'Username or UserID',
+                           hintText: 'Username',
                            fillColor: Colors.white,
                            filled: true,
                            focusedBorder:  OutlineInputBorder(
@@ -146,6 +155,17 @@ class _LoginPageState extends State<LoginPage> {
                      ),
                    ),
                    const SizedBox(height: 20),
+
+
+                   Row(
+                     mainAxisAlignment: MainAxisAlignment.start,
+                     children: [
+                       Padding(
+                         padding: const EdgeInsets.only(left: 10),
+                         child: headingTextwithsmallwhite(title: 'Password'),
+                       ),
+                     ],
+                   ),
 
                    Padding(
                      padding: const EdgeInsets.all(8.0),
@@ -179,15 +199,15 @@ class _LoginPageState extends State<LoginPage> {
                      ),
                    ),
                    const SizedBox(height: 10,),
-                   Padding(
-                     padding: const EdgeInsets.only(right: 10),
-                     child: Row(
-                       mainAxisAlignment: MainAxisAlignment.end,
-                       children: const [
-                         Text('Forget Password?',style: TextStyle(fontWeight: FontWeight.bold,color: Colors.white),)
-                       ],
-                     ),
-                   ), const SizedBox(height: 10,),
+                   // Padding(
+                   //   padding: const EdgeInsets.only(right: 10),
+                   //   child: Row(
+                   //     mainAxisAlignment: MainAxisAlignment.end,
+                   //     children: const [
+                   //       Text('Forget Password?',style: TextStyle(fontWeight: FontWeight.bold,color: Colors.white),)
+                   //     ],
+                   //   ),
+                   // ), const SizedBox(height: 10,),
                    SizedBox(width: 350,height: 50,
                        child: ElevatedButton(onPressed: () async {
                          if (emailController.text.isEmpty) {
