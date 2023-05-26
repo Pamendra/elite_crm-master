@@ -64,7 +64,7 @@ class _AddReportState extends State<AddReport> {
       user_id = shopid;
     });
     selectedDuration = DateTime.now();
-    displayDate = DateFormat("EEEE, MMMM d, yyyy").format(selectedDuration!);
+    displayDate = DateFormat(" MMMM d, yyyy").format(selectedDuration!);
     inspectionDate =
         DateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").format(selectedDuration!);
   }
@@ -376,9 +376,10 @@ class _AddReportState extends State<AddReport> {
                                                 DateTime.now().day),
                                             onDateTimeChanged: (newDateTime) {
                                               setState(() {
-                                                displayDate = DateFormat(
-                                                    "EEEE, MMMM d, yyyy")
-                                                    .format(newDateTime);
+                                                // displayDate = DateFormat(
+                                                //     "EEEE, MMMM d, yyyy")
+                                                //     .format(newDateTime);
+                                               displayDate = DateFormat("MMMM d, yyyy").format(newDateTime);
                                                 inspectionDate = DateFormat(
                                                     "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
                                                     .format(newDateTime);

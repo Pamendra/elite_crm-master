@@ -209,7 +209,7 @@ class _CustomerReportState extends State<CustomerReport> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children:  [
                    Text(
-                    " Go Back",
+                    "Go Back",
                     style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.w500,color: Colors.white),
                   )
                 ],

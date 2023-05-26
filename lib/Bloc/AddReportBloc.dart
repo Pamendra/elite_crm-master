@@ -80,10 +80,9 @@ class AddreportBloc extends Bloc<AddreportEvent,AddReportState>{
       }else if (result == ConstantsMessage.statusError) {
         emit(AddreportErrorState(ConstantsMessage.statusError));
       }else{
-        emit(AddreportSuccessState());
-        Fluttertoast.showToast(msg: 'Report Added Successfully');
-      }
+        emit(AddreportSuccessState());        //
 
+      }
     });
   }
 }

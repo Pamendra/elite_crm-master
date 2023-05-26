@@ -112,6 +112,7 @@ class _userprofile_pagesState extends State<userprofile_pages> {
   }
 
 
+  @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => UserUpdateBloc(),
@@ -146,7 +147,7 @@ class _userprofile_pagesState extends State<userprofile_pages> {
             child: SingleChildScrollView(
               scrollDirection: Axis.vertical,
               child: Container(
-                height: 80.h,
+                height: 100.h,
                 decoration: gradient_login,
                 child: Form(
                   key: _formKey,
@@ -187,7 +188,7 @@ class _userprofile_pagesState extends State<userprofile_pages> {
                           height: 40,
                         ),
                         headingTextwithsmallwhite(title: 'Address'),
-                        SizedBox(height: 5,),
+                        const SizedBox(height: 5,),
                         TextFormField(
                           controller: add,
                           maxLines: 4,
@@ -223,7 +224,7 @@ class _userprofile_pagesState extends State<userprofile_pages> {
                           height: 30,
                         ),
                         headingTextwithsmallwhite(title: 'Phone Number'),
-                        SizedBox(height: 5,),
+                        const SizedBox(height: 5,),
                         TextFormField(
                           controller: phone,
                           keyboardType: TextInputType.number,
@@ -260,7 +261,7 @@ class _userprofile_pagesState extends State<userprofile_pages> {
                           height: 30,
                         ),
                         headingTextwithsmallwhite(title: 'Email'),
-                        SizedBox(height: 5,),
+                        const SizedBox(height: 5,),
                         TextFormField(
                           controller: email,
                           decoration: InputDecoration(

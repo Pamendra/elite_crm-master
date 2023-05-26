@@ -57,7 +57,7 @@ class Updateregdata{
       dio.options.connectTimeout = Duration(milliseconds: 10000);
       dio.options.receiveTimeout = Duration(milliseconds: 10000);
 
-      ///  https://elite-dealers.com/api/userReg.php https://elite-dealers.com/api/userRegister.php
+
       var response = await dio.post('https://elite-dealers.com/api/userReg.php', data: formData);
 
       if (response.statusCode == 200) {

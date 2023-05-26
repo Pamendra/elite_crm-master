@@ -98,7 +98,7 @@ class _registration_pageState extends State<registration_page> {
         body: BlocConsumer<regUpdateBloc,regUpdateState>(
             listener: (context,state){
               if(state is  RegUpdateSuccessState){
-                Fluttertoast.showToast(msg: 'Added New User Successfully');
+                Dialogs.showValidationMessage(context, 'Added New User');
                 Navigator.pop(context);
               }else if(state is RegUpdateErrorState){
                 Dialogs.showValidationMessage(context, state.error);
@@ -486,7 +486,11 @@ class _registration_pageState extends State<registration_page> {
 
                           child: ElevatedButton(
                             onPressed: () {
-                              if(shopname.text.isEmpty){
+                              if(_selectedOptions.isEmpty){
+                                Dialogs.showValidationMessage(context, 'Please Enter Territory');
+                              }
+
+                              else if(shopname.text.isEmpty){
                                 Dialogs.showValidationMessage(context, 'Please Enter Shop Name');
 
                               //  Fluttertoast.showToast(msg: "Please Enter Shopname");
@@ -543,6 +547,10 @@ class _registration_pageState extends State<registration_page> {
                               else if(Password.text.isEmpty){
                                 Dialogs.showValidationMessage(context, 'Please enter password');
                                // Fluttertoast.showToast(msg: "Please enter your Password");
+
+                              }
+                              else if (Password.text.length < 6) {
+                                Dialogs.showValidationMessage(context, 'Please enter at least 6 characters password');
 
                               }
 

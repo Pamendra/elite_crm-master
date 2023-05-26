@@ -121,11 +121,9 @@ class _DealerDetailsState extends State<DealerDetails> {
             child: Column(
               children: [
                 Container(
-                  decoration: const BoxDecoration(
+                  decoration:  const BoxDecoration(
                       image: DecorationImage(
-                          image: NetworkImage(
-                              "https://images.unsplash.com/photo-1550955295-77d6e18a24da?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80"
-                          ),
+                          image:AssetImage('assets/images/back.jpg'),
                           fit: BoxFit.cover
                       )
                   ),
@@ -155,8 +153,8 @@ class _DealerDetailsState extends State<DealerDetails> {
                     children: [
                       headingTextDarkblue(title:  dealerProfile['name'] ?? ''),
 
-                      const Divider(
-                        color: Colors.white,
+                       Divider(
+                        color: ColorConstants.blueGrey,
                         height: 25,
                         thickness: 2,
                         indent: 0,
