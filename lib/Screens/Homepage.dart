@@ -32,7 +32,7 @@ class _DealerListState extends State<DealerList> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-
+      backgroundColor: ColorConstants.DarkBlueColor,
       appBar: AppBar(
         title: const Text('Dealer List'),
         actions: [
@@ -51,102 +51,98 @@ class _DealerListState extends State<DealerList> {
       ),
       drawer: const DrawerLogout(),
 
-      body: Container(
-        height: 100.h,
-        decoration: gradient_login,
-        child: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.only(top: 10,left: 10,right: 10),
-            child: Column(
-              children: [
-                TextFormField(
-                  controller: searchdealer,
-                  onChanged: (value) {
-                    setState(() {});
-                  },
-                  style: TextStyle(color: Colors.white),
-                  decoration: InputDecoration(
-                      filled: true,
-                      fillColor: ColorConstants.Darkopacity,
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: ColorConstants.deppp,width: 3
-                        )
-                      ),
-                      suffixIcon:  Icon(Icons.search,color:Colors.white),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8.0),
-                        borderSide:  BorderSide(color: ColorConstants.deppp, width: 3),
-                      ),
-                      hintText: 'Search...',
-                      hintStyle: const TextStyle(color: Colors.white),
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(5))),
-                ),
-                const SizedBox(height: 5,),
-                Expanded(
-                    child: FutureBuilder(
-                      future: globalService.DealerListapi(),
-                      builder: (context, AsyncSnapshot<List<dynamic>> snapshot) {
-                        if (!snapshot.hasData) {
-                          return ListView.builder(
-                              itemCount: 4,
-                              itemBuilder: (context,index){
-                                return Shimmer.fromColors(
-                                    baseColor:Colors.grey.shade700 ,
-                                    highlightColor: Colors.grey.shade100,
-                                    child: Column(
-                                      children: [
-                                        ListTile(
-                                          title: Container(height: 10, width: 89, color: Colors.white,),
-                                        )
-                                      ],
-                                    ));
-
-                              });
-                        }
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.only(top: 10,left: 10,right: 10),
+          child: Column(
+            children: [
+              TextFormField(
+                controller: searchdealer,
+                onChanged: (value) {
+                  setState(() {});
+                },
+                style: TextStyle(color: Colors.white),
+                decoration: InputDecoration(
+                    filled: true,
+                    fillColor: ColorConstants.Darkopacity,
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: ColorConstants.deppp,width: 3
+                      )
+                    ),
+                    suffixIcon:  Icon(Icons.search,color:Colors.white),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                      borderSide:  BorderSide(color: ColorConstants.deppp, width: 3),
+                    ),
+                    hintText: 'Search...',
+                    hintStyle: const TextStyle(color: Colors.white),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(5))),
+              ),
+              const SizedBox(height: 5,),
+              Expanded(
+                  child: FutureBuilder(
+                    future: globalService.DealerListapi(),
+                    builder: (context, AsyncSnapshot<List<dynamic>> snapshot) {
+                      if (!snapshot.hasData) {
                         return ListView.builder(
-                            itemCount: snapshot.data!.length,
-                            itemBuilder: (context, index) {
-                              String dealer = snapshot.data![index]['name'];
-                              String dealerid = snapshot.data![index]['dealerid'];
+                            itemCount: 4,
+                            itemBuilder: (context,index){
+                              return Shimmer.fromColors(
+                                  baseColor:Colors.grey.shade700 ,
+                                  highlightColor: Colors.grey.shade100,
+                                  child: Column(
+                                    children: [
+                                      ListTile(
+                                        title: Container(height: 10, width: 89, color: Colors.white,),
+                                      )
+                                    ],
+                                  ));
 
-                              if (searchdealer.text.isEmpty) {
-                                return Column(
-                                  children: [
-                                    Card(
-                                      // color: ,
-                                      child: ListTile(
-                                        title: headingTextDarkblueWithextrasmall(title: snapshot.data![index]['name'],),
-                                        onTap: (){
-                                          Navigator.push(context, MaterialPageRoute(builder: (context) => DealerDetails(dealerid :dealerid)));
-                                        },
-                                      ),
-                                    )
-                                  ],
-                                );
-                              } else if (dealer.toLowerCase().contains(searchdealer.text.toLowerCase())) {
-                                return Column(
-                                  children: [
-                                    Card(
-                                      child: ListTile(
-                                        title: headingTextDarkblueWithextrasmall(title: snapshot.data![index]['name'],),
-                                        onTap: (){
-                                          Navigator.push(context, MaterialPageRoute(builder: (context) => DealerDetails(dealerid :dealerid )));
-
-                                        },
-                                      ),
-                                    )
-                                  ],
-                                );
-                              } else {
-                                return Container();
-                              }
                             });
-                      },
-                    )),
-              ],
-            ),
+                      }
+                      return ListView.builder(
+                          itemCount: snapshot.data!.length,
+                          itemBuilder: (context, index) {
+                            String dealer = snapshot.data![index]['name'];
+                            String dealerid = snapshot.data![index]['dealerid'];
+
+                            if (searchdealer.text.isEmpty) {
+                              return Column(
+                                children: [
+                                  Card(
+                                    // color: ,
+                                    child: ListTile(
+                                      title: headingTextDarkblueWithextrasmall(title: snapshot.data![index]['name'],),
+                                      onTap: (){
+                                        Navigator.push(context, MaterialPageRoute(builder: (context) => DealerDetails(dealerid :dealerid)));
+                                      },
+                                    ),
+                                  )
+                                ],
+                              );
+                            } else if (dealer.toLowerCase().contains(searchdealer.text.toLowerCase())) {
+                              return Column(
+                                children: [
+                                  Card(
+                                    child: ListTile(
+                                      title: headingTextDarkblueWithextrasmall(title: snapshot.data![index]['name'],),
+                                      onTap: (){
+                                        Navigator.push(context, MaterialPageRoute(builder: (context) => DealerDetails(dealerid :dealerid )));
+
+                                      },
+                                    ),
+                                  )
+                                ],
+                              );
+                            } else {
+                              return Container();
+                            }
+                          });
+                    },
+                  )),
+            ],
           ),
         ),
       ),

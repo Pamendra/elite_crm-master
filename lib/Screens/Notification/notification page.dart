@@ -15,6 +15,8 @@ import '../../Utils/ApploadingBar.dart';
 import '../../Utils/TextWidgets.dart';
 import '../../Utils/setget.dart';
 import 'notif_details.dart';
+
+
 class notification extends StatefulWidget {
   const notification({Key? key}) : super(key: key);
 
@@ -55,6 +57,7 @@ class _notificationState extends State<notification> {
 
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: ColorConstants.DarkBlueColor,
       bottomNavigationBar: Row(children: [
         InkWell(
             onTap: () {
@@ -87,30 +90,26 @@ class _notificationState extends State<notification> {
         opacity: .1,
         progressIndicator:const LoadingBar(),
         inAsyncCall: _isLoading ? true:false,
-        child: Container(
-          height: 100.h,
-          decoration: gradient_login,
-          child: Padding(
-            padding: const EdgeInsets.only(top: 15),
-            child: ListView.builder(
-              itemCount: messages.length,
-              itemBuilder: (context, index) {
-                var message = messages[index];
-                return Card(
-                  child: ListTile(
+        child: Padding(
+          padding: const EdgeInsets.only(top: 15),
+          child: ListView.builder(
+            itemCount: messages.length,
+            itemBuilder: (context, index) {
+              var message = messages[index];
+              return Card(
+                child: ListTile(
 
-                    title: Text(message['title'],
-                        style: const TextStyle(fontWeight: FontWeight.bold)),
-                    trailing: Icon(Icons.arrow_forward_ios,color: ColorConstants.DarkBlueColor,),
-                    onTap: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) =>
-                          NotificationPage(id: message['id'],)));
-                    },
+                  title: Text(message['title'],
+                      style: const TextStyle(fontWeight: FontWeight.bold)),
+                  trailing: Icon(Icons.arrow_forward_ios,color: ColorConstants.DarkBlueColor,),
+                  onTap: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) =>
+                        NotificationPage(id: message['id'],)));
+                  },
 
-                  ),
-                );
-              },
-            ),
+                ),
+              );
+            },
           ),
         ),
       ),

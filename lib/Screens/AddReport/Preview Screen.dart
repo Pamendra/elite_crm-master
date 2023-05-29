@@ -199,10 +199,13 @@ class PreviewReportState extends State<PreviewReport> {
     return BlocProvider(
       create: (context) => AddreportBloc(),
       child: Scaffold(
+        backgroundColor: ColorConstants.DarkBlueColor,
         bottomNavigationBar: BlocConsumer<AddreportBloc,AddReportState>(
           listener: (context,state){
           if(state is AddreportSuccessState){
-            // Fluttertoast.showToast(msg: 'Report Added Successfully');
+            setState(() {
+              _isLoading = false;
+            });
             Dialogs.showValidationMessage(context, 'Report Added Successfully');
             Timer( Duration(seconds:2), () {
               Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const Homepage()), (route) => false);
@@ -231,6 +234,9 @@ class PreviewReportState extends State<PreviewReport> {
                 )),
             InkWell(
                 onTap: () {
+                  setState(() {
+                    _isLoading = true;
+                  });
                   BlocProvider.of<AddreportBloc>(context).add(
                       onPressedButtonEvent(leadId: widget.id.toString(),
                           name: widget.name.toString(),
@@ -292,217 +298,212 @@ class PreviewReportState extends State<PreviewReport> {
             children:[
               SingleChildScrollView(
               scrollDirection: Axis.vertical,
-              child: Container(
-                height: 95.h,
-                // height: MediaQuery.of(context).size.height,
-                decoration: gradient_login,
-                child: Column(children: [
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
+              child: Column(children: [
+                const SizedBox(
+                  height: 20,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
 
-                      // ProgressBarThin(
-                      //     deviceWidth:8.w,
-                      //     color:ColorConstants.deppp),
-                      Column(
-                        children: [
-                          CircleAvatar(
-                            backgroundColor: ColorConstants.deppp,
-                            child: const Text(
-                              '1',
-                              style: TextStyle(color: Colors.white),
-                            ),
-                          ),
-                          SizedBox(height:.3.h,),
-                          subheadingText(title: "General")
-                        ],
-                      ),
-                      ProgressBarThin(
-                          deviceWidth:8.w,
-                          color:ColorConstants.deppp),
-                      Column(
-                        children: [
-                          CircleAvatar(
-                            backgroundColor: ColorConstants.deppp,
-                            child: const Text(
-                              '2',
-                              style: TextStyle(color: Colors.white),
-                            ),
-                          ),
-                          SizedBox(height:.3.h,),
-                          subheadingText(title: "Customer")
-                        ],
-                      ),
-                      ProgressBarThin(
-                          deviceWidth:8.w,
-                          color:ColorConstants.deppp),
-                      Column(
-                        children: [
-                          CircleAvatar(
-                            backgroundColor: ColorConstants.deppp,
-                            child: const Text(
-                              '3',
-                              style: TextStyle(color: Colors.white),
-                            ),
-                          ),
-                          SizedBox(height:.3.h,),
-                          subheadingText(title: "Preview")
-                        ],
-                      ),
-                      // ProgressBarThin(
-                      //     deviceWidth:8.w,
-                      //     color: ColorConstants.deppp),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    child: Column(
+                    // ProgressBarThin(
+                    //     deviceWidth:8.w,
+                    //     color:ColorConstants.deppp),
+                    Column(
                       children: [
-                        GestureDetector(
-                          child: Container(
-                            width: 95.w,
-                            height: 6.h,
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(5),
-                                border: Border.all(color: Colors.black)
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(10.0),
-                              child: Row(
-                                mainAxisAlignment:
-                                MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    widget.date,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: const TextStyle(fontSize: 15),
-                                  ),
-                                  Icon(
-                                    CupertinoIcons.calendar,
-                                    color: ColorConstants.deppp,
-                                  ),
-                                ],
-                              ),
-                            ),
+                        CircleAvatar(
+                          backgroundColor: ColorConstants.deppp,
+                          child: const Text(
+                            '1',
+                            style: TextStyle(color: Colors.white),
                           ),
                         ),
-                        const SizedBox(height: 10,),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 5),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              headingTextwithsmallwhite(title: 'General Report'),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(height: 3,),
-                        Container(
-                            width: 95.w,
-                            decoration: BoxDecoration(
-                                borderRadius:
-                                BorderRadius.circular(5),
-                                border:
-                                Border.all(color: Colors.black)),
-                            child: Scrollbar(
-                              controller: _scrollController,
-                              child: TextField(
-                                readOnly: !edit,
-                                controller: widget.Greport,
-                                style: TextStyle(color:ColorConstants.DarkBlueColor,fontSize:10.sp,fontWeight:FontWeight.w400,fontFamily:"railLight",letterSpacing: 1),
-                                keyboardType: TextInputType.multiline,
-                                maxLines: 5,
-                                decoration: InputDecoration(
-                                  isDense: true,
-                                  suffixIcon: IconButton(
-                                    onPressed: (){
-                                     setState(() {
-                                       edit = !edit;
-                                     });
-                                    },icon: Icon( edit ? Icons.edit : Icons.edit_outlined,
-                                    color: ColorConstants.deppp,),
-                                  ),
-                                  border: OutlineInputBorder(
-                                    borderRadius:
-                                    BorderRadius.circular(5),
-                                    borderSide: const BorderSide(
-                                      width: 0,
-                                      style: BorderStyle.none,
-                                    ),
-                                  ),
-                                  filled: true,
-                                  contentPadding:
-                                  const EdgeInsets.all(10),
-                                  fillColor: Colors.white,
-                                ),
-                              ),
-                            )
-                        ),
-                        SizedBox(height: 10,),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children:  [
-                            InkWell(
-                                onTap: (){
-                                  _openCustomerReportDialog();
-                                },
-                                child: Text('Previous Report',style: TextStyle(decoration: TextDecoration.underline,color: Colors.white),))
-                          ],
-                        ),
-                        const SizedBox(height: 10,),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 5),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              headingTextwithsmallwhite(title: 'Customer Report'),
-                            ],
-                          ),
-                        ),
-
-                        SizedBox(
-                          height: 50.h,
-                          width: 95.w,
-                          child: ListView.builder(
-                            itemCount: customerList.length,
-                            itemBuilder: (context, index) {
-                              final customer = customerList[index];
-                              return Card(
-
-                                child: ListTile(
-                                  title:  Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        'Customer Name:  ${customer['name']}',
-                                        style: TextStyle(fontWeight: FontWeight.bold,fontSize: 10.sp),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.only(top: 10),
-                                        child: Text(
-                                          'Customer Report:  ${ customer['report']}',
-                                          style: TextStyle(fontSize: 10.sp,color: Colors.black,fontFamily: "railLight",fontWeight: FontWeight.bold),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              );
-                            },
-                          ),
-                        ),
+                        SizedBox(height:.3.h,),
+                        subheadingText(title: "General")
                       ],
                     ),
+                    ProgressBarThin(
+                        deviceWidth:8.w,
+                        color:ColorConstants.deppp),
+                    Column(
+                      children: [
+                        CircleAvatar(
+                          backgroundColor: ColorConstants.deppp,
+                          child: const Text(
+                            '2',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ),
+                        SizedBox(height:.3.h,),
+                        subheadingText(title: "Customer")
+                      ],
+                    ),
+                    ProgressBarThin(
+                        deviceWidth:8.w,
+                        color:ColorConstants.deppp),
+                    Column(
+                      children: [
+                        CircleAvatar(
+                          backgroundColor: ColorConstants.deppp,
+                          child: const Text(
+                            '3',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ),
+                        SizedBox(height:.3.h,),
+                        subheadingText(title: "Preview")
+                      ],
+                    ),
+                    // ProgressBarThin(
+                    //     deviceWidth:8.w,
+                    //     color: ColorConstants.deppp),
+                  ],
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: Column(
+                    children: [
+                      GestureDetector(
+                        child: Container(
+                          width: 95.w,
+                          height: 6.h,
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(5),
+                              border: Border.all(color: Colors.black)
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Row(
+                              mainAxisAlignment:
+                              MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  widget.date,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: const TextStyle(fontSize: 15),
+                                ),
+                                Icon(
+                                  CupertinoIcons.calendar,
+                                  color: ColorConstants.deppp,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 10,),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 5),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            headingTextwithsmallwhite(title: 'General Report'),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 3,),
+                      Container(
+                          width: 95.w,
+                          decoration: BoxDecoration(
+                              borderRadius:
+                              BorderRadius.circular(5),
+                              border:
+                              Border.all(color: Colors.black)),
+                          child: Scrollbar(
+                            controller: _scrollController,
+                            child: TextField(
+                              readOnly: !edit,
+                              controller: widget.Greport,
+                              style: TextStyle(color:ColorConstants.DarkBlueColor,fontSize:10.sp,fontWeight:FontWeight.w400,fontFamily:"railLight",letterSpacing: 1),
+                              keyboardType: TextInputType.multiline,
+                              maxLines: 5,
+                              decoration: InputDecoration(
+                                isDense: true,
+                                suffixIcon: IconButton(
+                                  onPressed: (){
+                                   setState(() {
+                                     edit = !edit;
+                                   });
+                                  },icon: Icon( edit ? Icons.edit : Icons.edit_outlined,
+                                  color: ColorConstants.deppp,),
+                                ),
+                                border: OutlineInputBorder(
+                                  borderRadius:
+                                  BorderRadius.circular(5),
+                                  borderSide: const BorderSide(
+                                    width: 0,
+                                    style: BorderStyle.none,
+                                  ),
+                                ),
+                                filled: true,
+                                contentPadding:
+                                const EdgeInsets.all(10),
+                                fillColor: Colors.white,
+                              ),
+                            ),
+                          )
+                      ),
+                      SizedBox(height: 10,),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children:  [
+                          InkWell(
+                              onTap: (){
+                                _openCustomerReportDialog();
+                              },
+                              child: Text('Previous Report',style: TextStyle(decoration: TextDecoration.underline,color: Colors.white),))
+                        ],
+                      ),
+                      const SizedBox(height: 10,),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 5),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            headingTextwithsmallwhite(title: 'Customer Report'),
+                          ],
+                        ),
+                      ),
+
+                      SizedBox(
+                        height: 50.h,
+                        width: 95.w,
+                        child: ListView.builder(
+                          itemCount: customerList.length,
+                          itemBuilder: (context, index) {
+                            final customer = customerList[index];
+                            return Card(
+
+                              child: ListTile(
+                                title:  Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      'Customer Name:  ${customer['name']}',
+                                      style: TextStyle(fontWeight: FontWeight.bold,fontSize: 10.sp),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 10),
+                                      child: Text(
+                                        'Customer Report:  ${ customer['report']}',
+                                        style: TextStyle(fontSize: 10.sp,color: Colors.black,fontFamily: "railLight",fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    ],
                   ),
-                ]),
-              ),
+                ),
+              ]),
             ),
               // Center(
               //   child: AnimatedOpacity(

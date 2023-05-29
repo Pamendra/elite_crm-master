@@ -11,6 +11,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 
 
+import '../Screens/Notification/notification page.dart';
 import '../Screens/Splash_Screen/splash_screen.dart';
 import '../Screens/bottomNavigationPages.dart';
 import 'PrimaryButton.dart';
@@ -199,14 +200,14 @@ class DrawerLogout extends StatelessWidget {
                       bottom: BorderSide(
                         color: ColorConstants.backgroundappColor,
                       )),
-                  title:const Text('Add Report', style: TextStyle(
+                  title:const Text('Notifications', style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 17,
                       color: Colors.white),),
                   onTap: (){
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => const AddReport()),
+                      MaterialPageRoute(builder: (context) => const notification()),
                     );
                   },
                 ),

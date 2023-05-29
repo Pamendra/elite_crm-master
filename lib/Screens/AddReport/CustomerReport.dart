@@ -49,6 +49,7 @@ class _CustomerReportState extends State<CustomerReport> {
   String _searchQuery = '';
   List<dynamic> _filteredCustomerList = [];
   List<Map<String, dynamic>> _customerLists = [];
+  TextEditingController reportController = TextEditingController();
 
 
 
@@ -84,8 +85,7 @@ class _CustomerReportState extends State<CustomerReport> {
   }
 
 
-  Future<dynamic> _openCustomerReportDialog(String customerName) {
-    TextEditingController reportController = TextEditingController();
+  Future<dynamic> _openCustomerReportDialog(String customerName, TextEditingController reportController) {
    return showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -201,6 +201,7 @@ class _CustomerReportState extends State<CustomerReport> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: ColorConstants.DarkBlueColor,
       bottomNavigationBar: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -262,290 +263,285 @@ class _CustomerReportState extends State<CustomerReport> {
       ),
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
-        child: Container(
-          height:90.h,
-          decoration: gradient_login,
-          child: Column(children: [
-            const SizedBox(
-              height: 20,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                // ProgressBarThin(
-                //     deviceWidth:8.w,
-                //     color:ColorConstants.deppp),
-                Column(
-                  children: [
-                    CircleAvatar(
-                      backgroundColor: ColorConstants.deppp,
-                      child: const Text(
-                        '1',
-                        style: TextStyle(color: Colors.white),
-                      ),
-                    ),
-                    SizedBox(height:.3.h,),
-                    subheadingText(title: "General")
-                  ],
-                ),
-                ProgressBarThin(
-                    deviceWidth:8.w,
-                    color:ColorConstants.deppp),
-                Column(
-                  children: [
-                    CircleAvatar(
-                      backgroundColor: ColorConstants.deppp,
-                      child: const Text(
-                        '2',
-                        style: TextStyle(color: Colors.white),
-                      ),
-                    ),
-                    SizedBox(height:.3.h,),
-                    subheadingText(title: "Customer")
-                  ],
-                ),
-                ProgressBarThin(
-                    deviceWidth:8.w,
-                    color:ColorConstants.deppp),
-                Column(
-                  children: [
-                    CircleAvatar(
-                      backgroundColor: ColorConstants.white,
-                      child: const Text(
-                        '3',
-                        style: TextStyle(color: Colors.black),
-                      ),
-                    ),
-                    SizedBox(height:.3.h,),
-                    subheadingText1(title: "Preview")
-                  ],
-                ),
-                // ProgressBarThin(
-                //     deviceWidth:8.w,
-                //     color: blueGrey),
-              ],
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: Column(
+        child: Column(children: [
+          const SizedBox(
+            height: 20,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              // ProgressBarThin(
+              //     deviceWidth:8.w,
+              //     color:ColorConstants.deppp),
+              Column(
                 children: [
-                  // GestureDetector(
-                  //   child: Container(
-                  //     width: 95.w,
-                  //     height: 6.h,
-                  //     decoration: BoxDecoration(
-                  //         color: Colors.white,
-                  //         borderRadius: BorderRadius.circular(5),
-                  //         border: Border.all(color: Colors.black)
-                  //     ),
-                  //     child: Padding(
-                  //       padding: const EdgeInsets.all(10.0),
-                  //       child: Row(
-                  //         mainAxisAlignment:
-                  //         MainAxisAlignment.spaceBetween,
-                  //         children: [
-                  //           Text(
-                  //             widget.date,
-                  //             overflow: TextOverflow.ellipsis,
-                  //             style: const TextStyle(fontSize: 15),
-                  //           ),
-                  //           Icon(
-                  //             CupertinoIcons.calendar,
-                  //             color: ColorConstants.deppp,
-                  //           ),
-                  //         ],
-                  //       ),
-                  //     ),
-                  //   ),
-                  // ),
-                  // const SizedBox(height: 10,),
-                  // Padding(
-                  //   padding: const EdgeInsets.only(left: 5),
-                  //   child: Row(
-                  //     mainAxisAlignment: MainAxisAlignment.start,
-                  //     children: [
-                  //       headingTextwithsmallwhite(title: 'General Report'),
-                  //     ],
-                  //   ),
-                  // ),
-                  // Container(
-                  //     width: 95.w,
-                  //     decoration: BoxDecoration(
-                  //         borderRadius:
-                  //         BorderRadius.circular(5),
-                  //         border:
-                  //         Border.all(color: Colors.black)),
-                  //     child: Scrollbar(
-                  //       controller: _scrollController,
-                  //       child: TextField(
-                  //         readOnly: true,
-                  //         controller: widget.Greport,
-                  //         style: TextStyle(color:ColorConstants.DarkBlueColor,fontSize:10.sp,fontWeight:FontWeight.w400,fontFamily:"railLight",letterSpacing: 1),
-                  //         keyboardType: TextInputType.multiline,
-                  //         maxLines: 5,
-                  //         decoration: InputDecoration(
-                  //           suffixIcon: InkWell(
-                  //               onTap: (){
-                  //                Navigator.pop(context);
-                  //               },
-                  //               child:  Icon(Icons.edit,color: ColorConstants.deppp,)),
-                  //           // hintText: ,
-                  //           // hintStyle: TextStyle(
-                  //           //   fontSize: 10.sp,
-                  //           //   color: Colors.black,
-                  //           //   fontFamily: "railLight",),
-                  //           isDense: true,
-                  //           border: OutlineInputBorder(
-                  //             borderRadius:
-                  //             BorderRadius.circular(5),
-                  //             borderSide: const BorderSide(
-                  //               width: 0,
-                  //               style: BorderStyle.none,
-                  //             ),
-                  //           ),
-                  //           filled: true,
-                  //           contentPadding:
-                  //           const EdgeInsets.all(10),
-                  //           fillColor: Colors.white,
-                  //         ),
-                  //       ),
-                  //     )
-                  // ),
-                  // SizedBox(height: 10,),
-                  // Row(
-                  //   mainAxisAlignment: MainAxisAlignment.end,
-                  //   children: const [
-                  //     InkWell(child: Text('Previous Report',style: TextStyle(decoration: TextDecoration.underline,color: Colors.white),))
-                  //   ],
-                  // ),
-                  const SizedBox(height: 10,),
-                 Container(
-                   height: 5.h,
-                   color: ColorConstants.DarkBlueColor,
-                   child: const Center(
-                     child: Padding(
-                       padding: EdgeInsets.all(5.0),
-                       child: Text(
-                          'This is the specific customer report information. If a text area is left empty a report will still be created.',
-                          style: TextStyle(fontSize: 14,color: Colors.white,fontFamily: "railLight"),
-                        ),
-                     ),
+                  CircleAvatar(
+                    backgroundColor: ColorConstants.deppp,
+                    child: const Text(
+                      '1',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
+                  SizedBox(height:.3.h,),
+                  subheadingText(title: "General")
+                ],
+              ),
+              ProgressBarThin(
+                  deviceWidth:8.w,
+                  color:ColorConstants.deppp),
+              Column(
+                children: [
+                  CircleAvatar(
+                    backgroundColor: ColorConstants.deppp,
+                    child: const Text(
+                      '2',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
+                  SizedBox(height:.3.h,),
+                  subheadingText(title: "Customer")
+                ],
+              ),
+              ProgressBarThin(
+                  deviceWidth:8.w,
+                  color:ColorConstants.deppp),
+              Column(
+                children: [
+                  CircleAvatar(
+                    backgroundColor: ColorConstants.white,
+                    child: const Text(
+                      '3',
+                      style: TextStyle(color: Colors.black),
+                    ),
+                  ),
+                  SizedBox(height:.3.h,),
+                  subheadingText1(title: "Preview")
+                ],
+              ),
+              // ProgressBarThin(
+              //     deviceWidth:8.w,
+              //     color: blueGrey),
+            ],
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: Column(
+              children: [
+                // GestureDetector(
+                //   child: Container(
+                //     width: 95.w,
+                //     height: 6.h,
+                //     decoration: BoxDecoration(
+                //         color: Colors.white,
+                //         borderRadius: BorderRadius.circular(5),
+                //         border: Border.all(color: Colors.black)
+                //     ),
+                //     child: Padding(
+                //       padding: const EdgeInsets.all(10.0),
+                //       child: Row(
+                //         mainAxisAlignment:
+                //         MainAxisAlignment.spaceBetween,
+                //         children: [
+                //           Text(
+                //             widget.date,
+                //             overflow: TextOverflow.ellipsis,
+                //             style: const TextStyle(fontSize: 15),
+                //           ),
+                //           Icon(
+                //             CupertinoIcons.calendar,
+                //             color: ColorConstants.deppp,
+                //           ),
+                //         ],
+                //       ),
+                //     ),
+                //   ),
+                // ),
+                // const SizedBox(height: 10,),
+                // Padding(
+                //   padding: const EdgeInsets.only(left: 5),
+                //   child: Row(
+                //     mainAxisAlignment: MainAxisAlignment.start,
+                //     children: [
+                //       headingTextwithsmallwhite(title: 'General Report'),
+                //     ],
+                //   ),
+                // ),
+                // Container(
+                //     width: 95.w,
+                //     decoration: BoxDecoration(
+                //         borderRadius:
+                //         BorderRadius.circular(5),
+                //         border:
+                //         Border.all(color: Colors.black)),
+                //     child: Scrollbar(
+                //       controller: _scrollController,
+                //       child: TextField(
+                //         readOnly: true,
+                //         controller: widget.Greport,
+                //         style: TextStyle(color:ColorConstants.DarkBlueColor,fontSize:10.sp,fontWeight:FontWeight.w400,fontFamily:"railLight",letterSpacing: 1),
+                //         keyboardType: TextInputType.multiline,
+                //         maxLines: 5,
+                //         decoration: InputDecoration(
+                //           suffixIcon: InkWell(
+                //               onTap: (){
+                //                Navigator.pop(context);
+                //               },
+                //               child:  Icon(Icons.edit,color: ColorConstants.deppp,)),
+                //           // hintText: ,
+                //           // hintStyle: TextStyle(
+                //           //   fontSize: 10.sp,
+                //           //   color: Colors.black,
+                //           //   fontFamily: "railLight",),
+                //           isDense: true,
+                //           border: OutlineInputBorder(
+                //             borderRadius:
+                //             BorderRadius.circular(5),
+                //             borderSide: const BorderSide(
+                //               width: 0,
+                //               style: BorderStyle.none,
+                //             ),
+                //           ),
+                //           filled: true,
+                //           contentPadding:
+                //           const EdgeInsets.all(10),
+                //           fillColor: Colors.white,
+                //         ),
+                //       ),
+                //     )
+                // ),
+                // SizedBox(height: 10,),
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.end,
+                //   children: const [
+                //     InkWell(child: Text('Previous Report',style: TextStyle(decoration: TextDecoration.underline,color: Colors.white),))
+                //   ],
+                // ),
+                const SizedBox(height: 10,),
+               Container(
+                 height: 5.h,
+                 color: ColorConstants.DarkBlueColor,
+                 child:  Center(
+                   child: Padding(
+                     padding: const EdgeInsets.all(5.0),
+                     child: Text(
+                        'This is the specific customer report information. If a text area is left empty a report will still be created.',
+                        style: TextStyle(fontSize: 10.sp,color: Colors.white,fontFamily: "railLight"),
+                      ),
                    ),
                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  TextFormField(
-                    onChanged: (value) {
-                      setState(() {
-                        _searchQuery = value;
-                        _filterCustomerList();
-                      });
+               ),
+                const SizedBox(
+                  height: 10,
+                ),
+                TextFormField(
+                  onChanged: (value) {
+                    setState(() {
+                      _searchQuery = value;
+                      _filterCustomerList();
+                    });
+                  },
+                  style: const TextStyle(color: Colors.white,fontFamily: "railLight"),
+                  decoration: InputDecoration(
+                      filled: true,
+                      fillColor: ColorConstants.Darkopacity,
+                      enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                              color: ColorConstants.deppp,width: 3
+                          )
+                      ),
+
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                        borderSide:  BorderSide(color: ColorConstants.deppp, width: 3),
+                      ),
+                      suffixIcon: const Icon(Icons.search,color: Colors.white,),
+                      hintText: 'Search...',
+                      hintStyle: const TextStyle(color: Colors.white),
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(5))),
+                ),
+
+
+                SizedBox(
+                  height: 60.h,
+                  child: _searchQuery.isEmpty
+                      ? ListView.builder(
+                    itemCount: _customerList.length,
+                    itemBuilder: (context, index) {
+                      final customer = _customerList[index];
+                      final isCustomerSelected =
+                      _customerLists.any((item) => item['name'] == customer['name']);
+                      return InkWell(
+                        child: Card(
+                          color: isCustomerSelected ? Colors.green : null,
+                          child: ListTile(
+                            title: subheadingText2(title: customer['name']),
+                            trailing: isCustomerSelected
+                                ? const Icon(Icons.check, color: Colors.white)
+                                : null,
+                          ),
+                        ),
+                        onTap: () {
+                          setState(() {
+                            _openCustomerReportDialog(customer['name'], reportController).then((report) {
+                              if (report != null) {
+                                setState(() {
+                                  _customerLists.add({
+                                    'id': customer['id'],
+                                    'name': customer['name'],
+                                    'report': report,
+                                  });
+                                });
+                              }
+                            });
+                          });
+                        },
+                      );
                     },
-                    style: const TextStyle(color: Colors.white,fontFamily: "railLight"),
-                    decoration: InputDecoration(
-                        filled: true,
-                        fillColor: ColorConstants.Darkopacity,
-                        enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                                color: ColorConstants.deppp,width: 3
-                            )
+                  )
+                      : ListView.builder(
+                    itemCount: _filteredCustomerList.length,
+                    itemBuilder: (context, index) {
+                      final customer = _filteredCustomerList[index];
+                      final isCustomerSelected =
+                      _customerLists.any((item) => item['name'] == customer['name']);
+                      return InkWell(
+                        child: Card(
+                          color: isCustomerSelected ? Colors.green : null,
+                          child: ListTile(
+                            title: Text(customer['name']),
+                            trailing: isCustomerSelected
+                                ? const Icon(Icons.check, color: Colors.white)
+                                : null,
+                          ),
                         ),
-
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8.0),
-                          borderSide:  BorderSide(color: ColorConstants.deppp, width: 3),
-                        ),
-                        suffixIcon: const Icon(Icons.search,color: Colors.white,),
-                        hintText: 'Search...',
-                        hintStyle: const TextStyle(color: Colors.white),
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(5))),
-                  ),
-
-
-          SizedBox(
-            height: 60.h,
-            child: _searchQuery.isEmpty
-                ? ListView.builder(
-              itemCount: _customerList.length,
-              itemBuilder: (context, index) {
-                final customer = _customerList[index];
-                final isCustomerSelected = _customerLists.any((item) => item['name'] == customer['name']);
-                return InkWell(
-                  child: Card(
-                    color: isCustomerSelected ? Colors.green : null, // Set green color if customer is selected
-                    child: ListTile(
-                      title: subheadingText2(title: customer['name']),
-                      trailing: isCustomerSelected ? const Icon(Icons.check, color: Colors.white) : null, // Show check icon if customer is selected
-                    ),
-                  ),
-                  onTap: () {
-                    setState(() {
-                      if (isCustomerSelected) {
-                        return;
-                      } else {
-                        _openCustomerReportDialog(customer['name']).then((report) {
-                          if (report != null) {
-                            setState(() {
-                              _customerLists.add({
-                                'id': customer['id'],
-                                'name': customer['name'],
-                                'report': report,
-                              });
+                        onTap: () {
+                          setState(() {
+                            _openCustomerReportDialog(customer['name'], reportController).then((report) {
+                              if (report != null) {
+                                setState(() {
+                                  _customerLists.add({
+                                    'id': customer['id'],
+                                    'name': customer['name'],
+                                    'report': report,
+                                  });
+                                });
+                              }
                             });
-                          }
-                        });
-                      }
-                    });
-                  },
-                );
-              },
-            )
-                : ListView.builder(
-              itemCount: _filteredCustomerList.length,
-              itemBuilder: (context, index) {
-                final customer = _filteredCustomerList[index];
-                final isCustomerSelected = _customerLists.any((item) => item['name'] == customer['name']);
-                return InkWell(
-                  child: Card(
-                    color: isCustomerSelected ? Colors.green : null, // Set green color if customer is selected
-                    child: ListTile(
-                      title: Text(customer['name']),
-                      trailing: isCustomerSelected ? const Icon(Icons.check, color: Colors.white) : null, // Show check icon if customer is selected
-                    ),
+                          });
+                        },
+                      );
+                    },
                   ),
-                  onTap: () {
-                    setState(() {
-                      if (isCustomerSelected) {
-                       return;
-                      } else {
-                        _openCustomerReportDialog(customer['name']).then((report) {
-                          if (report != null) {
-                            setState(() {
-                              _customerLists.add({
-                                'id': customer['id'],
-                                'name': customer['name'],
-                                'report': report,
-                              });
-                            });
-                          }
-                        });
-                      }
-                    });
-                  },
-                );
-              },
+                )
+
+              ],
             ),
-          )
-          ],
-              ),
-            ),
-          ]),
-        ),
+          ),
+        ]),
       ),
     );
   }

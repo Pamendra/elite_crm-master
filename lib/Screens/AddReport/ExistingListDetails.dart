@@ -26,6 +26,9 @@ import '../Notification/Model/detailsModel.dart';
  class _ExistingListDetailsState extends State<ExistingListDetails> {
    //TextEditingController details = TextEditingController();
    TextEditingController _controller = TextEditingController();
+   TextEditingController _searchController = TextEditingController();
+   ScrollController scrollist = ScrollController();
+
    String details='';
    List _leads = [];
    String user_id ='';
@@ -38,7 +41,7 @@ import '../Notification/Model/detailsModel.dart';
    String? services;
    String? category;
    String? status;
-
+   FocusNode inputNode = FocusNode();
 
    ShoiId() async {
      String shopid = await Utils().getUsererId();
@@ -65,7 +68,7 @@ import '../Notification/Model/detailsModel.dart';
          return Future.value(false);
        },
        child: Scaffold(
-
+         backgroundColor: ColorConstants.DarkBlueColor,
          appBar: AppBar(
            automaticallyImplyLeading: false,
            backgroundColor: ColorConstants.appcolor,
@@ -78,98 +81,179 @@ import '../Notification/Model/detailsModel.dart';
                padding: const EdgeInsets.all(15),
                width: 100.w,
                height: 5.8.h,
-               color: ColorConstants.appcolor,
+               color: ColorConstants.blueGrey,
                child: Row(
                  mainAxisAlignment: MainAxisAlignment.center,
                  children:  [
-
                   subheadingTextBOLD(title: 'Go Back'),
                  ],
                ),
              )),
 
-         body: Stack(
-           children:[
-             Container(
-             height: 1000.h,
-             decoration: gradient_login,
-             child: SafeArea(
-               child: Padding(
-                 padding: const EdgeInsets.only(top: 80,left: 10,right: 10),
-                 child: Column(
-                   crossAxisAlignment: CrossAxisAlignment.start,
-                     children: [
-                       headingTextwithsmallwhite(title: 'Search Lead'),
-                       TypeAheadFormField(
-                         textFieldConfiguration: TextFieldConfiguration(
-                           style: TextStyle(
-                               fontSize: 10.sp,
-                               color: Colors.black,
-                               fontFamily: "railLight"
-                           ),
-                           decoration: InputDecoration(
-                             filled: true,
-                             fillColor: Colors.white,
-                             hintText: 'Search...',
-                             hintStyle: TextStyle(color: Colors.grey[500]),
-                             border: OutlineInputBorder(
-                               borderRadius: BorderRadius.circular(5),
-                             ),
-                           ),
+         body: SingleChildScrollView(
+           scrollDirection: Axis.vertical,
+           child: SafeArea(
+             child: Padding(
+               padding: const EdgeInsets.only(top: 30,left: 10,right: 10),
+               child: Column(
+                 crossAxisAlignment: CrossAxisAlignment.start,
+                   children: [
+                     headingTextwithsmallwhite(title: 'Search Lead'),
+                     // TypeAheadFormField(
+                     //   keepSuggestionsOnLoading: false,
+                     //   textFieldConfiguration: TextFieldConfiguration(
+                     //     autofocus: true,
+                     //     enabled: true,
+                     //     focusNode: inputNode,
+                     //     style: TextStyle(
+                     //         fontSize: 10.sp,
+                     //         color: Colors.black,
+                     //         fontFamily: "railLight"
+                     //     ),
+                     //     decoration: InputDecoration(
+                     //       filled: true,
+                     //       fillColor: Colors.white,
+                     //       hintText: 'Search...',
+                     //       hintStyle: TextStyle(color: Colors.grey[500]),
+                     //       border: OutlineInputBorder(
+                     //         borderRadius: BorderRadius.circular(5),
+                     //       ),
+                     //     ),
+                     //   ),
+                     //   suggestionsCallback: (pattern) async {
+                     //     if (pattern.length >= 3) {
+                     //       _leads = await AddReportService().getLeads(pattern, user_id);
+                     //     } else {
+                     //       _leads = [];
+                     //     }
+                     //     return _leads.map((lead) => lead['name']).toList();
+                     //   },
+                     //   itemBuilder: (context, suggestion) {
+                     //     var lead = _leads.firstWhere(
+                     //             (lead) => lead['name'] == suggestion,
+                     //         orElse: () => null);
+                     //     if (lead != null) {
+                     //       return Card(
+                     //         color: ColorConstants.DarkBlueColor,
+                     //         child: ListTile(
+                     //           title: Text('${lead['name']}, ${lead['cname']}',style: TextStyle(fontSize: 10.sp, color: Colors.white, fontFamily: "railLight"),),
+                     //           subtitle: Text('${lead['state']}, ${lead['city']}, ${lead['phone']}',style: TextStyle(fontSize: 10.sp, color: Colors.white, fontFamily: "railLight"),),
+                     //         ),
+                     //       );
+                     //     } else {
+                     //       return Card(
+                     //         color: ColorConstants.DarkBlueColor,
+                     //         child: ListTile(
+                     //           title: Text('${lead['name']}, ${lead['cname']}',style: TextStyle(fontSize: 10.sp, color: Colors.white, fontFamily: "railLight"),),
+                     //           subtitle: Text('${lead['state']}, ${lead['city']}, ${lead['phone']}',style: TextStyle(fontSize: 10.sp, color: Colors.white, fontFamily: "railLight"),),
+                     //         ),
+                     //       );
+                     //     }
+                     //   },
+                     //   onSuggestionSelected: (suggestion) {
+                     //     var lead = _leads.firstWhere(
+                     //             (lead) => lead['name'] == suggestion,
+                     //         orElse: () => null);
+                     //     if (lead != null) {
+                     //       var leadDetails = LeadDetails(
+                     //         id: lead['id'],
+                     //         name: lead['name'],
+                     //         cname: lead['cname'],
+                     //         gmanager: lead['gmanager'],
+                     //         pmanager: lead['pmanager'],
+                     //         services: lead['services'],
+                     //         status: lead['status'],
+                     //         category: lead['category'] ?? 'null',
+                     //         details:'${lead['name']}, ${lead['cname']} , ${lead['gmanager']} , ${lead['pmanager']} ,'
+                     //                   ' ${lead['services'] } ,  ${lead['state']} ,  ${lead['phone']}'
+                     //       );
+                     //
+                     //         Navigator.pop(context, leadDetails);
+                     //     }
+                     //   },
+                     //   enabled: true,
+                     // ),
+
+                     TextField(
+                       autofocus: true,
+                       controller: _searchController,
+                       style: TextStyle(fontSize: 10.sp, color: Colors.black, fontFamily: "railLight"),
+                       decoration: InputDecoration(
+                         filled: true,
+                         fillColor: Colors.white,
+                         hintText: 'Search...',
+                         hintStyle: TextStyle(color: Colors.grey[500]),
+                         border: OutlineInputBorder(
+                           borderRadius: BorderRadius.circular(5),
                          ),
-                         suggestionsCallback: (pattern) async {
-                           if (pattern.length >= 3) {
-                             _leads = await AddReportService().getLeads(pattern, user_id);
-                           } else {
-                             _leads = [];
-                           }
-                           return _leads.map((lead) => lead['name']).toList();
-                         },
-                         itemBuilder: (context, suggestion) {
-                           var lead = _leads.firstWhere(
-                                   (lead) => lead['name'] == suggestion,
-                               orElse: () => null);
-                           if (lead != null) {
+                       ),
+                       onChanged: (pattern) async {
+                         if (pattern.length >= 3) {
+                           _leads = await AddReportService().getLeads(pattern, user_id);
+                         } else {
+                           _leads = [];
+                         }
+                         setState(() {});
+                       },
+                     ),
+                     SizedBox(height: 10),
+                     Container(
+                       height: 60.h,
+                       child: RawScrollbar(
+                         trackVisibility: true,
+                         thumbColor: ColorConstants.appcolor,
+                         trackColor: Colors.white,
+                         trackRadius: const Radius.circular(20),
+                        // thumbVisibility: true,
+                         thickness: 8,
+                         radius: const Radius.circular(20),
+
+                         scrollbarOrientation: ScrollbarOrientation.right,
+                         child: ListView.builder(
+                           itemCount: _leads.length,
+                           itemBuilder: (BuildContext context, int index) {
+                             var lead = _leads[index];
                              return Card(
                                color: ColorConstants.DarkBlueColor,
                                child: ListTile(
-                                 title: Text('${lead['name']}, ${lead['cname']}',style: TextStyle(fontSize: 10.sp, color: Colors.white, fontFamily: "railLight"),),
-                                 subtitle: Text('${lead['state']}, ${lead['city']}, ${lead['phone']}',style: TextStyle(fontSize: 10.sp, color: Colors.white, fontFamily: "railLight"),),
+                                 shape: Border(
+                                     bottom: BorderSide(
+                                       color: ColorConstants.backgroundappColor,
+                                     )),
+                                 title: Text(
+                                   '${lead['name']}, ${lead['cname']}',
+                                   style: TextStyle(fontSize: 11.sp, color: Colors.white, fontFamily: "railLight"),
+                                 ),
+                                 subtitle: Text(
+                                   '${lead['state']}, ${lead['city']}, ${lead['phone']}',
+                                   style: TextStyle(fontSize: 11.sp, color: Colors.white, fontFamily: "railLight"),
+                                 ),
+                                 onTap: () {
+                                   var leadDetails = LeadDetails(
+                                     id: lead['id'],
+                                     name: lead['name'],
+                                     cname: lead['cname'],
+                                     gmanager: lead['gmanager'],
+                                     pmanager: lead['pmanager'],
+                                     services: lead['services'],
+                                     status: lead['status'],
+                                     category: lead['category'] ?? 'null',
+                                     details:
+                                     '${lead['name']}, ${lead['cname']} , ${lead['gmanager']} , ${lead['pmanager']} , ${lead['services'] } ,  ${lead['state']} ,  ${lead['phone']}',
+                                   );
+
+                                   Navigator.pop(context, leadDetails);
+                                 },
                                ),
                              );
-                           } else {
-                             return const SizedBox.shrink();
-                           }
-                         },
-                         onSuggestionSelected: (suggestion) {
-                           var lead = _leads.firstWhere(
-                                   (lead) => lead['name'] == suggestion,
-                               orElse: () => null);
-                           if (lead != null) {
-                             var leadDetails = LeadDetails(
-                               id: lead['id'],
-                               name: lead['name'],
-                               cname: lead['cname'],
-                               gmanager: lead['gmanager'],
-                               pmanager: lead['pmanager'],
-                               services: lead['services'],
-                               status: lead['status'],
-                               category: lead['category'] ?? 'null',
-                               details:'${lead['name']}, ${lead['cname']} , ${lead['gmanager']} , ${lead['pmanager']} ,'
-                                         ' ${lead['services'] } ,  ${lead['state']} ,  ${lead['phone']}'
-                             );
-
-                               Navigator.pop(context, leadDetails);
-                           }
-                         },
-                         enabled: true,
+                           },
+                         ),
                        ),
-                     ]
-                 ),
+                     ),
+                   ]
                ),
              ),
            ),
-           ]
          ),
        ),
      );

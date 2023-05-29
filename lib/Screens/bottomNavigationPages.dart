@@ -38,7 +38,7 @@ class _HomepageState extends State<Homepage> {
     return Scaffold(
       backgroundColor: ColorConstants.DarkBlueColor ,
       bottomNavigationBar: Container(
-        margin: const EdgeInsets.all(20),
+        margin: const EdgeInsets.only(top: 10),
         height: size.width * .155,
         decoration: BoxDecoration(
           color: Colors.white,
@@ -49,7 +49,7 @@ class _HomepageState extends State<Homepage> {
               offset: const Offset(0, 10),
             ),
           ],
-          borderRadius: BorderRadius.circular(50),
+          borderRadius: BorderRadius.circular(5),
         ),
         child: ListView.builder(
           itemCount: 3,
@@ -73,10 +73,10 @@ class _HomepageState extends State<Homepage> {
                     bottom: index == currentIndex ? 0 : size.width * .029,
                     right: index == 1
                         ? 0
-                        : size.width * .0422, // adjust margin for 2 icons
-                    left: index == 1 ? 0 : size.width * .0422,
+                        : size.width * .0600, // adjust margin for 2 icons
+                    left: index == 1 ? 0 : size.width * .0500,
                   ),
-                  width: size.width * .230,
+                  width: size.width * .250,
                   height: index == currentIndex ? size.width * .014 : 0,
                   decoration: BoxDecoration(
                     color: ColorConstants.deppp,
@@ -87,10 +87,10 @@ class _HomepageState extends State<Homepage> {
                 ),
                 Icon(
                   listOfIcons[index],
-                  size: size.width * .076,
+                  size: size.width * .096,
                   color: index == currentIndex
                       ? ColorConstants.deppp
-                      : Colors.black38,
+                      : ColorConstants.DarkBlueColor,
                 ),
                 SizedBox(height: size.width * .03),
               ],

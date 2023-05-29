@@ -60,7 +60,7 @@ class _NotificationPageState extends State<NotificationPage> {
   Widget build(BuildContext context) {
     return Scaffold(
 
-
+        backgroundColor: ColorConstants.DarkBlueColor,
         bottomNavigationBar: Row(children: [
           InkWell(
               onTap: () {
@@ -104,162 +104,158 @@ class _NotificationPageState extends State<NotificationPage> {
           child: SingleChildScrollView(
 
 
-            child: Container(
-              height: 100.h,
-              decoration: gradient_login,
-              child: Padding(
-                padding: const EdgeInsets.only(top: 0),
+            child: Padding(
+              padding: const EdgeInsets.only(top: 0),
 
-                child: Column(
+              child: Column(
 
-                  children: [
-                    const SizedBox(
-                      height: 30,
-                    ),
+                children: [
+                  const SizedBox(
+                    height: 30,
+                  ),
 
-                    const SizedBox(
-                      height: 0,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: Column(
+                  const SizedBox(
+                    height: 0,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Column(
 
 
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
 
 
-                          Container(
-                            child: Column(
-                              children: <Widget>[
-                                ListTile(
-                                  title:  Text(
-                                    'Title :   $Title',
-                                    style: const TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-
-                                ),
-                                const Divider(
-                                  color: Colors.blue,
-                                  height: 25,
-                                  thickness: 1,
-                                  indent: 5,
-                                  endIndent: 5,
-                                ),
-                                ListTile(
-                                  title:  const Text(
-                                    'Description :\n ',
-                                    style:  TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  subtitle: Text(
-                                    Description,
-                                    style: const TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white,
-
-                                    ),
+                        Container(
+                          child: Column(
+                            children: <Widget>[
+                              ListTile(
+                                title:  Text(
+                                  'Title :   $Title',
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
                                   ),
                                 ),
-                                const Divider(
-                                  color: Colors.blue,
-                                  height: 25,
-                                  thickness: 1,
-                                  indent: 5,
-                                  endIndent: 5,
-                                ),
 
-                                ListTile(
-                                  title: const Text(
-                                    'Link : \n ',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
-                                    ),
+                              ),
+                              const Divider(
+                                color: Colors.blue,
+                                height: 25,
+                                thickness: 1,
+                                indent: 5,
+                                endIndent: 5,
+                              ),
+                              ListTile(
+                                title:  const Text(
+                                  'Description :\n ',
+                                  style:  TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
                                   ),
+                                ),
+                                subtitle: Text(
+                                  Description,
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white,
 
-                                  subtitle: Text(
-                                    Link,
-                                    style: const TextStyle(
-                                      color: Colors.lightBlueAccent,
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                    softWrap: true,
                                   ),
-                                  onTap: () async {
-
-                                    if (await canLaunch(Link)) {
-                                      await launch(Link, forceSafariVC: false,
-                                          forceWebView: false);
-                                    } else {
-                                      throw 'Could not launch $Link';
-                                    }
-                                  },
                                 ),
+                              ),
+                              const Divider(
+                                color: Colors.blue,
+                                height: 25,
+                                thickness: 1,
+                                indent: 5,
+                                endIndent: 5,
+                              ),
 
-
-                                // const Divider(
-                                //   color: Colors.blue,
-                                //   height: 25,
-                                //   thickness: 2,
-                                //   indent: 5,
-                                //   endIndent: 5,
-                                // ),
-                                const Divider(
-                                  color: Colors.blue,
-                                  height: 25,
-                                  thickness: 1,
-                                  indent: 5,
-                                  endIndent: 5,
-                                ),
-                                ListTile(
-                                  title: const Text(
-                                    'Docs :',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
-                                    ),
+                              ListTile(
+                                title: const Text(
+                                  'Link : \n ',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
                                   ),
-
-
-
                                 ),
 
-                              ],
-                            ),
+                                subtitle: Text(
+                                  Link,
+                                  style: const TextStyle(
+                                    color: Colors.lightBlueAccent,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                  softWrap: true,
+                                ),
+                                onTap: () async {
+
+                                  if (await canLaunch(Link)) {
+                                    await launch(Link, forceSafariVC: false,
+                                        forceWebView: false);
+                                  } else {
+                                    throw 'Could not launch $Link';
+                                  }
+                                },
+                              ),
+
+
+                              // const Divider(
+                              //   color: Colors.blue,
+                              //   height: 25,
+                              //   thickness: 2,
+                              //   indent: 5,
+                              //   endIndent: 5,
+                              // ),
+                              const Divider(
+                                color: Colors.blue,
+                                height: 25,
+                                thickness: 1,
+                                indent: 5,
+                                endIndent: 5,
+                              ),
+                              ListTile(
+                                title: const Text(
+                                  'Docs :',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+
+
+
+                              ),
+
+                            ],
                           ),
+                        ),
 
 
-                          SizedBox(
-                            width: double.infinity,
-                            height: 200,
-                            child: Container(
-                              decoration: BoxDecoration(
-                                border: Border.all(color: ColorConstants.white),
+                        SizedBox(
+                          width: double.infinity,
+                          height: 200,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              border: Border.all(color: ColorConstants.white),
 
-                                image: DecorationImage(
-                                  image: NetworkImage(Docs),
-                                  fit: BoxFit.cover,
-                                ),
+                              image: DecorationImage(
+                                image: NetworkImage(Docs),
+                                fit: BoxFit.cover,
                               ),
                             ),
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ),

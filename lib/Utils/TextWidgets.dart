@@ -56,7 +56,7 @@ class headingTextwithsmallwhite extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(title,style:TextStyle(fontWeight:FontWeight.w700,color:white,fontFamily:"railBold",
+    return Text(title,style:TextStyle(fontWeight:FontWeight.w400,color:white,fontFamily:"railBold",
         fontSize:12.sp,letterSpacing:1),);
   }
 
