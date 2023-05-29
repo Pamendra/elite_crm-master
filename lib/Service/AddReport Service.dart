@@ -113,4 +113,18 @@ class AddReportService{
     }
   }
 
+  /// Previous Report Service
+
+  Future<List> previousReport(String id) async {
+    var response = await Dio().get('https://elite-dealers.com/api/getPreviousReports.php?userid=$id&dealerId=$id');
+    if (response.statusCode == 200) {
+      var decodedJson = response.data;
+      List report  = decodedJson['result'];
+      return report ;
+    } else {
+      throw Exception("API returned an error");
+    }
+  }
+
+
 }

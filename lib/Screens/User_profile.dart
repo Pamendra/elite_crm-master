@@ -140,10 +140,10 @@ class _userprofile_pagesState extends State<userprofile_pages> {
           }
           },builder: (context,state) {
           return ModalProgressHUD(
-            color: Colors.white,
-            opacity: .1,
-            progressIndicator: const LoadingBar(),
-            inAsyncCall: _isLoading ? true : false,
+              color: Colors.white,
+              opacity: .1,
+              progressIndicator: const LoadingBar(),
+              inAsyncCall: _isLoading ? true : false,
             child: SingleChildScrollView(
               scrollDirection: Axis.vertical,
               child: Container(

@@ -8,6 +8,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../../Service/AddReport Service.dart';
 import '../../Utils/ApploadingBar.dart';
+import '../../Utils/TextWidgets.dart';
 import '../../Utils/gradient_color.dart';
 
 
@@ -68,16 +69,12 @@ class _NotificationPageState extends State<NotificationPage> {
               child: Container(
                 padding: EdgeInsets.all(15),
                 width: 100.w,
-                height: 6.8.h,
+                height: 5.8.h,
                 color: ColorConstants.blueGrey,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(" Go Back", style: TextStyle(
-                        fontSize: 15.sp,
-                        fontWeight: FontWeight.bold,
-                        color: ColorConstants.white
-                    ),)
+                    subheadingTextBOLD(title: 'Go Back',)
                   ],
                 ),
               )),

@@ -8,6 +8,7 @@ import 'package:sizer/sizer.dart';
 import '../../Utils/TextWidgets.dart';
 import '../../Utils/drawer_logout.dart';
 import '../../Utils/progress_bar.dart';
+import '../../Utils/setget.dart';
 import 'Preview Screen.dart';
 
 class CustomerReport extends StatefulWidget {
@@ -51,6 +52,7 @@ class _CustomerReportState extends State<CustomerReport> {
 
 
 
+
   void initState() {
     super.initState();
     _filterCustomerList();
@@ -60,6 +62,9 @@ class _CustomerReportState extends State<CustomerReport> {
       });
     });
   }
+
+
+
 
   void _filterCustomerList() {
 
@@ -171,11 +176,12 @@ class _CustomerReportState extends State<CustomerReport> {
               ),
               child: TextButton(
                 onPressed: () {
-                  if(reportController.text.isNotEmpty)
-                    {
-                      String report = reportController.text;
-                      Navigator.of(context).pop(report);
-                    }
+                  // if(reportController.text.isNotEmpty)
+                  //   {
+                  //
+                  //   }
+                  String report = reportController.text;
+                  Navigator.of(context).pop(report);
                 },
                 child: const Text(
                   'Save',
@@ -195,7 +201,9 @@ class _CustomerReportState extends State<CustomerReport> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: Row(children: [
+      bottomNavigationBar: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
         InkWell(
             onTap: () {
               Navigator.pop(context);
@@ -208,10 +216,7 @@ class _CustomerReportState extends State<CustomerReport> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children:  [
-                   Text(
-                    "Go Back",
-                    style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.w500,color: Colors.white),
-                  )
+                  subheadingTextBOLD(title: 'Go Back',)
                 ],
               ),
             )),
@@ -237,13 +242,7 @@ class _CustomerReportState extends State<CustomerReport> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                   Text(
-                    " Continue",
-                    style: TextStyle(
-                        fontSize: 15.sp,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.white),
-                  ),
+                  subheadingTextBOLD(title: 'Continue',)
                 ],
               ),
             )),
@@ -264,7 +263,7 @@ class _CustomerReportState extends State<CustomerReport> {
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Container(
-          height:85.h,
+          height:90.h,
           decoration: gradient_login,
           child: Column(children: [
             const SizedBox(
@@ -333,95 +332,95 @@ class _CustomerReportState extends State<CustomerReport> {
               padding: const EdgeInsets.symmetric(horizontal: 10),
               child: Column(
                 children: [
-                  GestureDetector(
-                    child: Container(
-                      width: 95.w,
-                      height: 6.h,
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(5),
-                          border: Border.all(color: Colors.black)
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Row(
-                          mainAxisAlignment:
-                          MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              widget.date,
-                              overflow: TextOverflow.ellipsis,
-                              style: const TextStyle(fontSize: 15),
-                            ),
-                            Icon(
-                              CupertinoIcons.calendar,
-                              color: ColorConstants.deppp,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 10,),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 5),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        headingTextwithsmallwhite(title: 'General Report'),
-                      ],
-                    ),
-                  ),
-                  Container(
-                      width: 95.w,
-                      decoration: BoxDecoration(
-                          borderRadius:
-                          BorderRadius.circular(5),
-                          border:
-                          Border.all(color: Colors.black)),
-                      child: Scrollbar(
-                        controller: _scrollController,
-                        child: TextField(
-                          readOnly: true,
-                          controller: widget.Greport,
-                          style: TextStyle(color:ColorConstants.DarkBlueColor,fontSize:10.sp,fontWeight:FontWeight.w400,fontFamily:"railLight",letterSpacing: 1),
-                          keyboardType: TextInputType.multiline,
-                          maxLines: 5,
-                          decoration: InputDecoration(
-                            suffixIcon: InkWell(
-                                onTap: (){
-                                 Navigator.pop(context);
-                                },
-                                child:  Icon(Icons.edit,color: ColorConstants.deppp,)),
-                            // hintText: ,
-                            // hintStyle: TextStyle(
-                            //   fontSize: 10.sp,
-                            //   color: Colors.black,
-                            //   fontFamily: "railLight",),
-                            isDense: true,
-                            border: OutlineInputBorder(
-                              borderRadius:
-                              BorderRadius.circular(5),
-                              borderSide: const BorderSide(
-                                width: 0,
-                                style: BorderStyle.none,
-                              ),
-                            ),
-                            filled: true,
-                            contentPadding:
-                            const EdgeInsets.all(10),
-                            fillColor: Colors.white,
-                          ),
-                        ),
-                      )
-                  ),
-                  SizedBox(height: 10,),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: const [
-                      InkWell(child: Text('Previous Report',style: TextStyle(decoration: TextDecoration.underline,color: Colors.white),))
-                    ],
-                  ),
+                  // GestureDetector(
+                  //   child: Container(
+                  //     width: 95.w,
+                  //     height: 6.h,
+                  //     decoration: BoxDecoration(
+                  //         color: Colors.white,
+                  //         borderRadius: BorderRadius.circular(5),
+                  //         border: Border.all(color: Colors.black)
+                  //     ),
+                  //     child: Padding(
+                  //       padding: const EdgeInsets.all(10.0),
+                  //       child: Row(
+                  //         mainAxisAlignment:
+                  //         MainAxisAlignment.spaceBetween,
+                  //         children: [
+                  //           Text(
+                  //             widget.date,
+                  //             overflow: TextOverflow.ellipsis,
+                  //             style: const TextStyle(fontSize: 15),
+                  //           ),
+                  //           Icon(
+                  //             CupertinoIcons.calendar,
+                  //             color: ColorConstants.deppp,
+                  //           ),
+                  //         ],
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
+                  // const SizedBox(height: 10,),
+                  // Padding(
+                  //   padding: const EdgeInsets.only(left: 5),
+                  //   child: Row(
+                  //     mainAxisAlignment: MainAxisAlignment.start,
+                  //     children: [
+                  //       headingTextwithsmallwhite(title: 'General Report'),
+                  //     ],
+                  //   ),
+                  // ),
+                  // Container(
+                  //     width: 95.w,
+                  //     decoration: BoxDecoration(
+                  //         borderRadius:
+                  //         BorderRadius.circular(5),
+                  //         border:
+                  //         Border.all(color: Colors.black)),
+                  //     child: Scrollbar(
+                  //       controller: _scrollController,
+                  //       child: TextField(
+                  //         readOnly: true,
+                  //         controller: widget.Greport,
+                  //         style: TextStyle(color:ColorConstants.DarkBlueColor,fontSize:10.sp,fontWeight:FontWeight.w400,fontFamily:"railLight",letterSpacing: 1),
+                  //         keyboardType: TextInputType.multiline,
+                  //         maxLines: 5,
+                  //         decoration: InputDecoration(
+                  //           suffixIcon: InkWell(
+                  //               onTap: (){
+                  //                Navigator.pop(context);
+                  //               },
+                  //               child:  Icon(Icons.edit,color: ColorConstants.deppp,)),
+                  //           // hintText: ,
+                  //           // hintStyle: TextStyle(
+                  //           //   fontSize: 10.sp,
+                  //           //   color: Colors.black,
+                  //           //   fontFamily: "railLight",),
+                  //           isDense: true,
+                  //           border: OutlineInputBorder(
+                  //             borderRadius:
+                  //             BorderRadius.circular(5),
+                  //             borderSide: const BorderSide(
+                  //               width: 0,
+                  //               style: BorderStyle.none,
+                  //             ),
+                  //           ),
+                  //           filled: true,
+                  //           contentPadding:
+                  //           const EdgeInsets.all(10),
+                  //           fillColor: Colors.white,
+                  //         ),
+                  //       ),
+                  //     )
+                  // ),
+                  // SizedBox(height: 10,),
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.end,
+                  //   children: const [
+                  //     InkWell(child: Text('Previous Report',style: TextStyle(decoration: TextDecoration.underline,color: Colors.white),))
+                  //   ],
+                  // ),
                   const SizedBox(height: 10,),
                  Container(
                    height: 5.h,
@@ -430,7 +429,7 @@ class _CustomerReportState extends State<CustomerReport> {
                      child: Padding(
                        padding: EdgeInsets.all(5.0),
                        child: Text(
-                          'This is the specific customer report information.If a textarea is left empty a report will still be created.',
+                          'This is the specific customer report information. If a text area is left empty a report will still be created.',
                           style: TextStyle(fontSize: 14,color: Colors.white,fontFamily: "railLight"),
                         ),
                      ),
@@ -469,7 +468,7 @@ class _CustomerReportState extends State<CustomerReport> {
 
 
           SizedBox(
-            height: 35.h,
+            height: 60.h,
             child: _searchQuery.isEmpty
                 ? ListView.builder(
               itemCount: _customerList.length,

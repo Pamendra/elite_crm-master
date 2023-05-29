@@ -91,7 +91,7 @@ class Dialogs {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        subheadingText(
+                        subheadingTextDialog(
                           title: 'Message',
                         ),
                         GestureDetector(
@@ -100,7 +100,7 @@ class Dialogs {
                           },
                           child: Icon(
                             Icons.clear,
-                            color: ColorConstants.primaryColor,
+                            color: ColorConstants.deppp,
                           ),
                         )
                       ],
@@ -108,7 +108,7 @@ class Dialogs {
                     SizedBox(
                       height: 2.h,
                     ),
-                    subheadingText(title: "$title"),
+                    subheadingTextDialog(title: "$title"),
                     SizedBox(
                       height: 2.h,
                     ),

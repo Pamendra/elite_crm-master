@@ -21,6 +21,19 @@ class headingText extends StatelessWidget {
 
 
 }
+class headingText1 extends StatelessWidget {
+  headingText1({Key? key, required this.title}) : super(key: key);
+  String title;
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(title,style:TextStyle(fontWeight:FontWeight.w700,color:ColorConstants.DarkBlueColor,fontFamily:"railBold",
+        fontSize:14.sp,letterSpacing:1),);
+  }
+
+
+}
 
 class headingTextwhite extends StatelessWidget {
   headingTextwhite({Key? key, required this.title}) : super(key: key);
@@ -44,6 +57,20 @@ class headingTextwithsmallwhite extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(title,style:TextStyle(fontWeight:FontWeight.w700,color:white,fontFamily:"railBold",
+        fontSize:12.sp,letterSpacing:1),);
+  }
+
+
+}
+
+class headingTextwithsmalldark extends StatelessWidget {
+  headingTextwithsmalldark({Key? key, required this.title}) : super(key: key);
+  String title;
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(title,style:TextStyle(fontWeight:FontWeight.w400,color:ColorConstants.DarkBlueColor,fontFamily:"railBold",
         fontSize:12.sp,letterSpacing:1),);
   }
 
@@ -250,6 +277,20 @@ class subheadingText extends StatelessWidget {
 
 
 }
+
+class subheadingTextDialog extends StatelessWidget {
+  subheadingTextDialog({Key? key, required this.title}) : super(key: key);
+  String title;
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(title,style:TextStyle(color:ColorConstants.white,fontSize:11.sp,fontWeight:FontWeight.w400,fontFamily:"railLight",letterSpacing: 1),);
+  }
+
+
+}
+
 class subheadingText1 extends StatelessWidget {
   subheadingText1({Key? key, required this.title}) : super(key: key);
   String title;

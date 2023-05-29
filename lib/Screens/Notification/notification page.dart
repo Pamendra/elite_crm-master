@@ -1,14 +1,18 @@
+
+
+// ignore_for_file: file_names
+
 import 'package:elite_crm/Utils/color_constants.dart';
 import 'package:elite_crm/Utils/drawer_logout.dart';
 import 'package:elite_crm/Utils/gradient_color.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:sizer/sizer.dart';
-import 'package:multiselect_formfield/multiselect_formfield.dart';
 
 
 import '../../Service/AddReport Service.dart';
 import '../../Utils/ApploadingBar.dart';
+import '../../Utils/TextWidgets.dart';
 import '../../Utils/setget.dart';
 import 'notif_details.dart';
 class notification extends StatefulWidget {
@@ -59,15 +63,12 @@ class _notificationState extends State<notification> {
             child: Container(
               padding: const EdgeInsets.all(15),
               width: 100.w,
-              height: 6.h,
+              height: 5.8.h,
               color: ColorConstants.blueGrey,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                   Text(
-                    " Go Back",
-                    style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.w500,color: Colors.white),
-                  )
+                  subheadingTextBOLD(title: 'Go Back',)
                 ],
               ),
             )),

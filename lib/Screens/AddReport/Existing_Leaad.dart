@@ -3,21 +3,27 @@ import 'dart:convert';
 import 'package:elite_crm/Screens/AddReport/CustomerReport.dart';
 import 'package:elite_crm/Screens/bottomNavigationPages.dart';
 import 'package:elite_crm/Service/AddReport%20Service.dart';
+import 'package:elite_crm/Service/Existing%20List%20Service.dart';
 import 'package:elite_crm/Utils/color_constants.dart';
+import 'package:elite_crm/Utils/dialogs_utils.dart';
 import 'package:elite_crm/Utils/gradient_color.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../Utils/ApploadingBar.dart';
 import '../../Utils/Colors.dart';
 import '../../Utils/TextWidgets.dart';
 import '../../Utils/drawer_logout.dart';
 import '../../Utils/progress_bar.dart';
 import '../../Utils/setget.dart';
+import '../Notification/Model/detailsModel.dart';
 import '../Notification/notification page.dart';
+import 'ExistingListDetails.dart';
 
 class AddReport extends StatefulWidget {
   const AddReport({Key? key}) : super(key: key);
@@ -32,14 +38,6 @@ class _AddReportState extends State<AddReport> {
   String? selectedService;
   TextEditingController _controller = TextEditingController();
   TextEditingController details = TextEditingController();
-  String? id;
-  String? name;
-  String? cname;
-  String? gmanager;
-  String? pmanager;
-  String? services;
-  String? category;
-  String? status;
   List _leads = [];
   String user_id ='';
   final ScrollController _scrollController = ScrollController();
@@ -49,13 +47,34 @@ class _AddReportState extends State<AddReport> {
   DateTime? selectedDuration;
   String inspectionDate = "";
   String displayDate = "";
-
+  var Existid = '';
+  LeadDetails? ExistData = LeadDetails(name: '', cname: '', gmanager: '', pmanager: '', services: '', status: '', category: '', id: '', details: '');
+  String? Date;
+  String? Gnote;
+  String? Note;
+  bool _isLoading = false;
 
   @override
   void initState() {
     ShoiId();
     // TODO: implement initState
     super.initState();
+      }
+
+
+
+  Future<void> getExistLead(BuildContext context) async {
+    /// Check  Auto route data receving
+    final result = await Navigator.push(context, MaterialPageRoute(builder: (context) =>const ExistingListDetails()),);
+    setState(() {
+      if (result.toString() != "null") {
+        ExistData = result;
+        Existid =ExistData!.name.toString();
+        _controller.text = ExistData!.details.toString();
+      } else {
+        Existid = '';
+      }
+    });
   }
 
   ShoiId() async {
@@ -68,6 +87,94 @@ class _AddReportState extends State<AddReport> {
     inspectionDate =
         DateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").format(selectedDuration!);
   }
+
+  Future<dynamic> _openCustomerReportDialog() async {
+
+    String shopid = await Utils().getUsererId();
+    setState(() {
+      _isLoading = true;
+    });
+    // Retrieve the reports using the previousReport method
+    List<dynamic> reports =  await AddReportService().previousReport(shopid);
+    setState(() {
+      _isLoading = false;
+    });
+    reports.sort((a, b) {
+      // Sort the reports in descending order based on the 'vdate' field
+      int timeA = int.parse(a['vdate']);
+      int timeB = int.parse(b['vdate']);
+      return timeB.compareTo(timeA);
+    });
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: const BorderRadius.all(Radius.circular(10.0)),
+            side: BorderSide(color: ColorConstants.deppp, width: 2),
+          ),
+          backgroundColor: ColorConstants.DarkBlueColor,
+          title: headingText(title: 'Previous Report'),
+          content: SizedBox(
+            width: double.maxFinite,
+            child: Container(
+              //color: Colors.white,
+              child: ListView.builder(
+                shrinkWrap: true,
+                itemCount: reports.length,
+                itemBuilder: (BuildContext context, int index) {
+
+                  String date = reports[index]['vdate'];
+                  String note = reports[index]['note'] == null ? 'Null' :reports[index]['note'];
+                  String gnote = reports[index]['gnote'] == null ?   'Null': reports[index]['gnote'];
+                  int vdateInMillis = int.parse(date);
+                  DateTime dateTim = DateTime.fromMillisecondsSinceEpoch(vdateInMillis * 1000);
+                  String formattedDateTime = DateFormat('yyyy-MM-dd').format(dateTim);
+
+
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      headingTextwithsmallwhite(title: 'Date: $formattedDateTime'),
+                      headingTextwithsmallwhite(title: 'Customer Note: $note'),
+                      headingTextwithsmallwhite(title: 'General Note: $gnote'),
+                      Divider(
+                        color: ColorConstants.blueGrey,
+                        height: 25,
+                        thickness: 2,
+                        indent: 0,
+                        endIndent: 5,
+                      ),
+                      const SizedBox(height: 10),
+                    ],
+                  );
+                },
+              ),
+            ),
+          ),
+          actions: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).pop(); // Close the dialog without saving
+                  },style:ElevatedButton.styleFrom(
+                  backgroundColor: ColorConstants.blueGrey
+                ) ,
+                  child:  Text(
+                    'Go Back',
+                    style: TextStyle(color: ColorConstants.white),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        );
+      },
+    );
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -91,11 +198,7 @@ class _AddReportState extends State<AddReport> {
                     children:  [
 
 
-                       Text( "Cancel", style: TextStyle(
-                          fontSize: 15.sp,
-                          fontWeight: FontWeight.w500,
-                        color: ColorConstants.white
-                      ),),
+                      subheadingTextBOLD(title: 'Cancel',)
                     ],
                   ),
                 )),
@@ -104,12 +207,13 @@ class _AddReportState extends State<AddReport> {
                  if(displayDate.isNotEmpty && Greport.text.isNotEmpty){
                    Navigator.push(
                      context,
-                     MaterialPageRoute(builder: (context) =>  CustomerReport(date: displayDate, Greport: Greport, id: id,
-                       name: name, cname: cname, gmanager: gmanager, pmanager: pmanager, services: services,
-                       category: category, status: status,)),
+                     MaterialPageRoute(builder: (context) =>  CustomerReport(date: displayDate, Greport: Greport, id: ExistData!.id.toString(),
+                       name:  ExistData!.name.toString(), cname:  ExistData!.cname.toString(), gmanager:  ExistData!.gmanager.toString(),
+                       pmanager:  ExistData!.pmanager.toString(), services:  ExistData!.services.toString(),
+                       category:  ExistData!.category.toString(), status:  ExistData!.status.toString(),)),
                    );
                  }else{
-                   Fluttertoast.showToast(msg: 'Please enter General Report');
+                 Dialogs.showValidationMessage(context, 'Please enter General Report');
                  }
                 },
                 child: Container(
@@ -120,11 +224,7 @@ class _AddReportState extends State<AddReport> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children:  [
-                       Text( "Next", style: TextStyle(
-                          fontSize: 15.sp,
-                          fontWeight: FontWeight.w500,
-                         color: Colors.white
-                      ),),
+                      subheadingTextBOLD(title: 'Next',)
                     ],
                   ),
                 )),
@@ -142,158 +242,325 @@ class _AddReportState extends State<AddReport> {
           )
         ],
       ),
-      body: SingleChildScrollView(
-        scrollDirection: Axis.vertical,
-        child: Container(
-          height: 75.h,
-          decoration: gradient_login,
-          child: SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-
-                          // ProgressBarThin(
-                          //     deviceWidth:8.w,
-                          //     color:ColorConstants.deppp),
-                          Column(
-                            children: [
-                              CircleAvatar(
-                                backgroundColor: ColorConstants.deppp,
-                                child: const Text(
-                                  '1',
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                              ),
-                              SizedBox(height:.3.h,),
-                              subheadingText(title: "General")
-                            ],
-                          ),
-                          ProgressBarThin(
-                              deviceWidth:8.w,
-                              color:ColorConstants.deppp),
-                          Column(
-                            children: [
-                              CircleAvatar(
-                                backgroundColor: ColorConstants.white,
-                                child: const Text(
-                                  '2',
-                                  style: TextStyle(color: Colors.black),
-                                ),
-                              ),
-                              SizedBox(height:.3.h,),
-                              subheadingText1(title: "Customer")
-                            ],
-                          ),
-                          ProgressBarThin(
-                              deviceWidth:8.w,
-                              color:blueGrey),
-                          Column(
-                            children: [
-                              CircleAvatar(
-                                backgroundColor: ColorConstants.white,
-                                child: const Text(
-                                  '3',
-                                  style: TextStyle(color: Colors.black),
-                                ),
-                              ),
-                              SizedBox(height:.3.h,),
-                              subheadingText1(title: "Preview")
-                            ],
-                          ),
-                          // ProgressBarThin(
-                          //     deviceWidth:8.w,
-                          //     color: blueGrey),
-                        ],
-                      ),
-
-                      const SizedBox(height: 20,),
-
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                    headingTextwithsmallwhite(title: 'Enter the Existing lead'),
-                    const SizedBox(height: 3,),
-                    TypeAheadFormField(
-                      textFieldConfiguration: TextFieldConfiguration(
-                        controller: _controller,
-                        style: TextStyle(
-                            fontSize: 10.sp,
-                            color: Colors.black,
-                            fontFamily: "railLight"
-                        ),
-                        decoration: InputDecoration(
-                          filled: true,
-                          fillColor: Colors.white,
-                          hintText: 'Search...',
-                          hintStyle: TextStyle(color: Colors.grey[500]),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(5),
-                          ),
-                        ),
-                      ),
-                      suggestionsCallback: (pattern) async {
-                        if (pattern.length >= 3) {
-                          _leads = await AddReportService().getLeads(pattern, user_id);
-                        } else {
-                          _leads = [];
-                        }
-                        return _leads.map((lead) => lead['name']).toList();
-                      },
-                      itemBuilder: (context, suggestion) {
-                        var lead = _leads.firstWhere(
-                            (lead) => lead['name'] == suggestion,
-                            orElse: () => null);
-                        if (lead != null) {
-                          return Card(
-                            color: ColorConstants.DarkBlueColor,
-                            child: ListTile(
-                              title: Text('${lead['name']}, ${lead['cname']}',style: TextStyle(fontSize: 10.sp, color: Colors.white, fontFamily: "railLight"),),
-                              subtitle: Text('${lead['state']}, ${lead['city']}, ${lead['phone']}',style: TextStyle(fontSize: 10.sp, color: Colors.white, fontFamily: "railLight"),),
-                            ),
-                          );
-                        } else {
-                          return const SizedBox.shrink();
-                        }
-                      },
-                      onSuggestionSelected: (suggestion) {
-                        var lead = _leads.firstWhere(
-                            (lead) => lead['name'] == suggestion,
-                            orElse: () => null);
-                        if (lead != null) {
-                          _controller.text = lead['name'];
-                          details.text = '${lead['name']}, ${lead['cname']} , ${lead['gmanager']} , ${lead['pmanager']} ,'
-                              ' ${lead['services'] } ,  ${lead['state']} ,  ${lead['phone']}';
-                          id = lead['id'];
-                          name = lead['name'];
-                          cname = lead['cname'];
-                          gmanager = lead['gmanager'];
-                          pmanager = lead['pmanager'];
-                          services = lead['services'];
-                          category = lead['category'];
-                          status = lead['status'];
-
-                          setState(() {
-                            _selectedValue = suggestion;
-                          });
-
-                        }
-                      },
-                    ),
-                  const SizedBox(height: 10,),
-                  if (_selectedValue != null)
+      body: ModalProgressHUD(
+        color: Colors.white,
+        opacity: .1,
+        progressIndicator: const LoadingBar(),
+        inAsyncCall: _isLoading ? true : false,
+        child: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          child: Container(
+            height: 85.h,
+            decoration: gradient_login,
+            child: SafeArea(
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
                     Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+
+                            // ProgressBarThin(
+                            //     deviceWidth:8.w,
+                            //     color:ColorConstants.deppp),
+                            Column(
+                              children: [
+                                CircleAvatar(
+                                  backgroundColor: ColorConstants.deppp,
+                                  child: const Text(
+                                    '1',
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                ),
+                                SizedBox(height:.3.h,),
+                                subheadingText(title: "General")
+                              ],
+                            ),
+                            ProgressBarThin(
+                                deviceWidth:8.w,
+                                color:ColorConstants.deppp),
+                            Column(
+                              children: [
+                                CircleAvatar(
+                                  backgroundColor: ColorConstants.white,
+                                  child: const Text(
+                                    '2',
+                                    style: TextStyle(color: Colors.black),
+                                  ),
+                                ),
+                                SizedBox(height:.3.h,),
+                                subheadingText1(title: "Customer")
+                              ],
+                            ),
+                            ProgressBarThin(
+                                deviceWidth:8.w,
+                                color:blueGrey),
+                            Column(
+                              children: [
+                                CircleAvatar(
+                                  backgroundColor: ColorConstants.white,
+                                  child: const Text(
+                                    '3',
+                                    style: TextStyle(color: Colors.black),
+                                  ),
+                                ),
+                                SizedBox(height:.3.h,),
+                                subheadingText1(title: "Preview")
+                              ],
+                            ),
+                            // ProgressBarThin(
+                            //     deviceWidth:8.w,
+                            //     color: blueGrey),
+                          ],
+                        ),
+
+                        const SizedBox(height: 20,),
+
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                      headingTextwithsmallwhite(title: 'Enter the Existing lead'),
+                      const SizedBox(height: 3,),
+                    GestureDetector(
+                      onTap: () {
+                        getExistLead(context);
+                      },
+                      child: Container(
+                        width: 100.w,
+                        height: 6.h,
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.black),
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Row(
+                            mainAxisAlignment:
+                            MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                Existid == ""
+                                    ? "Select Lead"
+                                    : '${ExistData!.cname.toString()}',
+                                overflow: TextOverflow.ellipsis,
+                                style: const TextStyle(fontSize: 16),
+                                maxLines: 1,
+
+                              ),
+                              Icon(
+                                CupertinoIcons.search,
+                                color: ColorConstants.appcolor,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                      // TypeAheadFormField(
+                      //   textFieldConfiguration: TextFieldConfiguration(
+                      //     controller: _controller,
+                      //     style: TextStyle(
+                      //         fontSize: 10.sp,
+                      //         color: Colors.black,
+                      //         fontFamily: "railLight"
+                      //     ),
+                      //     decoration: InputDecoration(
+                      //       filled: true,
+                      //       fillColor: Colors.white,
+                      //       hintText: 'Search...',
+                      //       hintStyle: TextStyle(color: Colors.grey[500]),
+                      //       border: OutlineInputBorder(
+                      //         borderRadius: BorderRadius.circular(5),
+                      //       ),
+                      //     ),
+                      //   ),
+                      //   suggestionsCallback: (pattern) async {
+                      //     if (pattern.length >= 3) {
+                      //       _leads = await AddReportService().getLeads(pattern, user_id);
+                      //     } else {
+                      //       _leads = [];
+                      //     }
+                      //     return _leads.map((lead) => lead['name']).toList();
+                      //   },
+                      //   itemBuilder: (context, suggestion) {
+                      //     var lead = _leads.firstWhere(
+                      //         (lead) => lead['name'] == suggestion,
+                      //         orElse: () => null);
+                      //     if (lead != null) {
+                      //       return Card(
+                      //         color: ColorConstants.DarkBlueColor,
+                      //         child: ListTile(
+                      //           title: Text('${lead['name']}, ${lead['cname']}',style: TextStyle(fontSize: 10.sp, color: Colors.white, fontFamily: "railLight"),),
+                      //           subtitle: Text('${lead['state']}, ${lead['city']}, ${lead['phone']}',style: TextStyle(fontSize: 10.sp, color: Colors.white, fontFamily: "railLight"),),
+                      //         ),
+                      //       );
+                      //     } else {
+                      //       return const SizedBox.shrink();
+                      //     }
+                      //   },
+                      //   onSuggestionSelected: (suggestion) {
+                      //     var lead = _leads.firstWhere(
+                      //         (lead) => lead['name'] == suggestion,
+                      //         orElse: () => null);
+                      //     if (lead != null) {
+                      //       _controller.text = lead['name'];
+                      //       details.text = '${lead['name']}, ${lead['cname']} , ${lead['gmanager']} , ${lead['pmanager']} ,'
+                      //           ' ${lead['services'] } ,  ${lead['state']} ,  ${lead['phone']}';
+                      //       id = lead['id'];
+                      //       name = lead['name'];
+                      //       cname = lead['cname'];
+                      //       gmanager = lead['gmanager'];
+                      //       pmanager = lead['pmanager'];
+                      //       services = lead['services'];
+                      //       category = lead['category'];
+                      //       status = lead['status'];
+                      //
+                      //       setState(() {
+                      //         _selectedValue = suggestion;
+                      //       });
+                      //
+                      //     }
+                      //   },
+                      // ),
+                    // const SizedBox(height: 10,),
+                    // if (ExistData != null)
+                    //   Column(
+                    //     crossAxisAlignment: CrossAxisAlignment.stretch,
+                    //     children: [
+                    //       Container(
+                    //           width: 95.w,
+                    //           decoration: BoxDecoration(
+                    //               borderRadius:
+                    //               BorderRadius.circular(5),
+                    //               border:
+                    //               Border.all(color: Colors.black)),
+                    //           child: Scrollbar(
+                    //             controller: _scrollController,
+                    //             child: TextField(
+                    //               readOnly: true,
+                    //               controller: details,
+                    //               style: TextStyle(
+                    //                   fontSize: 10.sp,
+                    //                   color: Colors.black,
+                    //                   fontFamily: "railLight"),
+                    //               keyboardType: TextInputType.multiline,
+                    //               maxLines: 5,
+                    //               decoration: InputDecoration(
+                    //                 isDense: true,
+                    //                 border: OutlineInputBorder(
+                    //                   borderRadius:
+                    //                   BorderRadius.circular(5),
+                    //                   borderSide: const BorderSide(
+                    //                     width: 0,
+                    //                     style: BorderStyle.none,
+                    //                   ),
+                    //                 ),
+                    //                 filled: true,
+                    //                 contentPadding:
+                    //                 const EdgeInsets.all(10),
+                    //                 fillColor: Colors.white,
+                    //               ),
+                    //             ),
+                    //           )
+                    //       ),
+                    //     ],
+                    //   ),
+
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+
+                      children:  [
+                        const SizedBox(height: 20,),
+
+                        Column(
+                          children: [
+                            Container(
+                                height: 5.h,
+                                color: ColorConstants.DarkBlueColor,
+                                child: const Padding(
+                                  padding: EdgeInsets.all(5.0),
+                                  child: Center(child: Text('This is the general lead specific information to be included in this report.',style: TextStyle(fontSize: 14,color: Colors.white,fontFamily: "railLight"),)),
+                                )),
+                            const SizedBox(height: 10,),
+                            GestureDetector(
+                              onTap: () {
+                                showCupertinoModalPopup(
+                                    context: context,
+                                    builder: (BuildContext builder) {
+                                      return Container(
+                                          height: MediaQuery.of(context)
+                                              .copyWith()
+                                              .size
+                                              .height *
+                                              0.40,
+                                          color: ColorConstants.white,
+                                          child: CupertinoDatePicker(
+                                              mode: CupertinoDatePickerMode.date,
+                                              minimumYear:
+                                              DateTime.now().year - 5,
+                                              maximumYear: DateTime.now().year,
+                                              maximumDate: DateTime(
+                                                  DateTime.now().year,
+                                                  DateTime.now().month,
+                                                  DateTime.now().day),
+                                              initialDateTime: DateTime(
+                                                  DateTime.now().year,
+                                                  DateTime.now().month,
+                                                  DateTime.now().day),
+                                              onDateTimeChanged: (newDateTime) {
+                                                setState(() {
+                                                  // displayDate = DateFormat(
+                                                  //     "EEEE, MMMM d, yyyy")
+                                                  //     .format(newDateTime);
+                                                 displayDate = DateFormat("MMMM d, yyyy").format(newDateTime);
+                                                  inspectionDate = DateFormat(
+                                                      "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+                                                      .format(newDateTime);
+                                                });
+                                              }));
+                                    });
+                              },
+                              child: Container(
+                                width: 95.w,
+                                height: 6.h,
+                                decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(5),
+                                    border: Border.all(color: Colors.black)
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        displayDate == ""
+                                            ? inspectionDate.toString()
+                                            : displayDate.toString(),
+                                        overflow: TextOverflow.ellipsis,
+                                        style: const TextStyle(fontSize: 15),
+                                      ),
+                                      Icon(
+                                        CupertinoIcons.calendar,
+                                        color: ColorConstants.deppp,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 10,),
                         Container(
                             width: 95.w,
                             decoration: BoxDecoration(
@@ -304,8 +571,7 @@ class _AddReportState extends State<AddReport> {
                             child: Scrollbar(
                               controller: _scrollController,
                               child: TextField(
-                                readOnly: true,
-                                controller: details,
+                                controller: Greport,
                                 style: TextStyle(
                                     fontSize: 10.sp,
                                     color: Colors.black,
@@ -313,6 +579,8 @@ class _AddReportState extends State<AddReport> {
                                 keyboardType: TextInputType.multiline,
                                 maxLines: 5,
                                 decoration: InputDecoration(
+                                  hintText: 'General Report',
+                                  hintStyle: TextStyle(color:Colors.grey,fontSize:10.sp,fontWeight:FontWeight.w400,fontFamily:"railLight",letterSpacing: 1),
                                   isDense: true,
                                   border: OutlineInputBorder(
                                     borderRadius:
@@ -330,148 +598,26 @@ class _AddReportState extends State<AddReport> {
                               ),
                             )
                         ),
+                        SizedBox(height: 10,),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children:  [
+                            InkWell(
+                                onTap: (){
+                                  _openCustomerReportDialog();
+                                  },
+                                child: Text('Previous Report',style: TextStyle(decoration: TextDecoration.underline,color: Colors.white),))
+                          ],
+                        )
                       ],
                     ),
-
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-
-                    children:  [
-                      const SizedBox(height: 20,),
-
-                      Column(
-                        children: [
-                          Container(
-                              height: 5.h,
-                              color: ColorConstants.DarkBlueColor,
-                              child: const Padding(
-                                padding: EdgeInsets.all(5.0),
-                                child: Center(child: Text('This is the general lead specific information to be included in this report.',style: TextStyle(fontSize: 14,color: Colors.white,fontFamily: "railLight"),)),
-                              )),
-                          const SizedBox(height: 10,),
-                          GestureDetector(
-                            onTap: () {
-                              showCupertinoModalPopup(
-                                  context: context,
-                                  builder: (BuildContext builder) {
-                                    return Container(
-                                        height: MediaQuery.of(context)
-                                            .copyWith()
-                                            .size
-                                            .height *
-                                            0.40,
-                                        color: ColorConstants.white,
-                                        child: CupertinoDatePicker(
-                                            mode: CupertinoDatePickerMode.date,
-                                            minimumYear:
-                                            DateTime.now().year - 5,
-                                            maximumYear: DateTime.now().year,
-                                            maximumDate: DateTime(
-                                                DateTime.now().year,
-                                                DateTime.now().month,
-                                                DateTime.now().day),
-                                            initialDateTime: DateTime(
-                                                DateTime.now().year,
-                                                DateTime.now().month,
-                                                DateTime.now().day),
-                                            onDateTimeChanged: (newDateTime) {
-                                              setState(() {
-                                                // displayDate = DateFormat(
-                                                //     "EEEE, MMMM d, yyyy")
-                                                //     .format(newDateTime);
-                                               displayDate = DateFormat("MMMM d, yyyy").format(newDateTime);
-                                                inspectionDate = DateFormat(
-                                                    "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
-                                                    .format(newDateTime);
-                                              });
-                                            }));
-                                  });
-                            },
-                            child: Container(
-                              width: 95.w,
-                              height: 6.h,
-                              decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(5),
-                                  border: Border.all(color: Colors.black)
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(10.0),
-                                child: Row(
-                                  mainAxisAlignment:
-                                  MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      displayDate == ""
-                                          ? inspectionDate.toString()
-                                          : displayDate.toString(),
-                                      overflow: TextOverflow.ellipsis,
-                                      style: const TextStyle(fontSize: 15),
-                                    ),
-                                    Icon(
-                                      CupertinoIcons.calendar,
-                                      color: ColorConstants.deppp,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 10,),
-                      Container(
-                          width: 95.w,
-                          decoration: BoxDecoration(
-                              borderRadius:
-                              BorderRadius.circular(5),
-                              border:
-                              Border.all(color: Colors.black)),
-                          child: Scrollbar(
-                            controller: _scrollController,
-                            child: TextField(
-                              controller: Greport,
-                              style: TextStyle(
-                                  fontSize: 10.sp,
-                                  color: Colors.black,
-                                  fontFamily: "railLight"),
-                              keyboardType: TextInputType.multiline,
-                              maxLines: 5,
-                              decoration: InputDecoration(
-                                hintText: 'General Report',
-                                hintStyle: TextStyle(color:Colors.grey,fontSize:10.sp,fontWeight:FontWeight.w400,fontFamily:"railLight",letterSpacing: 1),
-                                isDense: true,
-                                border: OutlineInputBorder(
-                                  borderRadius:
-                                  BorderRadius.circular(5),
-                                  borderSide: const BorderSide(
-                                    width: 0,
-                                    style: BorderStyle.none,
-                                  ),
-                                ),
-                                filled: true,
-                                contentPadding:
-                                const EdgeInsets.all(10),
-                                fillColor: Colors.white,
-                              ),
-                            ),
-                          )
-                      ),
-                      SizedBox(height: 10,),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: const [
-                          InkWell(child: Text('Previous Report',style: TextStyle(decoration: TextDecoration.underline,color: Colors.white),))
-                        ],
-                      )
-                    ],
-                  ),
-                    ],
-                  ),
+                      ],
+                    ),
+                ),
               ),
-            ),
-        ),
-        ),
+          ),
+          ),
+      ),
     );
   }
 }

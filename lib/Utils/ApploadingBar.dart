@@ -41,3 +41,4 @@ class AppProgressIndicator extends StatelessWidget {
         : const CircularProgressIndicator();
   }
 }
+

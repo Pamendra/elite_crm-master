@@ -11,6 +11,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:dio/dio.dart';
 
 
+import '../Utils/ApploadingBar.dart';
 import '../Utils/TextWidgets.dart';
 import 'bottomNavigationPages.dart';
 
@@ -69,6 +70,7 @@ class _DealerDetailsState extends State<DealerDetails> {
     Size size = MediaQuery.of(context).size;
 
     return Scaffold(
+      backgroundColor: ColorConstants.DarkBlueColor,
       bottomNavigationBar: Row(
           children: [
             InkWell(
@@ -81,17 +83,13 @@ class _DealerDetailsState extends State<DealerDetails> {
                 child: Container(
                   padding: const EdgeInsets.all(12),
                   width: 100.w,
-                  height: 6.h,
+                  height: 5.8.h,
                   color: ColorConstants.blueGrey,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children:  [
 
-                      Text( " Go Back", style: TextStyle(
-                          fontSize: 15.sp,
-                          fontWeight: FontWeight.w500,
-                        color: Colors.white,
-                      ),)
+                      subheadingTextBOLD(title: 'Go Back',)
                     ],
                   ),
                 )),
@@ -193,7 +191,7 @@ class _DealerDetailsState extends State<DealerDetails> {
 
 
 
-                SizedBox(
+                const SizedBox(
                   height: 50,
                 ),
 
@@ -296,7 +294,7 @@ class _DealerDetailsState extends State<DealerDetails> {
           ),
         ),
       )
-          : const Center(child: CircularProgressIndicator()),
+          : const Center(child: LoadingBar()),
     );
   }
 
