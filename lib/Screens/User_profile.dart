@@ -1,11 +1,9 @@
 import 'dart:async';
 
-import 'package:dio/dio.dart';
 import 'package:elite_crm/Utils/TextWidgets.dart';
 import 'package:elite_crm/Utils/color_constants.dart';
-import 'package:elite_crm/Utils/gradient_color.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:sizer/sizer.dart';
 import '../Bloc/UserUpdateBloc/UserUpdateBloc.dart';
 import '../Service/AddReport Service.dart';
@@ -17,8 +15,7 @@ import '../Utils/drawer_logout.dart';
 import 'Notification/Model/multislect.dart';
 import 'Notification/notification page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:multi_select_flutter/multi_select_flutter.dart';
-
+import 'TerritoryListData.dart';
 import 'bottomNavigationPages.dart';
 
 class userprofile_pages extends StatefulWidget {
@@ -29,8 +26,6 @@ class userprofile_pages extends StatefulWidget {
 }
 
 class _userprofile_pagesState extends State<userprofile_pages> {
-  List<dynamic> _profileList = [];
-  List<dynamic> _details = [];
   List<dynamic> data = [];
   final _formKey = GlobalKey<FormState>();
   late String _address;
@@ -40,13 +35,12 @@ class _userprofile_pagesState extends State<userprofile_pages> {
   TextEditingController add = TextEditingController();
   TextEditingController phone = TextEditingController();
   TextEditingController email = TextEditingController();
-  dynamic _selectedProfile;
   bool _isLoading = false;
   List<Option> _options = [];
   List<Option> _selectedOptions = [];
   List<String> selectedOptionNames =[];
-
-
+  String trainID = "";
+ String trainData = "";
 
   @override
   void initState() {
@@ -64,27 +58,14 @@ class _userprofile_pagesState extends State<userprofile_pages> {
     });
 
    final response = await AddReportService().userDetails(shopid, access);
-    _profileList = await AddReportService().UserProfieService(shopid, access);
-    // final responses = await AddReportService().UserProfieService(shopid, access);
+   // _profileList = await AddReportService().UserProfieService(shopid, access);
 
-    // final terry = responses;
+
+
     final emailed = response[0]['email'];
     final phonee = response[0]['phone'];
     final addressed = response[0]['address'];
     final territory = response[0]['territory'];
-   // for(var i=0 ; i< terry.length;i++)
-   //   {
-   //      for(var j=0 ; j< territory.length; j++)
-   //        {
-   //          if(territory[j]['id'] == terry[i]['id'])
-   //            {
-   //              var match = terry[i]['name'];
-   //             terr.add(match);
-   //
-   //            }
-   //        }
-   //   }
-   //  print(terr);
    print(_selectedOptions);
     email.text = emailed;
     phone.text = phonee;
@@ -100,21 +81,23 @@ class _userprofile_pagesState extends State<userprofile_pages> {
         _selectedOptions = _options
             .where((option) => terr.any((item) => item['id'] == option.id))
             .toList();
-        // for(var i=0 ; i<_options.length ; i++)
-        // {
-        //   for(var j=0 ; j< terr.length; j++)
-        //   {
-        //     if(terr[j]['id'] == _options[i].id){
-        //       _selectedOptions.add(_options[i]);
-        //       break;
-        //     }
-        //   }
-        // }
-        // print(_selectedOptions);
       });
     });
   }
 
+  Future<void> getTerritoryData(BuildContext context) async {
+    /// Check  Auto route data receving
+    final result = await Navigator.push(context, MaterialPageRoute(builder: (context) =>const TerritoryListData()),);
+    setState(() {
+      if (result.toString() != "null") {
+        trainData = result;
+        trainID = trainData.toString();
+      } else {
+        trainID = '';
+      }
+    });
+  }
+  
 
   @override
   Widget build(BuildContext context) {
@@ -159,7 +142,7 @@ class _userprofile_pagesState extends State<userprofile_pages> {
                     _isLoading = true;
                   });
                   BlocProvider.of<UserUpdateBloc>(context).add(
-                      onPressedEvent(address: add.text, email: email.text, phone: phone.text, territories: selectedOptionNames.toString().replaceAll("[","").replaceAll("]","").replaceAll(", ", ",")));
+                      onPressedEvent(address: add.text, email: email.text, phone: phone.text, territories: trainID));
 
                 },
                 child: Container(
@@ -221,42 +204,81 @@ class _userprofile_pagesState extends State<userprofile_pages> {
                       ),
                       headingTextwithsmallwhite(title: 'Territory'),
                       const SizedBox(height: 5,),
-                      SizedBox(
+                      // SizedBox(
+                      //   width: 95.w,
+                      //
+                      //   child:  MultiSelectDialogField<Option>(
+                      //     decoration: BoxDecoration(
+                      //         color: Colors.white,
+                      //         border: Border.all(color: ColorConstants.deppp,width: 2),
+                      //         borderRadius: BorderRadius.circular(4)
+                      //     ),
+                      //     items: _options
+                      //         .map((option) => MultiSelectItem<Option>(option, option.name))
+                      //         .toList(),
+                      //     initialValue: _selectedOptions,
+                      //     title: const Text('Select Options'),
+                      //     onConfirm: (selectedItems) {
+                      //       setState(() {
+                      //         _selectedOptions = selectedItems;
+                      //         selectedOptionNames = _selectedOptions.map((option) => option.name).toList();
+                      //       });
+                      //     },
+                      //     chipDisplay: MultiSelectChipDisplay<Option>(
+                      //       onTap: (item) {
+                      //         setState(() {
+                      //           _selectedOptions.remove(item);
+                      //           selectedOptionNames = _selectedOptions.map((option) => option.name).toList();
+                      //         });
+                      //       },
+                      //       chipColor: ColorConstants.deppp,
+                      //       textStyle: const TextStyle(color: Colors.white),
+                      //       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(2)),
+                      //       items: _selectedOptions.map((option) => MultiSelectItem<Option>(option, option.name)).toList(),
+                      //     ),
+                      //   ),
+                      // ),
+                      Container(
                         width: 95.w,
-
-                        child:  MultiSelectDialogField<Option>(
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              border: Border.all(color: ColorConstants.deppp,width: 2),
-                              borderRadius: BorderRadius.circular(4)
-                          ),
-                          items: _options
-                              .map((option) => MultiSelectItem<Option>(option, option.name))
-                              .toList(),
-                          initialValue: _selectedOptions,
-                          title: const Text('Select Options'),
-                          onConfirm: (selectedItems) {
-                            setState(() {
-                              _selectedOptions = selectedItems;
-                              selectedOptionNames = _selectedOptions.map((option) => option.name).toList();
-                            });
+                        child: GestureDetector(
+                          onTap: () {
+                            getTerritoryData(context);
                           },
-                          chipDisplay: MultiSelectChipDisplay<Option>(
-                            onTap: (item) {
-                              setState(() {
-                                _selectedOptions.remove(item);
-                                selectedOptionNames = _selectedOptions.map((option) => option.name).toList();
-                              });
-                            },
-                            chipColor: ColorConstants.deppp,
-                            textStyle: const TextStyle(color: Colors.white),
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(2)),
-                            items: _selectedOptions.map((option) => MultiSelectItem<Option>(option, option.name)).toList(),
+                          child: Container(
+                            width: 100,
+                            height: 60,
+                            decoration: BoxDecoration(
+                              border: Border.all(color: Colors.black),
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child:Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Flexible(
+                                    child: Text(
+                                      trainID == "" ?_selectedOptions.map((option) =>
+                                      option.name).toList().toString().replaceAll("[", "").replaceAll("]", "") : trainID,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(fontSize: 10.sp),
+                                    ),
+                                  ),
+                                  Icon(
+                                    CupertinoIcons.selection_pin_in_out,
+                                    color: ColorConstants.appcolor,
+                                  ),
+                                ],
+                              ),
+
+                            ),
                           ),
                         ),
-
                       ),
 
+                      
+                      
                       const SizedBox(
                         height: 20,
                       ),

@@ -70,23 +70,29 @@ class _CustomerReportState extends State<CustomerReport> {
   }
 
 
-  Future<dynamic> _openCustomerReportDialogprevious() async {
-
+  Future<dynamic> _openCustomerReportDialogprevious(String customerId) async {
     String shopid = await Utils().getUsererId();
     setState(() {
       _isLoading = true;
     });
-    // Retrieve the reports using the previousReport method
-    List<dynamic> reports =  await AddReportService().previousReport(shopid);
+
+    List<dynamic> reports = await AddReportService().previousReport(shopid);
+
     setState(() {
       _isLoading = false;
     });
-    reports.sort((a, b) {
+
+    // Filter reports based on customer ID
+    List<dynamic> filteredReports =
+    reports.where((report) => report['cid'] == customerId).toList();
+
+    filteredReports.sort((a, b) {
       // Sort the reports in descending order based on the 'vdate' field
       int timeA = int.parse(a['vdate']);
       int timeB = int.parse(b['vdate']);
       return timeB.compareTo(timeA);
     });
+
     return showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -100,26 +106,25 @@ class _CustomerReportState extends State<CustomerReport> {
           content: SizedBox(
             width: double.maxFinite,
             child: Container(
-              //color: Colors.white,
               child: ListView.builder(
                 shrinkWrap: true,
-                itemCount: reports.length,
+                itemCount: filteredReports.length,
                 itemBuilder: (BuildContext context, int index) {
-
-                  String date = reports[index]['vdate'];
-                  String note = reports[index]['note'] == null ? 'Null' :reports[index]['note'];
-                 // String gnote = reports[index]['gnote'] == null ?   'Null': reports[index]['gnote'];
+                  String date = filteredReports[index]['vdate'];
+                  String note =
+                  filteredReports[index]['note'] == null ? 'Null' : filteredReports[index]['note'];
+                  String cid =
+                  filteredReports[index]['cid'] == null ? 'Null' : filteredReports[index]['cid'];
                   int vdateInMillis = int.parse(date);
                   DateTime dateTim = DateTime.fromMillisecondsSinceEpoch(vdateInMillis * 1000);
                   String formattedDateTime = DateFormat('yyyy-MM-dd').format(dateTim);
 
-
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      headingTextwithsmallwhite(title: 'Customer ID: $cid'),
                       headingTextwithsmallwhite(title: 'Date: $formattedDateTime'),
                       headingTextwithsmallwhite(title: 'Customer Note: $note'),
-                     // headingTextwithsmallwhite(title: 'General Note: $gnote'),
                       Divider(
                         color: ColorConstants.blueGrey,
                         height: 25,
@@ -140,10 +145,9 @@ class _CustomerReportState extends State<CustomerReport> {
                 ElevatedButton(
                   onPressed: () {
                     Navigator.of(context).pop(); // Close the dialog without saving
-                  },style:ElevatedButton.styleFrom(
-                    backgroundColor: ColorConstants.blueGrey
-                ) ,
-                  child:  Text(
+                  },
+                  style: ElevatedButton.styleFrom(backgroundColor: ColorConstants.blueGrey),
+                  child: Text(
                     'Go Back',
                     style: TextStyle(color: ColorConstants.white),
                   ),
@@ -176,10 +180,9 @@ class _CustomerReportState extends State<CustomerReport> {
   }
 
 
-  Future<dynamic> _openCustomerReportDialog(
-      String customerName,
-      TextEditingController reportController,
+  Future<dynamic> _openCustomerReportDialog(String customerID,String customerName, TextEditingController reportController,
       {bool isEditMode = false, String initialReport = ''}) {
+    
     reportController.text = initialReport;
 
     return showDialog(
@@ -249,7 +252,7 @@ class _CustomerReportState extends State<CustomerReport> {
                   children: [
                     InkWell(
                       onTap: () {
-                        _openCustomerReportDialogprevious();
+                        _openCustomerReportDialogprevious(customerID);
                       },
                       child: const Text(
                         'Previous Report',
@@ -271,10 +274,12 @@ class _CustomerReportState extends State<CustomerReport> {
                 border: Border.all(color: ColorConstants.blueGrey),
                 borderRadius: BorderRadius.circular(5),
               ),
-              child: TextButton(
+              child: ElevatedButton(
                 onPressed: () {
                   Navigator.of(context).pop(); // Close the dialog without saving
-                },
+                },style: ElevatedButton.styleFrom(
+                  backgroundColor: ColorConstants.blueGrey
+              ),
                 child: const Text(
                   'Cancel',
                   style: TextStyle(color: Colors.white),
@@ -287,11 +292,13 @@ class _CustomerReportState extends State<CustomerReport> {
                 border: Border.all(color: ColorConstants.deppp),
                 borderRadius: BorderRadius.circular(5),
               ),
-              child: TextButton(
+              child: ElevatedButton(
                 onPressed: () {
                   String report = reportController.text;
                   Navigator.of(context).pop(report);
-                },
+                },style: ElevatedButton.styleFrom(
+                backgroundColor: ColorConstants.deppp
+              ),
                 child: const Text(
                   'Save',
                   style: TextStyle(color: Colors.white),
@@ -622,7 +629,7 @@ class _CustomerReportState extends State<CustomerReport> {
 
 
                             setState(() {
-                              _openCustomerReportDialog(
+                              _openCustomerReportDialog(customer['id'],
                                 customer['name'],
                                 reportController,
                                 isEditMode: isCustomerSelected,
@@ -687,7 +694,7 @@ class _CustomerReportState extends State<CustomerReport> {
                             }
 
                             setState(() {
-                              _openCustomerReportDialog(
+                              _openCustomerReportDialog(customer['id'],
                                 customer['name'],
                                 reportController,
                                 isEditMode: isCustomerSelected,

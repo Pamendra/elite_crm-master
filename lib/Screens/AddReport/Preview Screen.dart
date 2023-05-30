@@ -455,7 +455,7 @@ class PreviewReportState extends State<PreviewReport> {
                               onTap: (){
                                 _openCustomerReportDialog();
                               },
-                              child: Text('Previous Report',style: TextStyle(decoration: TextDecoration.underline,color: Colors.white),))
+                              child: const Text('Previous Report',style: TextStyle(decoration: TextDecoration.underline,color: Colors.white),))
                         ],
                       ),
                       const SizedBox(height: 10,),
@@ -470,31 +470,106 @@ class PreviewReportState extends State<PreviewReport> {
                       ),
 
                       SizedBox(
-                        height: 50.h,
+                        height: 45.h,
                         width: 95.w,
-                        child: ListView.builder(
+                        child:ListView.builder(
                           itemCount: customerList.length,
                           itemBuilder: (context, index) {
                             final customer = customerList[index];
                             return Card(
-
                               child: ListTile(
-                                title:  Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      'Customer Name:  ${customer['name']}',
-                                      style: TextStyle(fontWeight: FontWeight.bold,fontSize: 10.sp),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(top: 10),
-                                      child: Text(
-                                        'Customer Report:  ${ customer['report']}',
-                                        style: TextStyle(fontSize: 10.sp,color: Colors.black,fontFamily: "railLight",fontWeight: FontWeight.bold),
-                                      ),
-                                    ),
-                                  ],
+                                title: Text(
+                                  'Customer Name: ${customer['name']}',
+                                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 10.sp),
                                 ),
+                                onTap: () {
+                                  TextEditingController report = TextEditingController();
+                                  report.text = customer['report'].toString().isEmpty ? 'Null': customer['report'];
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return AlertDialog(
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: const BorderRadius.all(Radius.circular(10.0)),
+                                          side: BorderSide(color: ColorConstants.deppp, width: 2),
+                                        ),
+                                        backgroundColor: ColorConstants.DarkBlueColor,
+                                        title: headingTextwhite(title: '${customer['name']}'),
+                                        content: SizedBox(
+                                          width: double.maxFinite,
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.min,
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              // headingTextwithsmallwhite(title: 'Add Customer Report Here'),
+                                              // const SizedBox(height: 10),
+                                              Container(
+                                                width: 100.w,
+                                                decoration: BoxDecoration(
+                                                  borderRadius: BorderRadius.circular(5),
+                                                  border: Border.all(color: Colors.black),
+                                                ),
+                                                child: Scrollbar(
+                                                  controller: _scrollController,
+                                                  child: TextField(
+                                                    readOnly: true,
+                                                    controller: report,
+                                                    style: TextStyle(
+                                                      fontSize: 10.sp,
+                                                      color: Colors.black,
+                                                      fontFamily: "railLight",
+                                                    ),
+                                                    keyboardType: TextInputType.multiline,
+                                                    maxLines: 24,
+                                                    decoration: InputDecoration(
+                                                      hintText: 'Customer Report',
+                                                      hintStyle: TextStyle(
+                                                        fontSize: 10.sp,
+                                                        color: Colors.grey,
+                                                        fontFamily: "railLight",
+                                                      ),
+                                                      isDense: true,
+                                                      border: OutlineInputBorder(
+                                                        borderRadius: BorderRadius.circular(5),
+                                                        borderSide: const BorderSide(
+                                                          width: 0,
+                                                          style: BorderStyle.none,
+                                                        ),
+                                                      ),
+                                                      filled: true,
+                                                      contentPadding: const EdgeInsets.all(10),
+                                                      fillColor: Colors.white,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        actions: [
+                                          Container(
+                                            height: 5.h,
+                                            decoration: BoxDecoration(
+                                              border: Border.all(color: ColorConstants.deppp),
+                                              borderRadius: BorderRadius.circular(5),
+                                            ),
+                                            child: ElevatedButton(
+                                              onPressed: () {
+                                                Navigator.of(context).pop(report);
+                                              },style: ElevatedButton.styleFrom(
+                                              backgroundColor: ColorConstants.deppp
+                                            ),
+                                              child: const Text(
+                                                'Ok',
+                                                style: TextStyle(color: Colors.white),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  );
+                                },
                               ),
                             );
                           },
@@ -524,3 +599,5 @@ class PreviewReportState extends State<PreviewReport> {
     );
   }
 }
+
+

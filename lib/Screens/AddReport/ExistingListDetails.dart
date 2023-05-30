@@ -48,7 +48,6 @@ import '../Notification/Model/detailsModel.dart';
      setState(() {
        user_id = shopid;
      });
-
    }
 
 
@@ -241,7 +240,6 @@ import '../Notification/Model/detailsModel.dart';
                                      details:
                                      '${lead['name']}, ${lead['cname']} , ${lead['gmanager']} , ${lead['pmanager']} , ${lead['services'] } ,  ${lead['state']} ,  ${lead['phone']}',
                                    );
-
                                    Navigator.pop(context, leadDetails);
                                  },
                                ),
