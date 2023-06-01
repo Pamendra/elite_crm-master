@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:elite_crm/Bloc/AddReportBloc.dart';
 import 'package:elite_crm/Screens/Notification/notification%20page.dart';
 import 'package:elite_crm/Screens/bottomNavigationPages.dart';
+import 'package:elite_crm/Utils/SizedSpace.dart';
 import 'package:elite_crm/Utils/color_constants.dart';
 import 'package:elite_crm/Utils/gradient_color.dart';
 import 'package:flutter/cupertino.dart';
@@ -299,9 +300,7 @@ class PreviewReportState extends State<PreviewReport> {
               SingleChildScrollView(
               scrollDirection: Axis.vertical,
               child: Column(children: [
-                const SizedBox(
-                  height: 20,
-                ),
+                  MediumSpace(),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -359,11 +358,9 @@ class PreviewReportState extends State<PreviewReport> {
                     //     color: ColorConstants.deppp),
                   ],
                 ),
-                const SizedBox(
-                  height: 20,
-                ),
+                MediumSpace(),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  padding:  EdgeInsets.symmetric(horizontal: 8.sp),
                   child: Column(
                     children: [
                       GestureDetector(
@@ -384,7 +381,7 @@ class PreviewReportState extends State<PreviewReport> {
                                 Text(
                                   widget.date,
                                   overflow: TextOverflow.ellipsis,
-                                  style: const TextStyle(fontSize: 15),
+                                  style:  TextStyle(fontSize: 12.sp),
                                 ),
                                 Icon(
                                   CupertinoIcons.calendar,
@@ -395,9 +392,9 @@ class PreviewReportState extends State<PreviewReport> {
                           ),
                         ),
                       ),
-                      const SizedBox(height: 10,),
+                      SmallSpace(),
                       Padding(
-                        padding: const EdgeInsets.only(left: 5),
+                        padding:  EdgeInsets.only(left: 2.sp),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
@@ -405,12 +402,12 @@ class PreviewReportState extends State<PreviewReport> {
                           ],
                         ),
                       ),
-                      const SizedBox(height: 3,),
+                       SizedBox(height: 0.5.h,),
                       Container(
                           width: 95.w,
                           decoration: BoxDecoration(
                               borderRadius:
-                              BorderRadius.circular(5),
+                              BorderRadius.circular(3.sp),
                               border:
                               Border.all(color: Colors.black)),
                           child: Scrollbar(
@@ -433,7 +430,7 @@ class PreviewReportState extends State<PreviewReport> {
                                 ),
                                 border: OutlineInputBorder(
                                   borderRadius:
-                                  BorderRadius.circular(5),
+                                  BorderRadius.circular(3.sp),
                                   borderSide: const BorderSide(
                                     width: 0,
                                     style: BorderStyle.none,
@@ -447,7 +444,7 @@ class PreviewReportState extends State<PreviewReport> {
                             ),
                           )
                       ),
-                      SizedBox(height: 10,),
+                    SmallSpace(),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children:  [
@@ -458,9 +455,9 @@ class PreviewReportState extends State<PreviewReport> {
                               child: const Text('Previous Report',style: TextStyle(decoration: TextDecoration.underline,color: Colors.white),))
                         ],
                       ),
-                      const SizedBox(height: 10,),
+                     SmallSpace(),
                       Padding(
-                        padding: const EdgeInsets.only(left: 5),
+                        padding:  EdgeInsets.only(left: 3.sp),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [

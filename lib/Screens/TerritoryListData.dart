@@ -98,8 +98,8 @@ class _TerritoryListDataState extends State<TerritoryListData> {
             },
             child: Container(
               padding: const EdgeInsets.all(15),
-              width: 50,
-              height: 55,
+              width: 100.w,
+              height: 5.8.h,
               color: ColorConstants.blueGrey,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -119,7 +119,7 @@ class _TerritoryListDataState extends State<TerritoryListData> {
               children:[
                 SafeArea(
                   child: Padding(
-                    padding: const EdgeInsets.only(top: 20,left: 30,right: 30),
+                    padding:  EdgeInsets.only(top: 15.sp,left: 24.sp,right: 24.sp),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                         children: [

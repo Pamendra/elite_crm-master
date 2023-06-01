@@ -181,6 +181,11 @@ import '../Notification/Model/detailsModel.dart';
                          filled: true,
                          fillColor: Colors.white,
                          hintText: 'Search...',
+                         focusedBorder: OutlineInputBorder(
+                           borderSide: BorderSide(
+                             color: ColorConstants.deppp,width: 1.5.sp
+                           )
+                         ),
                          hintStyle: TextStyle(color: Colors.grey[500]),
                          border: OutlineInputBorder(
                            borderRadius: BorderRadius.circular(5),

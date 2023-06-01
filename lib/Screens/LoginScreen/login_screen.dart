@@ -118,33 +118,32 @@ class _LoginPageState extends State<LoginPage> {
            opacity: .1,
            progressIndicator: const LoadingBar(),
            inAsyncCall: state is LoginLoadingState ? true : false,
-           child: Container(
-             // height: 100.h,
-             // width: 100.w,
-             // decoration: DecorationConstants.decorationGradient,
-             child: Padding(
-               padding: const EdgeInsets.only(right: 20,left: 20),
-               child: SingleChildScrollView(
-                 scrollDirection: Axis.vertical,
-                 child: Column(
-                   children: [
-                      const SizedBox(height: 130,),
-                     Padding(
-                       padding: const EdgeInsets.all(10.0),
-                       child: Image.asset('assets/images/logo.png'),
-                     ),
-                      SmallSpace(),
-                     Row(
-                       mainAxisAlignment: MainAxisAlignment.start,
-                       children: [
-                         Padding(
-                           padding: const EdgeInsets.only(left: 10),
-                           child: headingTextwithsmallwhite(title: 'Username or UserID'),
-                         ),
-                       ],
-                     ),
-                     Padding(
-                       padding: const EdgeInsets.all(8.0),
+           child: Padding(
+             padding:  EdgeInsets.only(right: 14.sp,left: 14.sp),
+             child: SingleChildScrollView(
+               scrollDirection: Axis.vertical,
+               child: Column(
+                 children: [
+                     SizedBox(height: 13.h,),
+                   Padding(
+                     padding:  EdgeInsets.all(7.sp),
+                     child: Image.asset('assets/images/logo.png'),
+                   ),
+                    SmallSpace(),
+                   Row(
+                     mainAxisAlignment: MainAxisAlignment.start,
+                     children: [
+                       Padding(
+                         padding:  EdgeInsets.only(left: 6.sp),
+                         child: headingTextwithsmallwhite(title: 'Username or UserID'),
+                       ),
+                     ],
+                   ),
+                   Padding(
+                     padding:  EdgeInsets.all(5.sp),
+                     child: Container(
+                       width: 95.w,
+                       height: 6.5.h,
                        child: TextFormField(
                          controller: emailController,
                          decoration: InputDecoration(
@@ -158,24 +157,28 @@ class _LoginPageState extends State<LoginPage> {
                              ),
                              suffixIcon:  Icon(Icons.person,color: ColorConstants.deppp,),
                              border: OutlineInputBorder(
-                                 borderRadius: BorderRadius.circular(5))),
+                                 borderRadius: BorderRadius.circular(3.sp))),
                        ),
                      ),
-                     const SizedBox(height: 20),
+                   ),
+                   MediumSpace(),
 
 
-                     Row(
-                       mainAxisAlignment: MainAxisAlignment.start,
-                       children: [
-                         Padding(
-                           padding: const EdgeInsets.only(left: 10),
-                           child: headingTextwithsmallwhite(title: 'Password'),
-                         ),
-                       ],
-                     ),
+                   Row(
+                     mainAxisAlignment: MainAxisAlignment.start,
+                     children: [
+                       Padding(
+                         padding:  EdgeInsets.only(left: 6.sp),
+                         child: headingTextwithsmallwhite(title: 'Password'),
+                       ),
+                     ],
+                   ),
 
-                     Padding(
-                       padding: const EdgeInsets.all(8.0),
+                   Padding(
+                     padding:  EdgeInsets.all(5.sp),
+                     child: Container(
+                       width: 95.w,
+                       height: 6.5.h,
                        child: TextFormField(
                          controller: passwordController,
                          obscureText: !_passwordVisible,
@@ -202,49 +205,49 @@ class _LoginPageState extends State<LoginPage> {
                                },
                              ),
                              border: OutlineInputBorder(
-                                 borderRadius: BorderRadius.circular(5))),
+                                 borderRadius: BorderRadius.circular(3.sp))),
                        ),
                      ),
-                     const SizedBox(height:30,),
+                   ),
+                   LargeSpace(),
 
-                     Padding(
-                       padding: const EdgeInsets.only(left: 10,right: 10),
-                       child: SizedBox(width: 100.w
-                           ,height: 5.8.h,
-                           child: ElevatedButton(onPressed: () async {
-                             if (emailController.text.isEmpty) {
-                              Dialogs.showValidationMessage(context, 'Please enter username');
-                             } else if (passwordController.text.isEmpty) {
-                               Dialogs.showValidationMessage(context, 'Please enter password');
-                             } else  {
-                               BlocProvider.of<LoginBloc>(context).add(
-                                   LoginPressedEvent(emailController.text, passwordController.text));
-                               // showLoaderDialog(context);
-                               Utils().setUsername(emailController.text);
-                               var sharedpref = await SharedPreferences.getInstance();
-                               sharedpref.setBool(SplashScreenState.KEYLOGIN, true);
-                             }
-                           },style: ElevatedButton.styleFrom(
-                               backgroundColor: ColorConstants.deppp
-                           ), child: const Text('Sign in'))),
-                     ),
-                     SmallSpace(),
-                     // Padding(
-                     //   padding: const EdgeInsets.only(right: 10),
-                     //   child: Row(
-                     //     mainAxisAlignment: MainAxisAlignment.end,
-                     //     children:  [
-                     //       InkWell(
-                     //         onTap: (){
-                     //           Navigator.push(context, MaterialPageRoute(builder: (context) => const registration_page()));
-                     //         },
-                     //         child:  headingTextwithsmallwhite2(title: 'Create new ?',),
-                     //       )
-                     //     ],
-                     //   ),
-                     // )
-                   ],
-                 ),
+                   Padding(
+                     padding:  EdgeInsets.only(left: 5.sp,right: 5.sp),
+                     child: SizedBox(width: 100.w
+                         ,height: 5.8.h,
+                         child: ElevatedButton(onPressed: () async {
+                           if (emailController.text.isEmpty) {
+                            Dialogs.showValidationMessage(context, 'Please enter username');
+                           } else if (passwordController.text.isEmpty) {
+                             Dialogs.showValidationMessage(context, 'Please enter password');
+                           } else  {
+                             BlocProvider.of<LoginBloc>(context).add(
+                                 LoginPressedEvent(emailController.text, passwordController.text));
+                             // showLoaderDialog(context);
+                             Utils().setUsername(emailController.text);
+                             var sharedpref = await SharedPreferences.getInstance();
+                             sharedpref.setBool(SplashScreenState.KEYLOGIN, true);
+                           }
+                         },style: ElevatedButton.styleFrom(
+                             backgroundColor: ColorConstants.deppp
+                         ), child: const Text('Sign in'))),
+                   ),
+                   SmallSpace(),
+                   // Padding(
+                   //   padding: const EdgeInsets.only(right: 10),
+                   //   child: Row(
+                   //     mainAxisAlignment: MainAxisAlignment.end,
+                   //     children:  [
+                   //       InkWell(
+                   //         onTap: (){
+                   //           Navigator.push(context, MaterialPageRoute(builder: (context) => const registration_page()));
+                   //         },
+                   //         child:  headingTextwithsmallwhite2(title: 'Create new ?',),
+                   //       )
+                   //     ],
+                   //   ),
+                   // )
+                 ],
                ),
              ),
            ),

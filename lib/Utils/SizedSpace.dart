@@ -20,6 +20,6 @@ class LargeSpace extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(height:2.h,);
+    return SizedBox(height:4.h,);
   }
 }

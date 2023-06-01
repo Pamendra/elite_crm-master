@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:elite_crm/Utils/SizedSpace.dart';
 import 'package:elite_crm/Utils/TextWidgets.dart';
 import 'package:elite_crm/Utils/color_constants.dart';
 import 'package:flutter/cupertino.dart';
@@ -125,7 +126,7 @@ class _userprofile_pagesState extends State<userprofile_pages> {
                           (Route route) => false);
                 },
                 child: Container(
-                  padding: const EdgeInsets.all(15),
+                 // padding:  EdgeInsets.all(5.sp),
                   width: 50.w,
                   height: 5.8.h,
                   color: ColorConstants.blueGrey,
@@ -146,7 +147,7 @@ class _userprofile_pagesState extends State<userprofile_pages> {
 
                 },
                 child: Container(
-                  padding: const EdgeInsets.all(15),
+                 // padding: const EdgeInsets.all(15),
                   width: 50.w,
                   height: 5.8.h,
                   color: ColorConstants.deppp
@@ -195,7 +196,7 @@ class _userprofile_pagesState extends State<userprofile_pages> {
               child: Form(
                 key: _formKey,
                 child: Padding(
-                  padding: const EdgeInsets.all(16.0),
+                  padding:  EdgeInsets.all(12.sp),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
@@ -203,7 +204,7 @@ class _userprofile_pagesState extends State<userprofile_pages> {
                         height: 15,
                       ),
                       headingTextwithsmallwhite(title: 'Territory'),
-                      const SizedBox(height: 5,),
+                      SmallSpace(),
                       // SizedBox(
                       //   width: 95.w,
                       //
@@ -250,10 +251,10 @@ class _userprofile_pagesState extends State<userprofile_pages> {
                             decoration: BoxDecoration(
                               border: Border.all(color: Colors.black),
                               color: Colors.white,
-                              borderRadius: BorderRadius.circular(8),
+                              borderRadius: BorderRadius.circular(3.sp),
                             ),
                             child: Padding(
-                              padding: const EdgeInsets.all(10.0),
+                              padding:  EdgeInsets.all(7.sp),
                               child:Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
@@ -278,12 +279,9 @@ class _userprofile_pagesState extends State<userprofile_pages> {
                       ),
 
                       
-                      
-                      const SizedBox(
-                        height: 20,
-                      ),
+                      MediumSpace(),
                       headingTextwithsmallwhite(title: 'Address'),
-                      const SizedBox(height: 5,),
+                      SmallSpace(),
                       TextFormField(
                         controller: add,
                         maxLines: 4,
@@ -291,15 +289,15 @@ class _userprofile_pagesState extends State<userprofile_pages> {
                           filled: true,
                           fillColor: Colors.white,
                           labelStyle: TextStyle(color: ColorConstants.deppp),
-                          contentPadding: const EdgeInsets.symmetric(
-                            horizontal: 16.0, vertical: 16.0,),
+                          contentPadding:  EdgeInsets.symmetric(
+                            horizontal: 12.sp, vertical: 12.sp,),
                           focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(5.0),
+                            borderRadius: BorderRadius.circular(3.sp),
                             borderSide: BorderSide(
-                                color: ColorConstants.deppp, width: 1.2),
+                                color: ColorConstants.deppp, width: 1.2.sp),
                           ),
                           border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8.0),
+                            borderRadius: BorderRadius.circular(3.sp),
                             borderSide: BorderSide(
                                 color: ColorConstants.deppp, width: 1.2),
                           ),
@@ -315,11 +313,9 @@ class _userprofile_pagesState extends State<userprofile_pages> {
                         },
                       ),
 
-                      const SizedBox(
-                        height: 30,
-                      ),
+                      MediumSpace(),
                       headingTextwithsmallwhite(title: 'Phone Number'),
-                      const SizedBox(height: 5,),
+                      SmallSpace(),
                       TextFormField(
                         controller: phone,
                         keyboardType: TextInputType.number,
@@ -335,7 +331,7 @@ class _userprofile_pagesState extends State<userprofile_pages> {
                                 color: ColorConstants.deppp, width: 1.2),
                           ),
                           border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8.0),
+                            borderRadius: BorderRadius.circular(3.sp),
                             borderSide: BorderSide(
                                 color: ColorConstants.deppp, width: 1.2),
                           ),
@@ -352,11 +348,9 @@ class _userprofile_pagesState extends State<userprofile_pages> {
                       ),
 
 
-                      const SizedBox(
-                        height: 30,
-                      ),
+                      MediumSpace(),
                       headingTextwithsmallwhite(title: 'Email'),
-                      const SizedBox(height: 5,),
+                     SmallSpace(),
                       TextFormField(
                         controller: email,
                         decoration: InputDecoration(
@@ -371,7 +365,7 @@ class _userprofile_pagesState extends State<userprofile_pages> {
                                 color: ColorConstants.deppp, width: 1.2),
                           ),
                           border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8.0),
+                            borderRadius: BorderRadius.circular(3.sp),
                             borderSide: BorderSide(
                                 color: ColorConstants.deppp, width: 1.2),
                           ),
@@ -391,9 +385,7 @@ class _userprofile_pagesState extends State<userprofile_pages> {
                         },
                       ),
 
-                      const SizedBox(
-                        height: 110,
-                      ),
+                      LargeSpace(),
 
                       // SizedBox(
                       //

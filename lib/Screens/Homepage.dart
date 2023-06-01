@@ -53,7 +53,7 @@ class _DealerListState extends State<DealerList> {
 
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.only(top: 10,left: 10,right: 10),
+          padding:  EdgeInsets.only(top: 7.sp,left: 7.sp,right: 7.sp),
           child: Column(
             children: [
               TextFormField(
@@ -72,13 +72,13 @@ class _DealerListState extends State<DealerList> {
                     ),
                     suffixIcon:  Icon(Icons.search,color:Colors.white),
                     focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8.0),
+                      borderRadius: BorderRadius.circular(3.sp),
                       borderSide:  BorderSide(color: ColorConstants.deppp, width: 3),
                     ),
                     hintText: 'Search...',
                     hintStyle: const TextStyle(color: Colors.white),
                     border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(5))),
+                        borderRadius: BorderRadius.circular(3.sp))),
               ),
               const SizedBox(height: 5,),
               Expanded(

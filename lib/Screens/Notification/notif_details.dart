@@ -1,5 +1,6 @@
 
 
+import 'package:elite_crm/Utils/SizedSpace.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:sizer/sizer.dart';
 import 'package:elite_crm/Utils/color_constants.dart';
@@ -110,13 +111,7 @@ class _NotificationPageState extends State<NotificationPage> {
               child: Column(
 
                 children: [
-                  const SizedBox(
-                    height: 30,
-                  ),
-
-                  const SizedBox(
-                    height: 0,
-                  ),
+                 LargeSpace(),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: Column(

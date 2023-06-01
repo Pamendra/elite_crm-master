@@ -238,7 +238,7 @@ class _AddReportState extends State<AddReport> {
           scrollDirection: Axis.vertical,
           child: SafeArea(
             child: Padding(
-              padding: const EdgeInsets.only(top: 10,left: 16,right: 16),
+              padding:  EdgeInsets.only(top: 10.sp,left: 16.sp,right: 16.sp),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -307,9 +307,7 @@ class _AddReportState extends State<AddReport> {
 
                     ],
                   ),
-                  const SizedBox(
-                    height: 10,
-                  ),
+                  SmallSpace(),
                     headingTextwithsmallwhite(title: 'Enter the Existing lead'),
                     const SizedBox(height: 3,),
                   GestureDetector(
@@ -317,15 +315,15 @@ class _AddReportState extends State<AddReport> {
                       getExistLead(context);
                     },
                     child: Container(
-                      width: 100.w,
+                      width: 95.w,
                       height: 6.h,
                       decoration: BoxDecoration(
                         border: Border.all(color: Colors.black),
                         color: Colors.white,
-                        borderRadius: BorderRadius.circular(8),
+                        borderRadius: BorderRadius.circular(3.sp),
                       ),
                       child: Padding(
-                        padding: const EdgeInsets.all(10.0),
+                        padding:  EdgeInsets.all(6.sp),
                         child: Row(
                           mainAxisAlignment:
                           MainAxisAlignment.spaceBetween,
@@ -353,7 +351,7 @@ class _AddReportState extends State<AddReport> {
                     crossAxisAlignment: CrossAxisAlignment.start,
 
                     children:  [
-                      const SizedBox(height: 20,),
+                      MediumSpace(),
 
                       Column(
                         children: [
@@ -361,10 +359,10 @@ class _AddReportState extends State<AddReport> {
                               height: 5.h,
                               color: ColorConstants.DarkBlueColor,
                               child:  Padding(
-                                padding: const EdgeInsets.all(5.0),
+                                padding:  EdgeInsets.all(2.sp),
                                 child: Center(child: Text('This is the general lead specific information to be included in this report.',style: TextStyle(fontSize: 10.sp,color: Colors.white,fontFamily: "railLight"),)),
                               )),
-                          const SizedBox(height: 10,),
+                          SmallSpace(),
                           GestureDetector(
                             onTap: () {
                               showCupertinoModalPopup(
@@ -408,11 +406,11 @@ class _AddReportState extends State<AddReport> {
                               height: 6.h,
                               decoration: BoxDecoration(
                                   color: Colors.white,
-                                  borderRadius: BorderRadius.circular(5),
+                                  borderRadius: BorderRadius.circular(3.sp),
                                   border: Border.all(color: Colors.black)
                               ),
                               child: Padding(
-                                padding: const EdgeInsets.all(10.0),
+                                padding:  EdgeInsets.all(6.sp),
                                 child: Row(
                                   mainAxisAlignment:
                                   MainAxisAlignment.spaceBetween,
@@ -435,7 +433,7 @@ class _AddReportState extends State<AddReport> {
                           ),
                         ],
                       ),
-                      const SizedBox(height: 10,),
+                      SmallSpace(),
                       Container(
                           width: 95.w,
                           decoration: BoxDecoration(
@@ -459,7 +457,7 @@ class _AddReportState extends State<AddReport> {
                                 isDense: true,
                                 border: OutlineInputBorder(
                                   borderRadius:
-                                  BorderRadius.circular(5),
+                                  BorderRadius.circular(3.sp),
                                   borderSide: const BorderSide(
                                     width: 0,
                                     style: BorderStyle.none,
@@ -473,7 +471,7 @@ class _AddReportState extends State<AddReport> {
                             ),
                           )
                       ),
-                      const SizedBox(height: 10,),
+                      SmallSpace(),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children:  [
@@ -486,9 +484,7 @@ class _AddReportState extends State<AddReport> {
                       )
                     ],
                   ),
-                   SizedBox(
-                    height: 20.h,
-                  ),
+                  LargeSpace(),
                   // SizedBox(
                   //   width: 100.w,
                   //   child: Row(

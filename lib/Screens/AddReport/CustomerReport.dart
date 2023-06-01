@@ -444,11 +444,9 @@ class _CustomerReportState extends State<CustomerReport> {
                 //     color: blueGrey),
               ],
             ),
-            const SizedBox(
-              height: 20,
-            ),
+          SmallSpace(),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
+              padding:  EdgeInsets.symmetric(horizontal: 8.sp),
               child: Column(
                 children: [
                   // GestureDetector(
@@ -540,13 +538,13 @@ class _CustomerReportState extends State<CustomerReport> {
                   //     InkWell(child: Text('Previous Report',style: TextStyle(decoration: TextDecoration.underline,color: Colors.white),))
                   //   ],
                   // ),
-                  const SizedBox(height: 10,),
+                  SmallSpace(),
                  Container(
                    height: 5.h,
                    color: ColorConstants.DarkBlueColor,
                    child:  Center(
                      child: Padding(
-                       padding: const EdgeInsets.all(5.0),
+                       padding:  EdgeInsets.all(5.sp),
                        child: Text(
                           'This is the specific customer report information. If a text area is left empty a report will still be created.',
                           style: TextStyle(fontSize: 10.sp,color: Colors.white,fontFamily: "railLight"),
@@ -554,35 +552,37 @@ class _CustomerReportState extends State<CustomerReport> {
                      ),
                    ),
                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  TextFormField(
-                    onChanged: (value) {
-                      setState(() {
-                        _searchQuery = value;
-                        _filterCustomerList();
-                      });
-                    },
-                    style: const TextStyle(color: Colors.white,fontFamily: "railLight"),
-                    decoration: InputDecoration(
-                        filled: true,
-                        fillColor: ColorConstants.Darkopacity,
-                        enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                                color: ColorConstants.deppp,width: 3
-                            )
-                        ),
+                  SmallSpace(),
+                  Container(
+                    width: 95.w,
+                    height: 6.h,
+                    child: TextFormField(
+                      onChanged: (value) {
+                        setState(() {
+                          _searchQuery = value;
+                          _filterCustomerList();
+                        });
+                      },
+                      style: const TextStyle(color: Colors.white,fontFamily: "railLight"),
+                      decoration: InputDecoration(
+                          filled: true,
+                          fillColor: ColorConstants.Darkopacity,
+                          enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: ColorConstants.deppp,width: 3
+                              )
+                          ),
 
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8.0),
-                          borderSide:  BorderSide(color: ColorConstants.deppp, width: 3),
-                        ),
-                        suffixIcon: const Icon(Icons.search,color: Colors.white,),
-                        hintText: 'Search...',
-                        hintStyle: const TextStyle(color: Colors.white),
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(5))),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8.0),
+                            borderSide:  BorderSide(color: ColorConstants.deppp, width: 3),
+                          ),
+                          suffixIcon: const Icon(Icons.search,color: Colors.white,),
+                          hintText: 'Search...',
+                          hintStyle: const TextStyle(color: Colors.white),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(3.sp))),
+                    ),
                   ),
 
 

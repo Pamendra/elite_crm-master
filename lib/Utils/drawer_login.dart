@@ -95,8 +95,8 @@ class DrawerLogin extends StatelessWidget {
           child: ListView(
             padding: EdgeInsets.zero,
             children: [
-              const SizedBox(
-                height: 50,
+               SizedBox(
+                height: 5.h,
               ),
               ListTile(
                 leading: const Icon(
@@ -109,17 +109,17 @@ class DrawerLogin extends StatelessWidget {
                 },
               ),
               Container(
-                padding: const EdgeInsets.all(10),
+                padding:  EdgeInsets.all(6.sp),
                 child: ListTile(
                     shape: Border(
                         bottom: BorderSide(
                           color: ColorConstants.backgroundappColor,
                         )),
-                    title: const Text(
+                    title:  Text(
                       'Login',
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          fontSize: 17,
+                          fontSize: 13.sp,
                           color: Colors.white),
                     ),
                     onTap: ()  {
@@ -129,12 +129,12 @@ class DrawerLogin extends StatelessWidget {
               ),
 
               Padding(
-                padding: const EdgeInsets.only(top: 300),
+                padding:  EdgeInsets.only(top: 40.h),
                 child: Column(
                   children: [
 
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8),
+                      padding:  EdgeInsets.symmetric(horizontal: 6.sp),
                       child: ListTile(
                         shape: Border(
                             bottom: BorderSide(
@@ -142,9 +142,9 @@ class DrawerLogin extends StatelessWidget {
                             ),top:BorderSide(
                           color: ColorConstants.backgroundappColor,
                         ) ),
-                        title:const Text('App Information', style: TextStyle(
+                        title: Text('App Information', style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            fontSize: 17,
+                            fontSize: 13.sp,
                             color: Colors.white),),
                         onTap: (){
                           openAppInfoDialog(context);

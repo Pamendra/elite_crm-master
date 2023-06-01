@@ -91,7 +91,7 @@ class _notificationState extends State<notification> {
         progressIndicator:const LoadingBar(),
         inAsyncCall: _isLoading ? true:false,
         child: Padding(
-          padding: const EdgeInsets.only(top: 15),
+          padding:  EdgeInsets.only(top: 11.sp),
           child: ListView.builder(
             itemCount: messages.length,
             itemBuilder: (context, index) {
