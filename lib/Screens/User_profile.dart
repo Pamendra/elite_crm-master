@@ -263,7 +263,7 @@ class _userprofile_pagesState extends State<userprofile_pages> {
                                       trainID == "" ?_selectedOptions.map((option) =>
                                       option.name).toList().toString().replaceAll("[", "").replaceAll("]", "") : trainID,
                                       overflow: TextOverflow.ellipsis,
-                                      style: TextStyle(fontSize: 10.sp),
+                                      style: TextStyle(fontSize: 10.sp,fontFamily: "railLight"),
                                     ),
                                   ),
                                   Icon(
@@ -283,6 +283,7 @@ class _userprofile_pagesState extends State<userprofile_pages> {
                       headingTextwithsmallwhite(title: 'Address'),
                       SmallSpace(),
                       TextFormField(
+                        style: TextStyle(fontSize: 10.sp,fontFamily: "railLight"),
                         controller: add,
                         maxLines: 4,
                         decoration: InputDecoration(
@@ -317,6 +318,7 @@ class _userprofile_pagesState extends State<userprofile_pages> {
                       headingTextwithsmallwhite(title: 'Phone Number'),
                       SmallSpace(),
                       TextFormField(
+                        style: TextStyle(fontSize: 10.sp,fontFamily: "railLight"),
                         controller: phone,
                         keyboardType: TextInputType.number,
                         decoration: InputDecoration(
@@ -352,6 +354,7 @@ class _userprofile_pagesState extends State<userprofile_pages> {
                       headingTextwithsmallwhite(title: 'Email'),
                      SmallSpace(),
                       TextFormField(
+                        style: TextStyle(fontSize: 10.sp,fontFamily: "railLight"),
                         controller: email,
                         decoration: InputDecoration(
                           fillColor: Colors.white,

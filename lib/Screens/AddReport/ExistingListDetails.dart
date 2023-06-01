@@ -2,15 +2,12 @@
 
 
 
+import 'package:elite_crm/Utils/SizedSpace.dart';
 import 'package:elite_crm/Utils/TextWidgets.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:sizer/sizer.dart';
-
-
 import '../../Service/AddReport Service.dart';
 import '../../Utils/color_constants.dart';
-import '../../Utils/gradient_color.dart';
 import '../../Utils/setget.dart';
 import '../Notification/Model/detailsModel.dart';
 
@@ -25,8 +22,8 @@ import '../Notification/Model/detailsModel.dart';
 
  class _ExistingListDetailsState extends State<ExistingListDetails> {
    //TextEditingController details = TextEditingController();
-   TextEditingController _controller = TextEditingController();
-   TextEditingController _searchController = TextEditingController();
+   final TextEditingController _controller = TextEditingController();
+   final TextEditingController _searchController = TextEditingController();
    ScrollController scrollist = ScrollController();
 
    String details='';
@@ -200,9 +197,9 @@ import '../Notification/Model/detailsModel.dart';
                          setState(() {});
                        },
                      ),
-                     SizedBox(height: 10),
-                     Container(
-                       height: 60.h,
+                     SmallSpace(),
+                     SizedBox(
+                       height: 70.h,
                        child: RawScrollbar(
                          trackVisibility: true,
                          thumbColor: ColorConstants.appcolor,
@@ -226,11 +223,11 @@ import '../Notification/Model/detailsModel.dart';
                                      )),
                                  title: Text(
                                    '${lead['name']}, ${lead['cname']}',
-                                   style: TextStyle(fontSize: 11.sp, color: Colors.white, fontFamily: "railLight"),
+                                   style: TextStyle(fontSize: 10.sp, color: Colors.white, fontFamily: "railLight"),
                                  ),
                                  subtitle: Text(
                                    '${lead['state']}, ${lead['city']}, ${lead['phone']}',
-                                   style: TextStyle(fontSize: 11.sp, color: Colors.white, fontFamily: "railLight"),
+                                   style: TextStyle(fontSize: 10.sp, color: Colors.white, fontFamily: "railLight"),
                                  ),
                                  onTap: () {
                                    var leadDetails = LeadDetails(

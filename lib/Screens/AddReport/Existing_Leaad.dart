@@ -333,7 +333,7 @@ class _AddReportState extends State<AddReport> {
                                   ? "Select Lead"
                                   : '${ExistData!.cname.toString()}',
                               overflow: TextOverflow.ellipsis,
-                              style: const TextStyle(fontSize: 16),
+                              style:  TextStyle(fontSize: 10.sp,fontFamily: "railLight"),
                               maxLines: 1,
 
                             ),
@@ -360,7 +360,8 @@ class _AddReportState extends State<AddReport> {
                               color: ColorConstants.DarkBlueColor,
                               child:  Padding(
                                 padding:  EdgeInsets.all(2.sp),
-                                child: Center(child: Text('This is the general lead specific information to be included in this report.',style: TextStyle(fontSize: 10.sp,color: Colors.white,fontFamily: "railLight"),)),
+                                child: Center(child: Text('This is the general lead specific information to be included in this report.',
+                                  style: TextStyle(fontSize: 10.sp,color: Colors.white,fontFamily: "railLight"),)),
                               )),
                           SmallSpace(),
                           GestureDetector(
@@ -420,7 +421,7 @@ class _AddReportState extends State<AddReport> {
                                           ? inspectionDate.toString()
                                           : displayDate.toString(),
                                       overflow: TextOverflow.ellipsis,
-                                      style: const TextStyle(fontSize: 15),
+                                      style:  TextStyle(fontSize: 10.sp,fontFamily: "railLight"),
                                     ),
                                     Icon(
                                       CupertinoIcons.calendar,

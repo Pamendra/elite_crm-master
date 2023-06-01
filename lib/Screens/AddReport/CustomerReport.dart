@@ -585,7 +585,7 @@ class _CustomerReportState extends State<CustomerReport> {
                     ),
                   ),
 
-
+                  _customerList.isNotEmpty ?
                   SizedBox(
                     height: 60.h,
                     child: _searchQuery.isEmpty
@@ -721,6 +721,10 @@ class _CustomerReportState extends State<CustomerReport> {
                     )
 
                   )
+                      : Padding(
+                        padding:  EdgeInsets.only(top: 14.h),
+                        child: const LoadingBar(),
+                      )
 
                 ],
               ),
