@@ -128,7 +128,7 @@ class _userprofile_pagesState extends State<userprofile_pages> {
                 child: Container(
                  // padding:  EdgeInsets.all(5.sp),
                   width: 50.w,
-                  height: 5.8.h,
+                  height: 40.sp,
                   color: ColorConstants.blueGrey,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -149,7 +149,7 @@ class _userprofile_pagesState extends State<userprofile_pages> {
                 child: Container(
                  // padding: const EdgeInsets.all(15),
                   width: 50.w,
-                  height: 5.8.h,
+                  height: 40.sp,
                   color: ColorConstants.deppp
                   ,
                   child: Row(

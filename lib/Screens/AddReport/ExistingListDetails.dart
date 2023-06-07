@@ -21,15 +21,12 @@ import '../Notification/Model/detailsModel.dart';
  }
 
  class _ExistingListDetailsState extends State<ExistingListDetails> {
-   //TextEditingController details = TextEditingController();
-   final TextEditingController _controller = TextEditingController();
    final TextEditingController _searchController = TextEditingController();
    ScrollController scrollist = ScrollController();
 
    String details='';
    List _leads = [];
-   String user_id ='';
-   String? _selectedValue;
+   String userId ='';
    String? id;
    String? name;
    String? cname;
@@ -40,17 +37,17 @@ import '../Notification/Model/detailsModel.dart';
    String? status;
    FocusNode inputNode = FocusNode();
 
-   ShoiId() async {
+   shoiId() async {
      String shopid = await Utils().getUsererId();
      setState(() {
-       user_id = shopid;
+       userId = shopid;
      });
    }
 
 
 @override
   void initState() {
-  ShoiId();
+  shoiId();
     super.initState();
   }
 
@@ -76,7 +73,7 @@ import '../Notification/Model/detailsModel.dart';
              child: Container(
                padding: const EdgeInsets.all(15),
                width: 100.w,
-               height: 5.8.h,
+               height: 40.sp,
                color: ColorConstants.blueGrey,
                child: Row(
                  mainAxisAlignment: MainAxisAlignment.center,
@@ -95,81 +92,7 @@ import '../Notification/Model/detailsModel.dart';
                  crossAxisAlignment: CrossAxisAlignment.start,
                    children: [
                      headingTextwithsmallwhite(title: 'Search Lead'),
-                     // TypeAheadFormField(
-                     //   keepSuggestionsOnLoading: false,
-                     //   textFieldConfiguration: TextFieldConfiguration(
-                     //     autofocus: true,
-                     //     enabled: true,
-                     //     focusNode: inputNode,
-                     //     style: TextStyle(
-                     //         fontSize: 10.sp,
-                     //         color: Colors.black,
-                     //         fontFamily: "railLight"
-                     //     ),
-                     //     decoration: InputDecoration(
-                     //       filled: true,
-                     //       fillColor: Colors.white,
-                     //       hintText: 'Search...',
-                     //       hintStyle: TextStyle(color: Colors.grey[500]),
-                     //       border: OutlineInputBorder(
-                     //         borderRadius: BorderRadius.circular(5),
-                     //       ),
-                     //     ),
-                     //   ),
-                     //   suggestionsCallback: (pattern) async {
-                     //     if (pattern.length >= 3) {
-                     //       _leads = await AddReportService().getLeads(pattern, user_id);
-                     //     } else {
-                     //       _leads = [];
-                     //     }
-                     //     return _leads.map((lead) => lead['name']).toList();
-                     //   },
-                     //   itemBuilder: (context, suggestion) {
-                     //     var lead = _leads.firstWhere(
-                     //             (lead) => lead['name'] == suggestion,
-                     //         orElse: () => null);
-                     //     if (lead != null) {
-                     //       return Card(
-                     //         color: ColorConstants.DarkBlueColor,
-                     //         child: ListTile(
-                     //           title: Text('${lead['name']}, ${lead['cname']}',style: TextStyle(fontSize: 10.sp, color: Colors.white, fontFamily: "railLight"),),
-                     //           subtitle: Text('${lead['state']}, ${lead['city']}, ${lead['phone']}',style: TextStyle(fontSize: 10.sp, color: Colors.white, fontFamily: "railLight"),),
-                     //         ),
-                     //       );
-                     //     } else {
-                     //       return Card(
-                     //         color: ColorConstants.DarkBlueColor,
-                     //         child: ListTile(
-                     //           title: Text('${lead['name']}, ${lead['cname']}',style: TextStyle(fontSize: 10.sp, color: Colors.white, fontFamily: "railLight"),),
-                     //           subtitle: Text('${lead['state']}, ${lead['city']}, ${lead['phone']}',style: TextStyle(fontSize: 10.sp, color: Colors.white, fontFamily: "railLight"),),
-                     //         ),
-                     //       );
-                     //     }
-                     //   },
-                     //   onSuggestionSelected: (suggestion) {
-                     //     var lead = _leads.firstWhere(
-                     //             (lead) => lead['name'] == suggestion,
-                     //         orElse: () => null);
-                     //     if (lead != null) {
-                     //       var leadDetails = LeadDetails(
-                     //         id: lead['id'],
-                     //         name: lead['name'],
-                     //         cname: lead['cname'],
-                     //         gmanager: lead['gmanager'],
-                     //         pmanager: lead['pmanager'],
-                     //         services: lead['services'],
-                     //         status: lead['status'],
-                     //         category: lead['category'] ?? 'null',
-                     //         details:'${lead['name']}, ${lead['cname']} , ${lead['gmanager']} , ${lead['pmanager']} ,'
-                     //                   ' ${lead['services'] } ,  ${lead['state']} ,  ${lead['phone']}'
-                     //       );
-                     //
-                     //         Navigator.pop(context, leadDetails);
-                     //     }
-                     //   },
-                     //   enabled: true,
-                     // ),
-
+                     SmallSpace(),
                      TextField(
                        autofocus: true,
                        controller: _searchController,
@@ -183,14 +106,14 @@ import '../Notification/Model/detailsModel.dart';
                              color: ColorConstants.deppp,width: 1.5.sp
                            )
                          ),
-                         hintStyle: TextStyle(color: Colors.grey[500]),
+                         hintStyle: TextStyle(color: Colors.grey[500],fontSize: 10.sp),
                          border: OutlineInputBorder(
                            borderRadius: BorderRadius.circular(5),
                          ),
                        ),
                        onChanged: (pattern) async {
                          if (pattern.length >= 3) {
-                           _leads = await AddReportService().getLeads(pattern, user_id);
+                           _leads = await AddReportService().getLeads(pattern, userId);
                          } else {
                            _leads = [];
                          }

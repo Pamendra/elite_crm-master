@@ -137,7 +137,8 @@ class DrawerLogout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: MediaQuery.of(context).size.height,
+      height: 690.sp,
+      width: 220.sp,
       child: Drawer(
           backgroundColor: ColorConstants.DarkBlueColor,
           child: ListView(
@@ -236,7 +237,7 @@ class DrawerLogout extends StatelessWidget {
 
 
               Padding(
-                padding:  EdgeInsets.only(top: 25.h),
+                padding:  EdgeInsets.only(top: 250.sp),
                 child: Column(
                   children: [
 

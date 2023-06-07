@@ -118,36 +118,46 @@ class _AddReportState extends State<AddReport> {
             width: double.maxFinite,
             child: Container(
               //color: Colors.white,
-              child: ListView.builder(
-                shrinkWrap: true,
-                itemCount: reports.length,
-                itemBuilder: (BuildContext context, int index) {
+              child: RawScrollbar(
+                trackVisibility: true,
+                thumbColor: ColorConstants.appcolor,
+                trackColor: Colors.white,
+                trackRadius: const Radius.circular(20),
+                // thumbVisibility: true,
+                thickness: 8,
+                radius: const Radius.circular(20),
+                scrollbarOrientation: ScrollbarOrientation.right,
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: reports.length,
+                  itemBuilder: (BuildContext context, int index) {
 
-                  String date = reports[index]['vdate'];
-               //   String note = reports[index]['note'] == null ? 'Null' : reports[index]['note'];
-                  String gnote = reports[index]['gnote'] == null ?  'Null': reports[index]['gnote'];
-                  int vdateInMillis = int.parse(date);
-                  DateTime dateTim = DateTime.fromMillisecondsSinceEpoch(vdateInMillis * 1000);
-                  String formattedDateTime = DateFormat('yyyy-MM-dd').format(dateTim);
+                    String date = reports[index]['vdate'];
+                 //   String note = reports[index]['note'] == null ? 'Null' : reports[index]['note'];
+                    String gnote = reports[index]['gnote'] == null ?  'Null': reports[index]['gnote'];
+                    int vdateInMillis = int.parse(date);
+                    DateTime dateTim = DateTime.fromMillisecondsSinceEpoch(vdateInMillis * 1000);
+                    String formattedDateTime = DateFormat('yyyy-MM-dd').format(dateTim);
 
 
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      headingTextwithsmallwhite(title: 'Date: $formattedDateTime'),
-                    //  headingTextwithsmallwhite(title: 'Customer Note: $note'),
-                      headingTextwithsmallwhite(title: 'General Note: $gnote'),
-                      Divider(
-                        color: ColorConstants.blueGrey,
-                        height: 25,
-                        thickness: 2,
-                        indent: 0,
-                        endIndent: 5,
-                      ),
-                      const SizedBox(height: 10),
-                    ],
-                  );
-                },
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        headingTextwithsmallwhite(title: 'Date: $formattedDateTime'),
+                      //  headingTextwithsmallwhite(title: 'Customer Note: $note'),
+                        headingTextwithsmallwhite(title: 'General Note: $gnote'),
+                        Divider(
+                          color: ColorConstants.blueGrey,
+                          height: 25,
+                          thickness: 2,
+                          indent: 0,
+                          endIndent: 5,
+                        ),
+                        const SizedBox(height: 10),
+                      ],
+                    );
+                  },
+                ),
               ),
             ),
           ),
@@ -191,7 +201,7 @@ class _AddReportState extends State<AddReport> {
                 },
                 child: Container(
                   width: 50.w,
-                  height: 5.8.h,
+                  height: 40.sp,
                   color: ColorConstants.blueGrey,
                   child: Center(child: subheadingTextBOLD(title: 'Cancel',)),
                 )),
@@ -211,7 +221,7 @@ class _AddReportState extends State<AddReport> {
                 },
                 child: Container(
                   width: 50.w,
-                  height: 5.8.h,
+                  height: 40.sp,
                   color: ColorConstants.deppp,
                   child: Center(child: subheadingTextBOLD(title: 'Next',)),
                 )),
@@ -238,13 +248,16 @@ class _AddReportState extends State<AddReport> {
           scrollDirection: Axis.vertical,
           child: SafeArea(
             child: Padding(
-              padding:  EdgeInsets.only(top: 10.sp,left: 16.sp,right: 16.sp),
+              padding:  EdgeInsets.only(left: 13.sp,right: 13.sp),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      SizedBox(
+                        height: 2.h,
+                      ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -255,10 +268,11 @@ class _AddReportState extends State<AddReport> {
                           Column(
                             children: [
                               CircleAvatar(
+                                radius: 15.sp,
                                 backgroundColor: ColorConstants.deppp,
-                                child: const Text(
+                                child:  Text(
                                   '1',
-                                  style: TextStyle(color: Colors.white),
+                                  style: TextStyle(color: Colors.white,fontSize: 12.sp),
                                 ),
                               ),
                               SizedBox(height:.3.h,),
@@ -271,10 +285,11 @@ class _AddReportState extends State<AddReport> {
                           Column(
                             children: [
                               CircleAvatar(
+                                radius: 15.sp,
                                 backgroundColor: ColorConstants.white,
-                                child: const Text(
+                                child:  Text(
                                   '2',
-                                  style: TextStyle(color: Colors.black),
+                                  style: TextStyle(color: Colors.black,fontSize: 12.sp),
                                 ),
                               ),
                               SizedBox(height:.3.h,),
@@ -287,10 +302,11 @@ class _AddReportState extends State<AddReport> {
                           Column(
                             children: [
                               CircleAvatar(
+                                radius: 15.sp,
                                 backgroundColor: ColorConstants.white,
-                                child: const Text(
+                                child:  Text(
                                   '3',
-                                  style: TextStyle(color: Colors.black),
+                                  style: TextStyle(color: Colors.black,fontSize: 12.sp),
                                 ),
                               ),
                               SizedBox(height:.3.h,),
@@ -331,7 +347,7 @@ class _AddReportState extends State<AddReport> {
                             Text(
                               Existid == ""
                                   ? "Select Lead"
-                                  : '${ExistData!.cname.toString()}',
+                                  : ExistData!.cname.toString(),
                               overflow: TextOverflow.ellipsis,
                               style:  TextStyle(fontSize: 10.sp,fontFamily: "railLight"),
                               maxLines: 1,
@@ -339,7 +355,7 @@ class _AddReportState extends State<AddReport> {
                             ),
                             Icon(
                               CupertinoIcons.search,
-                              color: ColorConstants.appcolor,
+                              color: ColorConstants.appcolor,size: 15.sp,
                             ),
                           ],
                         ),
@@ -359,9 +375,9 @@ class _AddReportState extends State<AddReport> {
                               height: 5.h,
                               color: ColorConstants.DarkBlueColor,
                               child:  Padding(
-                                padding:  EdgeInsets.all(2.sp),
+                                padding:  EdgeInsets.all(1.sp),
                                 child: Center(child: Text('This is the general lead specific information to be included in this report.',
-                                  style: TextStyle(fontSize: 10.sp,color: Colors.white,fontFamily: "railLight"),)),
+                                  style: TextStyle(fontSize: 10.sp,color: Colors.white,fontFamily: "railLight"),maxLines: 2,)),
                               )),
                           SmallSpace(),
                           GestureDetector(
@@ -425,7 +441,7 @@ class _AddReportState extends State<AddReport> {
                                     ),
                                     Icon(
                                       CupertinoIcons.calendar,
-                                      color: ColorConstants.deppp,
+                                      color: ColorConstants.deppp,size: 15.sp,
                                     ),
                                   ],
                                 ),
@@ -480,7 +496,7 @@ class _AddReportState extends State<AddReport> {
                               onTap: (){
                                 _openCustomerReportDialog();
                                 },
-                              child: const Text('Previous Report',style: TextStyle(decoration: TextDecoration.underline,color: Colors.white),))
+                              child:  Text('Previous Report',style: TextStyle(decoration: TextDecoration.underline,color: Colors.white,fontSize: 10.sp),))
                         ],
                       )
                     ],

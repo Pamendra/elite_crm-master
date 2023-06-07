@@ -6,7 +6,6 @@ import 'package:elite_crm/Utils/gradient_color.dart';
 import 'package:elite_crm/Utils/message_contants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
@@ -20,7 +19,6 @@ import '../../Utils/drawer_login.dart';
 import '../../Utils/setget.dart';
 import '../Splash_Screen/splash_screen.dart';
 import '../bottomNavigationPages.dart';
-import '../registrationPage.dart';
 
 
 class LoginPage extends StatefulWidget {
@@ -143,11 +141,13 @@ class _LoginPageState extends State<LoginPage> {
                      padding:  EdgeInsets.all(5.sp),
                      child: Container(
                        width: 95.w,
-                       height: 6.5.h,
+                       height: 6.8.h,
                        child: TextFormField(
+                         style: TextStyle(fontSize: 10.sp),
                          controller: emailController,
                          decoration: InputDecoration(
                              hintText: 'Username',
+                             hintStyle: TextStyle(fontSize: 11.sp,),
                              fillColor: Colors.white,
                              filled: true,
                              focusedBorder:  OutlineInputBorder(
@@ -155,7 +155,7 @@ class _LoginPageState extends State<LoginPage> {
                                  color:ColorConstants.deppp,style: BorderStyle.solid
                                )
                              ),
-                             suffixIcon:  Icon(Icons.person,color: ColorConstants.deppp,),
+                             suffixIcon:  Icon(Icons.person,color: ColorConstants.deppp,size: 18.sp,),
                              border: OutlineInputBorder(
                                  borderRadius: BorderRadius.circular(3.sp))),
                        ),
@@ -178,12 +178,14 @@ class _LoginPageState extends State<LoginPage> {
                      padding:  EdgeInsets.all(5.sp),
                      child: Container(
                        width: 95.w,
-                       height: 6.5.h,
+                       height: 6.8.h,
                        child: TextFormField(
+                         style: TextStyle(fontSize: 10.sp),
                          controller: passwordController,
                          obscureText: !_passwordVisible,
                          decoration: InputDecoration(
                              hintText: 'Password',
+                             hintStyle: TextStyle(fontSize: 11.sp),
                              fillColor: Colors.white,
                              filled: true,
                              focusedBorder:  OutlineInputBorder(
@@ -196,7 +198,7 @@ class _LoginPageState extends State<LoginPage> {
                                  _passwordVisible
                                      ? Icons.visibility
                                      : Icons.visibility_off,
-                                 color:ColorConstants.deppp,
+                                 color:ColorConstants.deppp,size: 18.sp,
                                ),
                                onPressed: () {
                                  setState(() {

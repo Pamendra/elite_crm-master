@@ -76,7 +76,7 @@ class _DealerListState extends State<DealerList> {
                       borderSide:  BorderSide(color: ColorConstants.deppp, width: 3),
                     ),
                     hintText: 'Search...',
-                    hintStyle: const TextStyle(color: Colors.white),
+                    hintStyle:  TextStyle(color: Colors.white,fontSize: 11.sp),
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(3.sp))),
               ),

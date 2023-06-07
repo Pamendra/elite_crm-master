@@ -70,7 +70,7 @@ class _CustomerReportState extends State<CustomerReport> {
   }
 
 
-  Future<dynamic> _openCustomerReportDialogprevious(String customerId) async {
+  Future<dynamic> _openCustomerReportDialogprevious(String customerId,customerName) async{
     String shopid = await Utils().getUsererId();
     setState(() {
       _isLoading = true;
@@ -106,35 +106,48 @@ class _CustomerReportState extends State<CustomerReport> {
           content: SizedBox(
             width: double.maxFinite,
             child: Container(
-              child: ListView.builder(
-                shrinkWrap: true,
-                itemCount: filteredReports.length,
-                itemBuilder: (BuildContext context, int index) {
-                  String date = filteredReports[index]['vdate'];
-                  String note =
-                  filteredReports[index]['note'] == null ? 'Null' : filteredReports[index]['note'];
-                  String cid =
-                  filteredReports[index]['cid'] == null ? 'Null' : filteredReports[index]['cid'];
-                  int vdateInMillis = int.parse(date);
-                  DateTime dateTim = DateTime.fromMillisecondsSinceEpoch(vdateInMillis * 1000);
-                  String formattedDateTime = DateFormat('yyyy-MM-dd').format(dateTim);
+              child: RawScrollbar(
+                trackVisibility: true,
+                thumbColor: ColorConstants.appcolor,
+                trackColor: Colors.white,
+                trackRadius: const Radius.circular(20),
+                // thumbVisibility: true,
+                thickness: 8,
+                radius: const Radius.circular(20),
 
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      headingTextwithsmallwhite(title: 'Customer ID: $cid'),
-                      headingTextwithsmallwhite(title: 'Date: $formattedDateTime'),
-                      headingTextwithsmallwhite(title: 'Customer Note: $note'),
-                      Divider(
-                        color: ColorConstants.blueGrey,
-                        height: 25,
-                        thickness: 2,
-                        indent: 0,
-                        endIndent: 5,
-                      ),
-                    ],
-                  );
-                },
+                scrollbarOrientation: ScrollbarOrientation.right,
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: filteredReports.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    String date = filteredReports[index]['vdate'];
+                    String note =
+                    filteredReports[index]['note'] == null ? 'Null' : filteredReports[index]['note'];
+                    String cid =
+                    filteredReports[index]['cid'] == null ? 'Null' : filteredReports[index]['cid'];
+                    int vdateInMillis = int.parse(date);
+                    DateTime dateTim = DateTime.fromMillisecondsSinceEpoch(vdateInMillis * 1000);
+                    String formattedDateTime = DateFormat('yyyy-MM-dd').format(dateTim);
+
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        headingTextwithsmallwhitebold(title: customerName ),
+
+                        headingTextwithsmallwhite(title: 'Customer ID: $cid'),
+                        headingTextwithsmallwhite(title: 'Date: $formattedDateTime'),
+                        headingTextwithsmallwhite(title: 'Customer Note: $note'),
+                        Divider(
+                          color: ColorConstants.blueGrey,
+                          height: 25,
+                          thickness: 2,
+                          indent: 0,
+                          endIndent: 5,
+                        ),
+                      ],
+                    );
+                  },
+                ),
               ),
             ),
           ),
@@ -182,9 +195,7 @@ class _CustomerReportState extends State<CustomerReport> {
 
   Future<dynamic> _openCustomerReportDialog(String customerID,String customerName, TextEditingController reportController,
       {bool isEditMode = false, String initialReport = ''}) {
-    
     reportController.text = initialReport;
-
     return showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -252,13 +263,14 @@ class _CustomerReportState extends State<CustomerReport> {
                   children: [
                     InkWell(
                       onTap: () {
-                        _openCustomerReportDialogprevious(customerID);
+                        Navigator.pop(context);
+                        _openCustomerReportDialogprevious(customerID,customerName);
                       },
-                      child: const Text(
+                      child:  Text(
                         'Previous Report',
                         style: TextStyle(
                           decoration: TextDecoration.underline,
-                          color: Colors.white,
+                          color: Colors.white,fontSize: 10.sp
                         ),
                       ),
                     )
@@ -328,7 +340,7 @@ class _CustomerReportState extends State<CustomerReport> {
             child: Container(
               padding: const EdgeInsets.all(15),
               width: 50.w,
-              height: 5.8.h,
+              height: 40.sp,
               color: ColorConstants.blueGrey,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -354,7 +366,7 @@ class _CustomerReportState extends State<CustomerReport> {
             child: Container(
               padding: const EdgeInsets.all(15),
               width: 50.w,
-              height: 5.8.h,
+              height: 40.sp,
               color: ColorConstants.deppp,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -385,8 +397,8 @@ class _CustomerReportState extends State<CustomerReport> {
         child: SingleChildScrollView(
           scrollDirection: Axis.vertical,
           child: Column(children: [
-            const SizedBox(
-              height: 20,
+             SizedBox(
+              height: 2.h,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -397,10 +409,11 @@ class _CustomerReportState extends State<CustomerReport> {
                 Column(
                   children: [
                     CircleAvatar(
+                      radius: 15.sp,
                       backgroundColor: ColorConstants.deppp,
-                      child: const Text(
+                      child:  Text(
                         '1',
-                        style: TextStyle(color: Colors.white),
+                        style: TextStyle(color: Colors.white,fontSize: 12.sp),
                       ),
                     ),
                     SizedBox(height:.3.h,),
@@ -413,10 +426,11 @@ class _CustomerReportState extends State<CustomerReport> {
                 Column(
                   children: [
                     CircleAvatar(
+                      radius: 15.sp,
                       backgroundColor: ColorConstants.deppp,
-                      child: const Text(
+                      child:  Text(
                         '2',
-                        style: TextStyle(color: Colors.white),
+                        style: TextStyle(color: Colors.white,fontSize: 12.sp),
                       ),
                     ),
                     SizedBox(height:.3.h,),
@@ -429,10 +443,11 @@ class _CustomerReportState extends State<CustomerReport> {
                 Column(
                   children: [
                     CircleAvatar(
+                      radius: 15.sp,
                       backgroundColor: ColorConstants.white,
-                      child: const Text(
+                      child:  Text(
                         '3',
-                        style: TextStyle(color: Colors.black),
+                        style: TextStyle(color: Colors.black,fontSize: 12.sp),
                       ),
                     ),
                     SizedBox(height:.3.h,),
@@ -544,18 +559,20 @@ class _CustomerReportState extends State<CustomerReport> {
                    color: ColorConstants.DarkBlueColor,
                    child:  Center(
                      child: Padding(
-                       padding:  EdgeInsets.all(5.sp),
-                       child: Text(
-                          'This is the specific customer report information. If a text area is left empty a report will still be created.',
-                          style: TextStyle(fontSize: 10.sp,color: Colors.white,fontFamily: "railLight"),
-                        ),
+                       padding:  EdgeInsets.all(1.sp),
+                       child: Center(
+                         child: Text(
+                            'This is the specific customer report information. If a text area is left empty a report will still be created.',
+                            style: TextStyle(fontSize: 10.sp,color: Colors.white,fontFamily: "railLight"),maxLines: 2,
+                          ),
+                       ),
                      ),
                    ),
                  ),
                   SmallSpace(),
-                  Container(
+                  SizedBox(
                     width: 95.w,
-                    height: 6.h,
+                    height: 6.5.h,
                     child: TextFormField(
                       onChanged: (value) {
                         setState(() {
@@ -577,9 +594,9 @@ class _CustomerReportState extends State<CustomerReport> {
                             borderRadius: BorderRadius.circular(8.0),
                             borderSide:  BorderSide(color: ColorConstants.deppp, width: 3),
                           ),
-                          suffixIcon: const Icon(Icons.search,color: Colors.white,),
+                          suffixIcon:  Icon(Icons.search,color: Colors.white,size: 15.sp,),
                           hintText: 'Search...',
-                          hintStyle: const TextStyle(color: Colors.white),
+                          hintStyle:  TextStyle(color: Colors.white,fontSize: 11.sp),
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(3.sp))),
                     ),
@@ -656,9 +673,9 @@ class _CustomerReportState extends State<CustomerReport> {
                     )
 
                         : ListView.builder(
-                      itemCount: _customerList.length,
+                      itemCount: _filteredCustomerList.length,
                       itemBuilder: (context, index) {
-                        final customer = _customerList[index];
+                        final customer = _filteredCustomerList[index];
                         final isCustomerSelected =
                         _customerLists.any((item) => item['name'] == customer['name']);
                         return InkWell(

@@ -66,7 +66,7 @@ class _notificationState extends State<notification> {
             child: Container(
               padding: const EdgeInsets.all(15),
               width: 100.w,
-              height: 5.8.h,
+              height: 40.sp,
               color: ColorConstants.blueGrey,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,

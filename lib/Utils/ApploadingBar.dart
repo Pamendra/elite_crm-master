@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:sizer/sizer.dart';
 
 import 'color_constants.dart';
 
@@ -15,7 +16,7 @@ class LoadingBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        padding: const EdgeInsets.all(20),
+        padding:  EdgeInsets.all(15.sp),
         decoration: BoxDecoration(
           border: Border.all(color: ColorConstants.deppp, width: 2),
           borderRadius: const BorderRadius.all(

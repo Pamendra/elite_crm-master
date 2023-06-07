@@ -89,20 +89,21 @@ class DrawerLogin extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: MediaQuery.of(context).size.height,
+      height: 690.sp,
+      width: 220.sp,
       child: Drawer(
           backgroundColor: ColorConstants.DarkBlueColor,
           child: ListView(
             padding: EdgeInsets.zero,
             children: [
                SizedBox(
-                height: 5.h,
+                height: 8.sp,
               ),
               ListTile(
-                leading: const Icon(
+                leading:  Icon(
                   Icons.close_sharp,
                   color: Colors.white,
-                  size: 25,
+                  size: 20.sp,
                 ),
                 onTap: () {
                   Navigator.pop(context);
@@ -129,7 +130,7 @@ class DrawerLogin extends StatelessWidget {
               ),
 
               Padding(
-                padding:  EdgeInsets.only(top: 40.h),
+                padding:  EdgeInsets.only(top: 300.sp),
                 child: Column(
                   children: [
 

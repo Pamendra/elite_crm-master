@@ -70,7 +70,7 @@ class _NotificationPageState extends State<NotificationPage> {
               child: Container(
                 padding: EdgeInsets.all(15),
                 width: 100.w,
-                height: 5.8.h,
+                height: 40.sp,
                 color: ColorConstants.blueGrey,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,

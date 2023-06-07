@@ -1,9 +1,8 @@
 
 
 
+
 import 'package:elite_crm/Utils/SizedSpace.dart';
-import 'package:elite_crm/Utils/gradient_color.dart';
-import 'package:floating_bottom_navigation_bar/floating_bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import '../../Utils/color_constants.dart';
@@ -76,15 +75,12 @@ class _DealerDetailsState extends State<DealerDetails> {
           children: [
             InkWell(
                 onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const Homepage()),
-                  );
+                  Navigator.pop(context);
                 },
                 child: Container(
                   padding: const EdgeInsets.all(12),
                   width: 100.w,
-                  height: 5.8.h,
+                  height: 40.sp,
                   color: ColorConstants.blueGrey,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -114,31 +110,34 @@ class _DealerDetailsState extends State<DealerDetails> {
       SingleChildScrollView(
         child: Column(
           children: [
-            Container(
-              decoration:  const BoxDecoration(
-                  image: DecorationImage(
-                      image:AssetImage('assets/images/back.jpg'),
-                      fit: BoxFit.cover
-                  )
-              ),
 
-              child: SizedBox(
-                width: double.infinity,
-                height: 200,
-                child: Container(
-                  alignment: const Alignment(-0.9, 4.5),
-                  child: CircleAvatar(
-                    backgroundImage: NetworkImage(dealerProfile['logo']),
-                    radius: 80.0,
-                  ),
+            Stack(
+              children:[ Container(
+                height: 20.h,
+                decoration:  const BoxDecoration(
+                    image: DecorationImage(
+                        image:AssetImage('assets/images/back.jpg'),
+                        fit: BoxFit.cover
+                    )
                 ),
+
+                child: Container()
               ),
+                SizedBox(height: 2.h,),
+                Container(
+                  padding: EdgeInsets.only(left: 20.sp),
+                  height: 20.h,
+                  width: 41.w,
+                  alignment:  Alignment(-0.8.sp, 1.5.sp),
+                  child: Image.network(dealerProfile['logo']),
+                ),
+        ]
             ),
 
 
 
-            const SizedBox(
-              height: 80,
+             SizedBox(
+              height: 8.5.h,
             ),
             Padding(
               padding:  EdgeInsets.symmetric(horizontal: 15.sp),
@@ -155,7 +154,7 @@ class _DealerDetailsState extends State<DealerDetails> {
                     endIndent: 5,
                   ),
                    SizedBox(
-                    height: 3.h,
+                    height: 2.h,
                   ),
                   headingTextDarkblueWithSmall(
                    title: dealerProfile['address'] ?? '',
@@ -195,7 +194,7 @@ class _DealerDetailsState extends State<DealerDetails> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children:<Widget> [
                 Container(
-                    padding: const EdgeInsets.all(10),
+                    padding:  EdgeInsets.all(8.sp),
 
                     child: RawMaterialButton(
                       onPressed: () async {
@@ -204,7 +203,7 @@ class _DealerDetailsState extends State<DealerDetails> {
 
                       elevation: 2.0,
                       fillColor: ColorConstants.white,
-                      padding: const EdgeInsets.all(18.0),
+                      padding:  EdgeInsets.all(13.sp),
                       child:  Icon(
                         Icons.call,
                         color: ColorConstants.DarkBlueColor,
@@ -213,17 +212,15 @@ class _DealerDetailsState extends State<DealerDetails> {
                     )
                 ),
 
-                ///  call end buttton
 
                 ///  gmail_buttton
                 Container(
-                    padding: const EdgeInsets.all(10),
+                    padding:  EdgeInsets.all(8.sp),
 
                     child: RawMaterialButton(
                       onPressed: () async {
-                        String email = Uri.encodeComponent(dealerProfile['emailforapp'] );
+                        String email = Uri.encodeComponent(dealerProfile['emailforapp'] == null ? " " : dealerProfile['emailforapp'] );
 
-                        //output: Hello%20Flutter
                         Uri mail = Uri.parse("mailto:$email");
                         if (await launchUrl(mail)) {
                           //email app opened
@@ -233,8 +230,8 @@ class _DealerDetailsState extends State<DealerDetails> {
                       },
 
                       elevation: 2.0,
-                      fillColor: ColorConstants.white,
-                      padding: const EdgeInsets.all(18.0),
+                      fillColor: dealerProfile['emailforapp'] == " " || dealerProfile['emailforapp'] == null ? Colors.grey : ColorConstants.white,
+                      padding:  EdgeInsets.all(13.sp),
                       child:  Icon(
                         Icons.mail,
                         color: ColorConstants.DarkBlueColor,
@@ -244,14 +241,13 @@ class _DealerDetailsState extends State<DealerDetails> {
                 ),
 
 
-                ///  gmail_buttton
 
 
 
 
 
                 Container(
-                    padding: const EdgeInsets.all(10),
+                    padding:  EdgeInsets.all(8.sp),
 
                     child: RawMaterialButton(
                       onPressed: () async {
@@ -267,7 +263,7 @@ class _DealerDetailsState extends State<DealerDetails> {
 
                       elevation: 2.0,
                       fillColor: ColorConstants.white,
-                      padding: const EdgeInsets.all(18.0),
+                      padding:  EdgeInsets.all(13.sp),
                       child:   Icon(
                         Icons.message,
                         color: ColorConstants.DarkBlueColor,
@@ -279,10 +275,6 @@ class _DealerDetailsState extends State<DealerDetails> {
 
               ],
             ),
-            const SizedBox(
-              height: 30,
-            ),
-
           ],
         ),
       )

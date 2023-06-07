@@ -4,7 +4,6 @@
 
 import 'package:elite_crm/Utils/SizedSpace.dart';
 import 'package:elite_crm/Utils/TextWidgets.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:sizer/sizer.dart';
@@ -99,7 +98,7 @@ class _TerritoryListDataState extends State<TerritoryListData> {
             child: Container(
               padding: const EdgeInsets.all(15),
               width: 100.w,
-              height: 5.8.h,
+              height: 40.sp,
               color: ColorConstants.blueGrey,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -161,6 +160,9 @@ class _TerritoryListDataState extends State<TerritoryListData> {
                                           _selectedOptions.remove(_options[index]);
                                           selectedOptionNames = _selectedOptions.map((option) => option.name).toList();
                                         }
+                                        setState(() {
+                                          _isLoading = false;
+                                        });
                                       });
                                     },
                                   ),

@@ -65,7 +65,7 @@ class PreviewReportState extends State<PreviewReport> {
   bool edit = false;
   List<Map<String, dynamic>> customerData=[];
   bool _isLoading = false;
-
+  final FocusNode _textFieldFocusNode = FocusNode();
 
   @override
   void initState() {
@@ -95,20 +95,8 @@ class PreviewReportState extends State<PreviewReport> {
 
 
 
-  // void submitForm() {
-  //   setState(() {
-  //     isLoading = true;
-  //   });
-  //
-  //   Timer(const Duration(milliseconds: 4500), () {
-  //     // Navigate to the next screen
-  //
-  //   });
-  // }
 
-
-
-  Future<dynamic> _openCustomerReportDialog() async {
+  Future<dynamic> _openCustomerReportDialog() async{
 
     String shopid = await Utils().getUsererId();
     setState(() {
@@ -139,35 +127,46 @@ class PreviewReportState extends State<PreviewReport> {
             width: double.maxFinite,
             child: Container(
               //color: Colors.white,
-              child: ListView.builder(
-                shrinkWrap: true,
-                itemCount: reports.length,
-                itemBuilder: (BuildContext context, int index) {
+              child: RawScrollbar(
+                trackVisibility: true,
+                thumbColor: ColorConstants.appcolor,
+                trackColor: Colors.white,
+                trackRadius: const Radius.circular(20),
+                // thumbVisibility: true,
+                thickness: 8,
+                radius: const Radius.circular(20),
 
-                  String date = reports[index]['vdate'];
-                  String note = reports[index]['note'] == null ? 'Null' :reports[index]['note'];
-                  String gnote = reports[index]['gnote'] == null ?   'Null': reports[index]['gnote'];
-                  int vdateInMillis = int.parse(date);
-                  DateTime dateTim = DateTime.fromMillisecondsSinceEpoch(vdateInMillis * 1000);
-                  String formattedDateTime = DateFormat('yyyy-MM-dd').format(dateTim);
+                scrollbarOrientation: ScrollbarOrientation.right,
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: reports.length,
+                  itemBuilder: (BuildContext context, int index) {
+
+                    String date = reports[index]['vdate'];
+                    String note = reports[index]['note'] == null ? 'Null' :reports[index]['note'];
+                    String gnote = reports[index]['gnote'] == null ?   'Null': reports[index]['gnote'];
+                    int vdateInMillis = int.parse(date);
+                    DateTime dateTim = DateTime.fromMillisecondsSinceEpoch(vdateInMillis * 1000);
+                    String formattedDateTime = DateFormat('yyyy-MM-dd').format(dateTim);
 
 
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      headingTextwithsmallwhite(title: 'Date: $formattedDateTime'),
-                      headingTextwithsmallwhite(title: 'Customer Note: $note'),
-                      headingTextwithsmallwhite(title: 'General Note: $gnote'),
-                      Divider(
-                        color: ColorConstants.blueGrey,
-                        height: 25,
-                        thickness: 2,
-                        indent: 0,
-                        endIndent: 5,
-                      ),
-                    ],
-                  );
-                },
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        headingTextwithsmallwhite(title: 'Date: $formattedDateTime'),
+                        headingTextwithsmallwhite(title: 'Customer Note: $note'),
+                        headingTextwithsmallwhite(title: 'General Note: $gnote'),
+                        Divider(
+                          color: ColorConstants.blueGrey,
+                          height: 25,
+                          thickness: 2,
+                          indent: 0,
+                          endIndent: 5,
+                        ),
+                      ],
+                    );
+                  },
+                ),
               ),
             ),
           ),
@@ -208,7 +207,7 @@ class PreviewReportState extends State<PreviewReport> {
               _isLoading = false;
             });
             Dialogs.showValidationMessage(context, 'Report Added Successfully');
-            Timer( Duration(seconds:2), () {
+            Timer( const Duration(seconds:2), () {
               Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const Homepage()), (route) => false);
             });
 
@@ -224,7 +223,7 @@ class PreviewReportState extends State<PreviewReport> {
                 child: Container(
                   padding: const EdgeInsets.all(15),
                   width: 50.w,
-                  height: 5.8.h,
+                  height: 40.sp,
                   color: ColorConstants.blueGrey,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -263,7 +262,7 @@ class PreviewReportState extends State<PreviewReport> {
                 child: Container(
                   padding: const EdgeInsets.all(15),
                   width: 50.w,
-                  height: 5.8.h,
+                  height: 40.sp,
                   color: ColorConstants.deppp
                   ,
                   child: Row(
@@ -311,10 +310,11 @@ class PreviewReportState extends State<PreviewReport> {
                     Column(
                       children: [
                         CircleAvatar(
+                          radius: 15.sp,
                           backgroundColor: ColorConstants.deppp,
-                          child: const Text(
+                          child:  Text(
                             '1',
-                            style: TextStyle(color: Colors.white),
+                            style: TextStyle(color: Colors.white,fontSize: 12.sp),
                           ),
                         ),
                         SizedBox(height:.3.h,),
@@ -327,10 +327,11 @@ class PreviewReportState extends State<PreviewReport> {
                     Column(
                       children: [
                         CircleAvatar(
+                          radius: 15.sp,
                           backgroundColor: ColorConstants.deppp,
-                          child: const Text(
+                          child:  Text(
                             '2',
-                            style: TextStyle(color: Colors.white),
+                            style: TextStyle(color: Colors.white,fontSize: 12.sp),
                           ),
                         ),
                         SizedBox(height:.3.h,),
@@ -343,10 +344,11 @@ class PreviewReportState extends State<PreviewReport> {
                     Column(
                       children: [
                         CircleAvatar(
+                          radius: 15.sp,
                           backgroundColor: ColorConstants.deppp,
-                          child: const Text(
+                          child:  Text(
                             '3',
-                            style: TextStyle(color: Colors.white),
+                            style: TextStyle(color: Colors.white,fontSize: 12.sp),
                           ),
                         ),
                         SizedBox(height:.3.h,),
@@ -366,7 +368,7 @@ class PreviewReportState extends State<PreviewReport> {
                       GestureDetector(
                         child: Container(
                           width: 95.w,
-                          height: 6.h,
+                          height: 6.5.h,
                           decoration: BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(5),
@@ -385,7 +387,7 @@ class PreviewReportState extends State<PreviewReport> {
                                 ),
                                 Icon(
                                   CupertinoIcons.calendar,
-                                  color: ColorConstants.deppp,
+                                  color: ColorConstants.deppp,size: 15.sp,
                                 ),
                               ],
                             ),
@@ -415,6 +417,7 @@ class PreviewReportState extends State<PreviewReport> {
                             child: TextField(
                               readOnly: !edit,
                               controller: widget.Greport,
+                              focusNode: _textFieldFocusNode,
                               style: TextStyle(color:ColorConstants.DarkBlueColor,fontSize:10.sp,fontWeight:FontWeight.w400,fontFamily:"railLight",letterSpacing: 1),
                               keyboardType: TextInputType.multiline,
                               maxLines: 5,
@@ -424,9 +427,13 @@ class PreviewReportState extends State<PreviewReport> {
                                   onPressed: (){
                                    setState(() {
                                      edit = !edit;
+                                     if (edit) {
+                                       // Set the focus to the TextField when edit button is clicked
+                                       FocusScope.of(context).requestFocus(_textFieldFocusNode);
+                                     }
                                    });
                                   },icon: Icon( edit ? Icons.edit : Icons.edit_outlined,
-                                  color: ColorConstants.deppp,),
+                                  color: ColorConstants.deppp,size: 15.sp,),
                                 ),
                                 border: OutlineInputBorder(
                                   borderRadius:
@@ -452,7 +459,7 @@ class PreviewReportState extends State<PreviewReport> {
                               onTap: (){
                                 _openCustomerReportDialog();
                               },
-                              child: const Text('Previous Report',style: TextStyle(decoration: TextDecoration.underline,color: Colors.white),))
+                              child:  Text('Previous Report',style: TextStyle(decoration: TextDecoration.underline,color: Colors.white,fontSize: 10.sp),))
                         ],
                       ),
                      SmallSpace(),
