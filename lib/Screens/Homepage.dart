@@ -2,15 +2,12 @@
 // ignore_for_file: file_names
 
 import 'package:elite_crm/Utils/color_constants.dart';
-import 'package:elite_crm/Utils/gradient_color.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:sizer/sizer.dart';
-import '../Service/AddReport Service.dart';
 import '../Service/dealerList.dart';
 import '../Utils/TextWidgets.dart';
 import '../Utils/drawer_logout.dart';
-import '../Utils/setget.dart';
 import 'DealerList Details.dart';
 import 'Notification/notification page.dart';
 
@@ -42,7 +39,7 @@ class _DealerListState extends State<DealerList> {
           ),
            IconButton(onPressed: (){
             Navigator.push(context, MaterialPageRoute(builder: (context) => const notification()));
-          }, icon: Icon(Icons.notifications))
+          }, icon: const Icon(Icons.notifications))
         ],
         centerTitle: true,
         backgroundColor: const Color.fromARGB(255, 213, 85, 40),
@@ -61,7 +58,7 @@ class _DealerListState extends State<DealerList> {
                 onChanged: (value) {
                   setState(() {});
                 },
-                style: TextStyle(color: Colors.white),
+                style: const TextStyle(color: Colors.white),
                 decoration: InputDecoration(
                     filled: true,
                     fillColor: ColorConstants.Darkopacity,
@@ -70,7 +67,7 @@ class _DealerListState extends State<DealerList> {
                         color: ColorConstants.deppp,width: 3
                       )
                     ),
-                    suffixIcon:  Icon(Icons.search,color:Colors.white),
+                    suffixIcon:  const Icon(Icons.search,color:Colors.white),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(3.sp),
                       borderSide:  BorderSide(color: ColorConstants.deppp, width: 3),

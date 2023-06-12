@@ -93,7 +93,7 @@ class _LoginPageState extends State<LoginPage> {
     return BlocProvider(
         create: (context) => LoginBloc(),
     child: Scaffold(
-    drawer: DrawerLogin(),
+    drawer: const DrawerLogin(),
       appBar: AppBar(
 
           backgroundColor: ColorConstants.deppp),
@@ -139,7 +139,7 @@ class _LoginPageState extends State<LoginPage> {
                    ),
                    Padding(
                      padding:  EdgeInsets.all(5.sp),
-                     child: Container(
+                     child: SizedBox(
                        width: 95.w,
                        height: 6.8.h,
                        child: TextFormField(
@@ -161,8 +161,8 @@ class _LoginPageState extends State<LoginPage> {
                        ),
                      ),
                    ),
-                   MediumSpace(),
 
+                   MediumSpace(),
 
                    Row(
                      mainAxisAlignment: MainAxisAlignment.start,
@@ -176,7 +176,7 @@ class _LoginPageState extends State<LoginPage> {
 
                    Padding(
                      padding:  EdgeInsets.all(5.sp),
-                     child: Container(
+                     child: SizedBox(
                        width: 95.w,
                        height: 6.8.h,
                        child: TextFormField(

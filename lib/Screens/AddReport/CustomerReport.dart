@@ -2,8 +2,6 @@ import 'package:elite_crm/Screens/Notification/notification%20page.dart';
 import 'package:elite_crm/Service/AddReport%20Service.dart';
 import 'package:elite_crm/Utils/SizedSpace.dart';
 import 'package:elite_crm/Utils/color_constants.dart';
-import 'package:elite_crm/Utils/gradient_color.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
@@ -55,8 +53,6 @@ class _CustomerReportState extends State<CustomerReport> {
   List<Map<String, dynamic>> _customerLists = [];
   TextEditingController reportController = TextEditingController();
   bool _isLoading = false;
-
-
 
 
   void initState() {

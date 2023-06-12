@@ -1,5 +1,8 @@
-import 'dart:async';
 
+
+// ignore_for_file: file_names
+
+import 'dart:async';
 import 'package:elite_crm/Utils/SizedSpace.dart';
 import 'package:elite_crm/Utils/TextWidgets.dart';
 import 'package:elite_crm/Utils/color_constants.dart';
@@ -67,7 +70,7 @@ class _userprofile_pagesState extends State<userprofile_pages> {
     final phonee = response[0]['phone'];
     final addressed = response[0]['address'];
     final territory = response[0]['territory'];
-   print(_selectedOptions);
+    print(_selectedOptions);
     email.text = emailed;
     phone.text = phonee;
     add.text = addressed;
@@ -239,7 +242,7 @@ class _userprofile_pagesState extends State<userprofile_pages> {
                       //     ),
                       //   ),
                       // ),
-                      Container(
+                      SizedBox(
                         width: 95.w,
                         child: GestureDetector(
                           onTap: () {

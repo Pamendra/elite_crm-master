@@ -2,6 +2,8 @@
 
 
 
+// ignore_for_file: file_names
+
 import 'package:elite_crm/Utils/SizedSpace.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
@@ -13,21 +15,20 @@ import 'package:dio/dio.dart';
 
 import '../Utils/ApploadingBar.dart';
 import '../Utils/TextWidgets.dart';
-import 'bottomNavigationPages.dart';
 
 class DealerDetails extends StatefulWidget {
   String dealerid;
-  Widget _buildCoverImage(Size screenSize) {
-    return Container(
-      height: screenSize.height / 2.6,
-      decoration: const BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage('assets/images/cover.jpeg'),
-          fit: BoxFit.cover,
-        ),
-      ),
-    );
-  }
+  // Widget _buildCoverImage(Size screenSize) {
+  //   return Container(
+  //     height: screenSize.height / 2.6,
+  //     decoration: const BoxDecoration(
+  //       image: DecorationImage(
+  //         image: AssetImage('assets/images/cover.jpeg'),
+  //         fit: BoxFit.cover,
+  //       ),
+  //     ),
+  //   );
+  // }
   DealerDetails({super.key, required this.dealerid});
 
   @override
@@ -67,7 +68,7 @@ class _DealerDetailsState extends State<DealerDetails> {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+   // Size size = MediaQuery.of(context).size;
 
     return Scaffold(
       backgroundColor: ColorConstants.DarkBlueColor,
@@ -131,7 +132,7 @@ class _DealerDetailsState extends State<DealerDetails> {
                   alignment:  Alignment(-0.8.sp, 1.5.sp),
                   child: Image.network(dealerProfile['logo']),
                 ),
-        ]
+              ]
             ),
 
 
@@ -163,7 +164,7 @@ class _DealerDetailsState extends State<DealerDetails> {
                     height: 1.h,
                   ),
                   headingTextDarkblueWithSmall(
-                  title: dealerProfile['city'] ?? '',
+                    title: dealerProfile['city'] ?? '',
                   ),
 
                    SizedBox(
@@ -177,7 +178,7 @@ class _DealerDetailsState extends State<DealerDetails> {
                     height: 1.h,
                   ),
                   headingTextDarkblueWithSmall(
-                title:   dealerProfile['direct'] ?? '',
+                    title:   dealerProfile['direct'] ?? '',
                   ),
                 ],
               ),

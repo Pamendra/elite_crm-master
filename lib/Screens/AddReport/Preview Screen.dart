@@ -1,16 +1,13 @@
 
 import 'dart:async';
-import 'dart:convert';
 import 'package:elite_crm/Bloc/AddReportBloc.dart';
 import 'package:elite_crm/Screens/Notification/notification%20page.dart';
 import 'package:elite_crm/Screens/bottomNavigationPages.dart';
 import 'package:elite_crm/Utils/SizedSpace.dart';
 import 'package:elite_crm/Utils/color_constants.dart';
-import 'package:elite_crm/Utils/gradient_color.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:sizer/sizer.dart';

@@ -1,9 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
-import 'package:elite_crm/Screens/AddReport/Existing_Leaad.dart';
-import 'package:elite_crm/Screens/Homepage.dart';
 import 'package:elite_crm/Screens/LoginScreen/login_screen.dart';
-import 'package:elite_crm/Screens/User_profile.dart';
 import 'package:elite_crm/Utils/setget.dart';
 import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -116,7 +113,7 @@ class DrawerLogout extends StatelessWidget {
               onPressed: () {
                 Navigator.of(context).pop(); // Close the dialog
               },style: ElevatedButton.styleFrom(backgroundColor: ColorConstants.blueGrey),
-              child:  headingTextwithsmallwhite(title: 'Cancel',),
+              child:  headingTextwithminiwhite(title: 'Cancel',),
             ),
             ElevatedButton(
               onPressed: () {
@@ -125,7 +122,7 @@ class DrawerLogout extends StatelessWidget {
                       (Route<dynamic> route) => false,
                 );
               },style: ElevatedButton.styleFrom(backgroundColor: ColorConstants.deppp),
-              child: headingTextwithsmallwhite(title: 'Logout',),
+              child: headingTextwithminiwhite(title: 'Logout',),
             ),
           ],
         );
@@ -136,141 +133,87 @@ class DrawerLogout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 690.sp,
-      width: 220.sp,
-      child: Drawer(
-          backgroundColor: ColorConstants.DarkBlueColor,
-          child: ListView(
-            padding: EdgeInsets.zero,
-            children: [
-               SizedBox(
-                height: 5.h,
-              ),
-              ListTile(
-                leading: const Icon(
-                  Icons.close_sharp,
-                  color: Colors.white,
-                  size: 25,
-                ),
-                onTap: () {
-                  Navigator.pop(context);
-                },
-              ),
+    return Drawer(
+      backgroundColor: ColorConstants.DarkBlueColor,
+      child: Padding(
+          padding: const EdgeInsets.all(10),
+          child:Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
 
-              Padding(
-                padding:  EdgeInsets.symmetric(horizontal: 6.sp),
-                child: ListTile(
-                  shape: Border(
-                      bottom: BorderSide(
-                        color: ColorConstants.backgroundappColor,
-                      )),
-                  title: Text('Home Page', style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 13.sp,
-                      color: Colors.white),),
-                  onTap: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => const Homepage()));
+            children: <Widget>[
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(height:6.h,),
 
-                  },
-                ),
-              ),
+                  GestureDetector(
+                      onTap:(){
+                        Navigator.pop(context);
+                      },
+                      child:const Icon(Icons.clear,color: Colors.white,)),
 
-              // Padding(
-              //   padding: const EdgeInsets.symmetric(horizontal: 8),
-              //   child: ListTile(
-              //     shape: Border(
-              //         bottom: BorderSide(
-              //           color: ColorConstants.backgroundappColor,
-              //         )),
-              //     title:const Text('Profile', style: TextStyle(
-              //         fontWeight: FontWeight.bold,
-              //         fontSize: 17,
-              //         color: Colors.white),),
-              //     onTap: (){
-              //      Navigator.push(context, MaterialPageRoute(builder: (context) => userprofile_pages()));
-              //
-              //     },
-              //   ),
-              // ),
+                  SizedBox(height: 2.h,),
 
-              Padding(
-                padding:  EdgeInsets.symmetric(horizontal: 6.sp),
-                child: ListTile(
-                  shape: Border(
-                      bottom: BorderSide(
-                        color: ColorConstants.backgroundappColor,
-                      )),
-                  title: Text('Notifications', style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 13.sp,
-                      color: Colors.white),),
-                  onTap: (){
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const notification()),
-                    );
-                  },
-                ),
-              ),
-              Container(
-                padding:  EdgeInsets.all(6.sp),
-                child: ListTile(
-                    shape: Border(
-                        bottom: BorderSide(
-                          color: ColorConstants.backgroundappColor,
-                        )),
-                    title:  Text(
-                      'Logout',
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 13.sp,
-                          color: Colors.white),
-                    ),
+                  ListTile(
+                    title: subheadingTextBOLD(title: "Main Menu"),
+                    onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => const Homepage()));
+
+                    },
+                  ),
+                  Divider(color:ColorConstants.backgroundappColor,),
+                  ListTile(
+                    title: subheadingTextBOLD(title: "Notifications"),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const notification()),
+                      );
+                    },
+                  ),
+                  Divider(color:ColorConstants.backgroundappColor,),
+                  ListTile(
+                    title: subheadingTextBOLD(title: "Logout"),
                     onTap: () async {
+
                       var sharedpref = await SharedPreferences.getInstance();
                       sharedpref.setBool(SplashScreenState.KEYLOGIN, false);
                       _showLogoutDialog(context);
-                    }
-                    ),
+                    },
+                  ),
+                  Divider(color:ColorConstants.backgroundappColor,),
+                ],
               ),
 
+              Column(
 
-              Padding(
-                padding:  EdgeInsets.only(top: 250.sp),
-                child: Column(
-                  children: [
+                children: [
 
-                    Padding(
-                      padding:  EdgeInsets.symmetric(horizontal: 6.sp),
-                      child: ListTile(
-                        shape: Border(
-                            bottom: BorderSide(
-                              color: ColorConstants.backgroundappColor,
-                            ),top:BorderSide(
-                          color: ColorConstants.backgroundappColor,
-                        ) ),
-                        title: Text('App Information', style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 13.sp,
-                            color: Colors.white),),
-                        onTap: (){
-                          openAppInfoDialog(context);
-                        },
-                      ),
-                    ),
-                    SizedBox(height: 2.h,),
-                    boxtextSmall(title: "Powered By:"),
-                    SizedBox(height: 1.h,),
-                    Image.asset(
-                      ImageConstants.logoURl,
-                      height:5.h,
-                      width: 50.h,
-                      fit: BoxFit.scaleDown,
-                    ),
-                  ],
-                ),
+                  ListTile(
+                    title: subheadingTextBOLD(title: "App Information"),
+                    onTap: () {
+                      openAppInfoDialog(context);
+                      // Update the state of the app.
+                      // ...
+                    },
+                  ),
+                  Divider(color:ColorConstants.backgroundappColor,),
+                  SizedBox(height: 2.h,),
+                  boxtextSmall(title: "Powered By:"),
+                  SizedBox(height: 1.h,),
+                  Image.asset(
+                    ImageConstants.logoURl,
+                    height:5.h,
+                    width: 100.h,
+                    fit: BoxFit.scaleDown,
+                  ),
+                  // SizedBox(height: 1.h,),
+                  // boxtextSmall(title: "® Tracsis plc"),
+                  // SizedBox(height: 2.h,),
+                ],
               )
+
+
             ],
           )),
     );
