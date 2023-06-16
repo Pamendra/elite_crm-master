@@ -100,94 +100,100 @@ class PreviewReportState extends State<PreviewReport> {
       _isLoading = true;
     });
     // Retrieve the reports using the previousReport method
-    List<dynamic> reports =  await AddReportService().previousReport(shopid);
+    List? reports =  await AddReportService().previousReport(shopid,widget.id.toString());
     setState(() {
       _isLoading = false;
     });
-    reports.sort((a, b) {
+    reports?.sort((a, b) {
       // Sort the reports in descending order based on the 'vdate' field
       int timeA = int.parse(a['vdate']);
       int timeB = int.parse(b['vdate']);
       return timeB.compareTo(timeA);
     });
-    return showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          shape: RoundedRectangleBorder(
-            borderRadius: const BorderRadius.all(Radius.circular(10.0)),
-            side: BorderSide(color: ColorConstants.deppp, width: 2),
-          ),
-          backgroundColor: ColorConstants.DarkBlueColor,
-          title: headingText(title: 'Previous Report'),
-          content: SizedBox(
-            width: double.maxFinite,
-            child: Container(
-              //color: Colors.white,
-              child: RawScrollbar(
-                trackVisibility: true,
-                thumbColor: ColorConstants.appcolor,
-                trackColor: Colors.white,
-                trackRadius: const Radius.circular(20),
-                // thumbVisibility: true,
-                thickness: 8,
-                radius: const Radius.circular(20),
+    if(reports!.isEmpty){
+      return Dialogs.showValidationMessage(context, "No previous report found");
+    }
+    else{
+      return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: const BorderRadius.all(Radius.circular(10.0)),
+              side: BorderSide(color: ColorConstants.deppp, width: 2),
+            ),
+            backgroundColor: ColorConstants.DarkBlueColor,
+            title: headingText(title: 'Previous Report'),
+            content: SizedBox(
+              width: double.maxFinite,
+              child: Container(
+                //color: Colors.white,
+                child: RawScrollbar(
+                  trackVisibility: true,
+                  thumbColor: ColorConstants.appcolor,
+                  trackColor: Colors.white,
+                  trackRadius: const Radius.circular(20),
+                  // thumbVisibility: true,
+                  thickness: 8,
+                  radius: const Radius.circular(20),
+                  scrollbarOrientation: ScrollbarOrientation.right,
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: reports?.length,
+                    itemBuilder: (BuildContext context, int index) {
 
-                scrollbarOrientation: ScrollbarOrientation.right,
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: reports.length,
-                  itemBuilder: (BuildContext context, int index) {
+                      String date = reports![index]['vdate'];
+                      //   String note = reports[index]['note'] == null ? 'Null' : reports[index]['note'];
+                      String gnote = reports[index]['gnote'] == null ?  'Null': reports[index]['gnote'];
+                      int vdateInMillis = int.parse(date);
+                      DateTime dateTim = DateTime.fromMillisecondsSinceEpoch(vdateInMillis * 1000);
+                      String formattedDateTime = DateFormat('yyyy-MM-dd').format(dateTim);
 
-                    String date = reports[index]['vdate'];
-                    String note = reports[index]['note'] == null ? 'Null' :reports[index]['note'];
-                    String gnote = reports[index]['gnote'] == null ?   'Null': reports[index]['gnote'];
-                    int vdateInMillis = int.parse(date);
-                    DateTime dateTim = DateTime.fromMillisecondsSinceEpoch(vdateInMillis * 1000);
-                    String formattedDateTime = DateFormat('yyyy-MM-dd').format(dateTim);
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          headingTextwithsmallwhite(title: 'Date: $formattedDateTime'),
+                          //  headingTextwithsmallwhite(title: 'Customer Note: $note'),
+                          headingTextwithsmallwhite(title: 'General Note: $gnote'),
+                          Divider(
+                            color: ColorConstants.blueGrey,
+                            height: 25,
+                            thickness: 2,
+                            indent: 0,
+                            endIndent: 5,
+                          ),
+                          const SizedBox(height: 10),
+                        ],
+                      );
 
 
-                    return Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        headingTextwithsmallwhite(title: 'Date: $formattedDateTime'),
-                        headingTextwithsmallwhite(title: 'Customer Note: $note'),
-                        headingTextwithsmallwhite(title: 'General Note: $gnote'),
-                        Divider(
-                          color: ColorConstants.blueGrey,
-                          height: 25,
-                          thickness: 2,
-                          indent: 0,
-                          endIndent: 5,
-                        ),
-                      ],
-                    );
-                  },
+                    },
+                  ),
                 ),
               ),
             ),
-          ),
-          actions: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.of(context).pop(); // Close the dialog without saving
-                  },style:ElevatedButton.styleFrom(
-                    backgroundColor: ColorConstants.blueGrey
-                ) ,
-                  child:  Text(
-                    'Go Back',
-                    style: TextStyle(color: ColorConstants.white),
+            actions: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(context).pop(); // Close the dialog without saving
+                    },style:ElevatedButton.styleFrom(
+                      backgroundColor: ColorConstants.blueGrey
+                  ) ,
+                    child:  Text(
+                      'Go Back',
+                      style: TextStyle(color: ColorConstants.white),
+                    ),
                   ),
-                ),
-              ],
-            ),
-          ],
-        );
-      },
-    );
+                ],
+              ),
+            ],
+          );
+        },
+      );
+    }
   }
 
 

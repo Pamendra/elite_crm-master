@@ -1,6 +1,7 @@
 
 import 'dart:convert';
 import 'package:dio/dio.dart';
+import 'package:elite_crm/Utils/dialogs_utils.dart';
 import 'package:http/http.dart' as http;
 
 import '../Screens/Notification/Model/Notification_model.dart';
@@ -115,12 +116,17 @@ class AddReportService{
 
   /// Previous Report Service
 
-  Future<List> previousReport(String id) async {
-    var response = await Dio().get('https://elite-dealers.com/api/getPreviousReports.php?userid=$id&dealerId=$id');
+  Future<List?> previousReport(String id, String sid) async {
+    var response = await Dio().get('https://elite-dealers.com/api/getPreviousReports.php?userid=$id&dealerId=$sid');
     if (response.statusCode == 200) {
-      var decodedJson = response.data;
-      List report  = decodedJson['result'];
-      return report ;
+     if(response.data["status"]== "success")
+       {
+         var decodedJson = response.data;
+         List report  = decodedJson['result'];
+         return report ;
+       } else if(response.data["status"] == "failed"){
+       return [];
+     }
     } else {
       throw Exception("API returned an error");
     }
