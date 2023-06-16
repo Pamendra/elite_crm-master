@@ -99,11 +99,13 @@ class _DealerListState extends State<DealerList> {
 
                             });
                       }
+                      List<dynamic> sortedData = List.from(snapshot.data!);
+                      sortedData.sort((a, b) => a['name'].compareTo(b['name']));
                       return ListView.builder(
-                          itemCount: snapshot.data!.length,
+                          itemCount: sortedData.length,
                           itemBuilder: (context, index) {
-                            String dealer = snapshot.data![index]['name'];
-                            String dealerid = snapshot.data![index]['dealerid'];
+                            String dealer = sortedData[index]['name'];
+                            String dealerid = sortedData[index]['dealerid'];
 
                             if (searchdealer.text.isEmpty) {
                               return Column(
@@ -111,7 +113,7 @@ class _DealerListState extends State<DealerList> {
                                   Card(
                                     // color: ,
                                     child: ListTile(
-                                      title: headingTextDarkblueWithextrasmall(title: snapshot.data![index]['name'],),
+                                      title: headingTextDarkblueWithextrasmall(title: sortedData[index]['name'],),
                                       onTap: (){
                                         Navigator.push(context, MaterialPageRoute(builder: (context) => DealerDetails(dealerid :dealerid)));
                                       },
@@ -124,7 +126,7 @@ class _DealerListState extends State<DealerList> {
                                 children: [
                                   Card(
                                     child: ListTile(
-                                      title: headingTextDarkblueWithextrasmall(title: snapshot.data![index]['name'],),
+                                      title: headingTextDarkblueWithextrasmall(title: sortedData[index]['name'],),
                                       onTap: (){
                                         Navigator.push(context, MaterialPageRoute(builder: (context) => DealerDetails(dealerid :dealerid )));
 

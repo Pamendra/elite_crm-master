@@ -51,6 +51,7 @@ class _CustomerReportState extends State<CustomerReport> {
   List<String> dataList = [];
   String _searchQuery = '';
   List<dynamic> _filteredCustomerList = [];
+  List<dynamic> searchList = [];
   List<Map<String, dynamic>> _customerLists = [];
   TextEditingController reportController = TextEditingController();
   bool _isLoading = false;
@@ -65,6 +66,7 @@ class _CustomerReportState extends State<CustomerReport> {
       });
     });
   }
+
 
 
   Future<dynamic> _openCustomerReportDialogprevious(String customerId,customerName) async{
@@ -176,6 +178,7 @@ class _CustomerReportState extends State<CustomerReport> {
 
   void _filterCustomerList() {
 
+
     if (_searchQuery.isEmpty) {
       setState(() {
         _filteredCustomerList = _customerList;
@@ -187,8 +190,10 @@ class _CustomerReportState extends State<CustomerReport> {
             .toLowerCase()
             .contains(_searchQuery.toLowerCase()))
             .toList();
+
       });
     }
+
   }
 
 
@@ -463,95 +468,6 @@ class _CustomerReportState extends State<CustomerReport> {
               padding:  EdgeInsets.symmetric(horizontal: 8.sp),
               child: Column(
                 children: [
-                  // GestureDetector(
-                  //   child: Container(
-                  //     width: 95.w,
-                  //     height: 6.h,
-                  //     decoration: BoxDecoration(
-                  //         color: Colors.white,
-                  //         borderRadius: BorderRadius.circular(5),
-                  //         border: Border.all(color: Colors.black)
-                  //     ),
-                  //     child: Padding(
-                  //       padding: const EdgeInsets.all(10.0),
-                  //       child: Row(
-                  //         mainAxisAlignment:
-                  //         MainAxisAlignment.spaceBetween,
-                  //         children: [
-                  //           Text(
-                  //             widget.date,
-                  //             overflow: TextOverflow.ellipsis,
-                  //             style: const TextStyle(fontSize: 15),
-                  //           ),
-                  //           Icon(
-                  //             CupertinoIcons.calendar,
-                  //             color: ColorConstants.deppp,
-                  //           ),
-                  //         ],
-                  //       ),
-                  //     ),
-                  //   ),
-                  // ),
-                  // const SizedBox(height: 10,),
-                  // Padding(
-                  //   padding: const EdgeInsets.only(left: 5),
-                  //   child: Row(
-                  //     mainAxisAlignment: MainAxisAlignment.start,
-                  //     children: [
-                  //       headingTextwithsmallwhite(title: 'General Report'),
-                  //     ],
-                  //   ),
-                  // ),
-                  // Container(
-                  //     width: 95.w,
-                  //     decoration: BoxDecoration(
-                  //         borderRadius:
-                  //         BorderRadius.circular(5),
-                  //         border:
-                  //         Border.all(color: Colors.black)),
-                  //     child: Scrollbar(
-                  //       controller: _scrollController,
-                  //       child: TextField(
-                  //         readOnly: true,
-                  //         controller: widget.Greport,
-                  //         style: TextStyle(color:ColorConstants.DarkBlueColor,fontSize:10.sp,fontWeight:FontWeight.w400,fontFamily:"railLight",letterSpacing: 1),
-                  //         keyboardType: TextInputType.multiline,
-                  //         maxLines: 5,
-                  //         decoration: InputDecoration(
-                  //           suffixIcon: InkWell(
-                  //               onTap: (){
-                  //                Navigator.pop(context);
-                  //               },
-                  //               child:  Icon(Icons.edit,color: ColorConstants.deppp,)),
-                  //           // hintText: ,
-                  //           // hintStyle: TextStyle(
-                  //           //   fontSize: 10.sp,
-                  //           //   color: Colors.black,
-                  //           //   fontFamily: "railLight",),
-                  //           isDense: true,
-                  //           border: OutlineInputBorder(
-                  //             borderRadius:
-                  //             BorderRadius.circular(5),
-                  //             borderSide: const BorderSide(
-                  //               width: 0,
-                  //               style: BorderStyle.none,
-                  //             ),
-                  //           ),
-                  //           filled: true,
-                  //           contentPadding:
-                  //           const EdgeInsets.all(10),
-                  //           fillColor: Colors.white,
-                  //         ),
-                  //       ),
-                  //     )
-                  // ),
-                  // SizedBox(height: 10,),
-                  // Row(
-                  //   mainAxisAlignment: MainAxisAlignment.end,
-                  //   children: const [
-                  //     InkWell(child: Text('Previous Report',style: TextStyle(decoration: TextDecoration.underline,color: Colors.white),))
-                  //   ],
-                  // ),
                   SmallSpace(),
                  Container(
                    height: 5.h,
@@ -608,6 +524,7 @@ class _CustomerReportState extends State<CustomerReport> {
                         ? ListView.builder(
                       itemCount: _customerList.length,
                       itemBuilder: (context, index) {
+                        _customerList.sort((a, b) => a['name'].compareTo(b['name']));
                         final customer = _customerList[index];
                         final isCustomerSelected =
                         _customerLists.any((item) => item['name'] == customer['name']);
