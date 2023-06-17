@@ -143,7 +143,7 @@ class PreviewReportState extends State<PreviewReport> {
                     itemBuilder: (BuildContext context, int index) {
 
                       String date = reports![index]['vdate'];
-                      //   String note = reports[index]['note'] == null ? 'Null' : reports[index]['note'];
+                      String note = reports[index]['note'] == null ? 'Null' : reports[index]['note'];
                       String gnote = reports[index]['gnote'] == null ?  'Null': reports[index]['gnote'];
                       int vdateInMillis = int.parse(date);
                       DateTime dateTim = DateTime.fromMillisecondsSinceEpoch(vdateInMillis * 1000);
@@ -153,7 +153,7 @@ class PreviewReportState extends State<PreviewReport> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           headingTextwithsmallwhite(title: 'Date: $formattedDateTime'),
-                          //  headingTextwithsmallwhite(title: 'Customer Note: $note'),
+                          headingTextwithsmallwhite(title: 'Customer Note: $note'),
                           headingTextwithsmallwhite(title: 'General Note: $gnote'),
                           Divider(
                             color: ColorConstants.blueGrey,
